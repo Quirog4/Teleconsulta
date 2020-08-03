@@ -1,0 +1,349 @@
+﻿
+@{
+    ViewBag.Title = "Atenciones";
+}
+
+<div class="content-wrapper">
+  <!-- Main content -->
+  <section class="content">
+    <div class="box box-default">
+      <div class="box-header">
+        <div class="row">
+          <div class="col-md-7 title">
+            Consultar atenciones
+          </div>
+          <div class="col-md-5 text-right">
+            <button type="button" class="btn bg-info btn-sm" data-toggle="modal" data-target="#ModalBusqueda">
+              <i class="fas fa-id-card-alt"></i>  Buscar paciente
+            </button>
+          </div>
+        </div>
+        @Html.Partial("ModalBuscarPaciente")
+      </div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-5 col-12"><label>Paciente: </label> <span id="nombre" style="text-transform:uppercase;padding-right:0px" class="paciente"></span>   </div>
+          <div class="col-md-2  col-5"><label>H.C.U: </label>  <span id="hclinica" class="hcu"></span>  </div>
+          <div class="col-md-3  col-7"><label>Fecha Nac: </label>  <span class="nacimiento"></span>  </div>
+          <div class="col-md-2 col-6"><label>Edad: </label>  <span class="edad"></span>  </div>
+          <div class="col-md-5 col-12"><label>Dirección: </label>  <span class="direc" style="text-transform:capitalize"></span>  </div>
+          <div class="col-md-2 col-5"><label>Sexo: </label>  <span class="sexo"></span>  </div>
+          <div class="col-md-3 col-7"><label>Est Civil: </label>  <span id="estado"></span>  </div>
+          <div class="col-md-2 col-8"><label>DNI/Otro: </label>  <span id="dni"></span>  </div>
+        </div>
+        <div class="col-md-12" style="margin:0;padding:0"> <div class="loader"></div></div>
+      </div>
+      <div id="atenciones" class="box-result box-footer table-responsive col-12">
+        <table id="table" data-page-length="6" class="table">
+          <thead class="bg-secondary">
+            <tr>
+              <th></th>
+              <th width="80">F Atenc</th>
+              <th width="80">N° Adm</th>
+              <th></th>
+              <th width="190">Tipo AtencI&oacute;n</th>
+              <th width="270">Diagnóstico</th>
+              <th width="140">Médico</th>
+              <th width="140">Especialidad</th>
+              <th width="50">M</th>
+              <th width="50">S</th>
+              <th width="50">E</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+</div>
+<div class="modal" id="ModalOtros" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="max-width:900px">
+    <div class="modal-content" style="min-height:200px">
+
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="~/Content/dataTable.css" />
+<link rel="stylesheet" href="~/Content/dataTables.bootstrap.min.css" />
+
+<style>
+ .box-body .row {
+   padding-left: 15px;
+   padding-bottom: 0px;
+ }
+
+ .row div {
+   padding-bottom: 0px !important;
+ }
+
+ #table_wrapper .row:first-child, .dataTables_wrapper .row:first-child {
+   display: block !important;
+ }
+
+   #table_wrapper .row:first-child div, .dataTables_wrapper .row:first-child div {
+     display: inline-block !important;
+     text-align: right;
+   }
+</style>
+
+@section Scripts
+{
+
+  <script type="text/javascript" src="~/Scripts/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="~/Scripts/dataTables.bootstrap.min.js"></script>
+  <script src="~/Scripts/Funciones/dataTable.js"></script>
+  <script>
+    $(document).ready(function () {
+      var btnBusq = $("#btn-buscar")
+      var form = $("#form-paciente");
+      var restab = $("#resultados-busqueda")
+      var atenciones = $("#atenciones")
+      var spinner = $(".row-spinner")
+      var notf = $("#not-found")
+      var result = $("#resultados")
+      var modalbus = $('#ModalBusqueda')
+      var loader = $(".loader")
+      var atenciones = $("#atenciones")
+      atenciones.hide()
+      modalbus.modal({ backdrop: 'static', keyboard: false })
+      result.hide()
+      loader.hide()
+
+      spinner.hide();
+      restab.hide()
+      atenciones.hide()
+      notf.hide()
+   //   ordenaFechas(1,"@DateTime.Now.ToString("dd/MM/yyyy")");
+      btnBusq.click((function () {
+        restab.hide()
+        restab.find("tbody").html("")
+
+        if ($("#hcu").val() != "") {
+          creartab()
+        }
+        else if ($("#apellido1").val() == "") {
+          $("#error").show()
+        } else {
+          $("#error").hide()
+          creartab()
+        }
+      }));
+
+
+      function creartab() {
+        btnBusq.attr("disabled", "disabled");
+        spinner.show();
+        notf.hide()
+
+        $.get(form.attr("action"), form.serialize(), function (data) {
+
+          if (data.outsession) {
+            return outSession();
+          }
+          form.find("input").val("");
+          spinner.hide();
+          var listado = data.list;
+          btnBusq.removeAttr("disabled");
+          if (data.error == null) {
+            if (listado.length == 0) {
+              notf.show()
+            } else {
+              //var table = $("<table>").addClass("table-bordered").addClass("table-hover");
+              //table.append("<tr><th colspan=\"2\" style=\"text-align:center\">HCU</th><th>Nombres y Apellidos</th></tr>")
+              for (var i = 0; i < listado.length; i++) {
+                var tr = $("<tr>").attr("data-nombre", listado[i].mostrarNombre).attr("data-hcu", listado[i].NroHistoria)
+                .attr("data-fecha", listado[i].FNacimiento).attr("data-sexo", listado[i].Sexo)
+                .attr("data-estado", listado[i].EstCivil).attr("data-direc", listado[i].Domicilio)
+                .attr("data-edad", listado[i].Edad).attr("data-dni", listado[i].DNI);
+
+                td = $("<td align=\"center\">").attr("width", "120").addClass("nroHisotiria").text(listado[i].NroHistoria);
+                tr.append(td)
+                tr.click(function () { selFila($(this)); })
+                tr.append($("<td>").attr("width", "420").addClass("nombre text-left").text(listado[i].mostrarNombre));
+                $("#resultados-busqueda table tbody").append(tr)
+              }
+              restab.show();
+            }
+          } else {
+            restab.append("<div class=\"text-center\">" + data.error + "</div>");
+          }
+        })
+      }
+      $("#error").hide()
+
+
+      function borrarInfo() {
+        $(".paciente").text("")
+        $("#hclinica").text("")
+        $(".sexo").text("")
+        $("#estado").text("")
+        $(".direc").text("")
+        $(".nacimiento").text("")
+        $(".edad").text("")
+        $("#dni").text("")
+        atenciones.hide()
+      }
+
+      $("button[data-target='#ModalBusqueda']").click(function () {
+        var inputs = $("#form-paciente").find("input");
+        inputs.each(function () {
+          $(this).val("");
+        })
+        $("#resultados-busqueda").hide()
+        $("#error").hide()
+      })
+      var table = $('#table').DataTable({
+        // "order": [[2, "desc"]],
+        autoWidth: false,
+        info: true,
+        lengthChange: false,
+        ordering: false,
+        paging: true,
+        searching: true,
+        language: { // Se configura la DataTable para mostrar los textos en español
+          info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+          lengthMenu: "Mostrar _MENU_ registros",
+          paginate: {
+            first: "Primero",
+            last: "Último",
+            next: "Siguiente",
+            previous: "Anterior"
+          },
+          search: "Buscar:",
+          zeroRecords: "No se encontraron resultados",
+        },
+        'columnDefs': [
+          {
+            'targets': [8, 9, 10], // column index (start from 0)
+            'orderable': false, // set orderable false for selected columns
+            "searchable": false,
+          },
+          {
+            'targets': [0, 3], // column index (start from 0)
+            'visible': false, // set orderable false for selected columns
+            // "searchable": false,
+          }
+        ],
+
+        rowCallback: function (row, data) {
+          $($(row).find("td")[0]).attr("width", "80");
+          $($(row).find("td")[1]).attr("width", "80");
+          $($(row).find("td")[2]).attr("width", "170").html("<span class=\"label label-" + data[3] + " text-center\">" + data[4] + "</span>");
+          $($(row).find("td")[3]).attr("width", "270").addClass("text-justify");
+          $($(row).find("td")[4]).attr("width", "140");
+          $($(row).find("td")[5]).attr("width", "140");
+          //btn medicinas
+          if (Boolean(data[8])) {
+            var btn = createBoton("success", "Medicinas", "pills")
+            $($(row).find("td")[6]).addClass("boton").attr("width", "40").html(btn);
+          } else {
+            $($(row).find("td")[6]).attr("width", "40").html(" ")
+          }
+          //btn servicios
+          if (Boolean(data[9])) {
+            var btn = createBoton("primary", "Servicios auxiliares", "flask")
+            $($(row).find("td")[7]).addClass("boton").attr("width", "40").html(btn);
+          } else {
+            $($(row).find("td")[7]).attr("width", "40").html(" ")
+          }
+          //btn epicrisis
+          if (Boolean(data[10])) {
+            var btn = createBoton("warning", "Epicrisis", "E")
+            $($(row).find("td")[8]).addClass("boton").attr("width", "40").html(btn);
+          } else {
+            $($(row).find("td")[8]).attr("width", "40").html(" ")
+          }
+        }
+      });
+
+      function selFila(input) {
+        borrarInfo()
+        var tr = input;
+        $('#ModalBusqueda').modal('hide')
+        atenciones.hide()
+        loader.show()
+        result.show()
+        event.preventDefault();
+
+        $(".sexo").text(tr.attr("data-sexo"))
+        $("#estado").text(tr.attr("data-estado"))
+        $(".paciente").text(tr.attr("data-nombre"))
+        $("#hclinica").text(tr.attr("data-hcu"))
+        $(".direc").text(tr.attr("data-direc"))
+        $(".nacimiento").text(tr.attr("data-fecha"))
+        $(".edad").text(tr.attr("data-edad"))
+        $("#dni").text(tr.attr("data-dni"))
+        table.rows().remove().draw();
+
+        $.get("@Url.Action("Atenciones", "HistoriaClinica")", { nroHistoria: tr.attr("data-hcu"), paciente: tr.attr("data-nombre") },
+          function (data) {
+
+          if (data.outsession) {
+            return outSession();
+          }
+          loader.hide()
+          atenciones.show()
+          if (data.error == null) {
+            var l = data.listate
+            for (var i = 0; i < l.length; i++) {
+              table.row.add([
+                l[i].NroAtencion,//0
+                l[i].FechaAT,
+                l[i].CodAdmision,
+                l[i].colorTA,//3
+                l[i].TipoAt,
+                l[i].Diagnosticos,
+                l[i].Medico,
+                l[i].Especialidad,
+                l[i].medicinas,//8
+                l[i].serv,//9
+                l[i].infoepicrisi//10
+              ]);
+              table.draw();
+            }
+          }
+        })
+
+        $('#table tbody').on('click', 'td.boton', function () {
+          var row = table.row($(this).closest('tr'));
+          var celdas = row.data();
+          var tipo = $(this).children().attr("data-tipo")
+
+          if (tipo == "Medicinas") {
+            callModal("@Url.Action("getMedicinas", "HistoriaClinica")" , { nroAte: celdas[0], hcu: $("#hclinica").text(), codadmi: celdas[2] }, celdas[1])
+          } else if (tipo == "Epicrisis") {
+            callModal("@Url.Action("getInformeEpi", "HistoriaClinica")" , { fecAte: celdas[1], hcu: $("#hclinica").text() }, celdas[1])
+          } else { callModal("@Url.Action("getDetallesSA", "HistoriaClinica")", { nroAte: celdas[0] }, celdas[1]) }
+
+        });
+      }
+
+
+      function createBoton(color, title, icon) {
+        var btn = $("<button>")
+        btn.attr("type", "button").addClass("btn bg-" + color).attr("data-toggle", "tooltip")
+            .attr("data-placement", "top").attr("title", title).attr("data-tipo", title);
+        if (icon == "E") { btn.append("<b>E</b>"); }
+        else { btn.append("<i class=\"fas fa-" + icon + "\"></i>"); }
+        return btn;
+      }
+
+      function callModal(url, parametros, fechaAt) {
+        var modal = $("#ModalOtros").find(".modal-content")
+        modal.html("");
+        $("#ModalOtros").modal('show');
+        $.get( url, parametros, function (data) {
+          modal.html(data)
+          modal.find(".paciente").text($("#nombre").text())
+          modal.find(".hcu").text($("#hclinica").text())
+          modal.find(".fechaat").text(fechaAt)
+          modal.find(".edad").text($(".edad").text())
+          modal.find(".sexo").text($(".sexo").text())
+          modal.find(".dni").text($("#dni").text())
+        })
+      }
+    })
+  </script>
+}

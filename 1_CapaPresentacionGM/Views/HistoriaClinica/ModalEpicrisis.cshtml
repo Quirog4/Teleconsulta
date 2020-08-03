@@ -1,0 +1,158 @@
+﻿@model _1_CapaPresentacionGM.Models.EpicrisisModel
+
+    <div class="modal-header bg-warning" style="padding:10px 20px 4px;border-radius: 0px;">
+      <h4 class="modal-title">EPICRISIS</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-b="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body" style="text-transform:uppercase;font-size:12px;">
+      <div class="bordes">
+        <div class="row">
+          <div class="col-md-2"><b>PACIENTE</b></div>
+          <div class="col-md-6 paciente"></div>
+          <div class="col-md-2  text-right"><b>HC</b></div>
+          <div class="col-md-2 hcu"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-2"><b>M&Eacute;DICO</b></div>
+          <div class="col-md-6">@Model.Doctor</div>
+          <div class="col-md-2  text-right"><b>CMP</b></div>
+          <div class="col-md-2">@Model.CMPDoctor</div>
+        </div>
+        <div class="row">
+          <div class="col-md-2"><b>ESPECIALIDAD</b></div>
+          <div class="col-md-6">@Model.Especialidad</div>
+          <div class="col-md-2  text-right"><b>CAMA</b></div>
+          <div class="col-md-2">@Model.Cama</div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 padding-cero"><b>FECHA DE INGRESO</b></div>
+          <div class="col-md-2">@Model.FIngreso</div>
+          <div class="col-md-2 padding-cero text-right"><b>HORA DE INGRESO</b></div>
+          <div class="col-md-2">@Model.HIngreso</div>
+          <div class="col-md-2"></div>
+          <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 padding-cero"><b>FECHA DE EGRESO</b></div>
+          <div class="col-md-2">@Model.FecEgres</div>
+          <div class="col-md-2 padding-cero text-right"><b>HORA DE EGRESO</b></div>
+          <div class="col-md-2">@Model.HorEgres</div>
+          <div class="col-md-2 padding-cero text-right"><b>TIEMPO DE ESTAD&Iacute;A</b></div>
+          <div class="col-md-2">@Model.TiempoEstancia</div>
+        </div>
+        <div class="row">
+          <div class="col-md-2"><b>EDAD</b></div>
+          <div class="col-md-2 edad"></div>
+          <div class="col-md-2 text-right"><b>SEXO</b></div>
+          <div class="col-md-2 sexo"></div>
+          <div class="col-md-2  text-right"><b>DNI</b></div>
+          <div class="col-md-2 dni"></div>
+        </div>
+      </div>
+      <div class="row margin-top">
+        <div class="col-md-12"><b>DIAGN&Oacute;STICO(S) DE INGRESO</b></div>
+      </div>
+      <div class="bordes row">
+        <div class="col-md-1 text-muted"><b>C&Oacute;DIGO</b></div>
+        <div class="col-md-11 text-muted"><b>DIAGN&Oacute;STICO</b></div>
+        @foreach (var ing in Model.diagnosticos.Where(d => d.Tipo == "IN"))
+        {
+            <div class="col-md-1">@ing.Codigo</div>
+              <div class="col-md-11">@ing.Detalle</div>
+        }
+      </div>
+      <div class="row margin-top">
+        <div class="col-md-12"><b>RESUMEN DE LA ENFERMEDAD Y EXAMEN F&Iacute;SICO</b></div>
+        <div class="col-md-12">@Model.ResumenEnfeAct</div>
+      </div>
+      <div class="row margin-top">
+        <div class="col-md-12"><b>EX&Aacute;MENES AUXILIARES</b></div>
+        <div class="col-md-12">@Model.ExamenesAuxil</div>
+      </div>
+      <div class="row margin-top">
+        <div class="col-md-12"><b>EVOLUCI&Oacute;N</b></div>
+        <div class="col-md-12">@Model.Evolucion</div>
+      </div>
+      <div class="row margin-top">
+        <div class="col-md-12"><b>TRATAMIENTO</b></div>
+        <div class="col-md-12">@Model.Tratamiento</div>
+      </div>
+      <div class="row margin-top">
+        <div class="col-md-12"><b>PROCEDIMIENTOS DIAGN&Oacute;STICOS Y TERAP&Eacute;UTICOS (Incluye Intervenciones Quirúrgicas)</b></div>
+        <div class="col-md-12">@Model.Procedimientos</div>
+      </div>
+      <div class="row margin-top">
+        <div class="col-md-12"><b>COMPLICACIONES</b></div>
+        <div class="col-md-12">@Model.complicaciones</div>
+      </div>
+      <div class="row margin-top">
+        <div class="col-md-12"><b>CONDICIONES AL EGRESO</b></div>
+        <div class="col-md-12">@Model.CondEgres</div>
+      </div>
+      <div class="row margin-top">
+        <div class="col-md-12"><b>DIAGN&Oacute;STICOS PRINCIPALES DE EGRESO</b></div>
+        <div class="row">
+          @if (Model.diagnosticos.Where(d => d.Tipo == "EP").Count() == 0)
+            {
+              <div class="col-md-12">Ninguno</div>
+          }
+          else
+          {
+              <div class="col-md-3 text-muted"><b>C&Oacute;DIGO</b></div>
+                <div class="col-md-8 text-muted"><b>DIAGN&Oacute;STICO</b></div>
+            foreach (var ing in Model.diagnosticos.Where(d => d.Tipo == "EP"))
+            {
+                  <div class="col-md-3">@ing.Codigo</div>
+                    <div class="col-md-8">@ing.Detalle</div>
+            }
+          }
+        </div>
+      </div>
+      <div class="row margin-top">
+        <div class="col-md-12"><b>DIAGN&Oacute;STICOS SECUNDARIOS DE EGRESO</b></div>
+      </div>
+      <div class="row">
+        @if (Model.diagnosticos.Where(d => d.Tipo == "ES").Count() == 0)
+        {
+            <div class="col-md-12">Ninguno</div>
+        }
+        else
+        {
+            <div class="col-md-3 text-muted"><b>C&Oacute;DIGO</b></div>
+              <div class="col-md-8 text-muted"><b>DIAGN&Oacute;STICO</b></div>
+          foreach (var ing in Model.diagnosticos.Where(d => d.Tipo == "ES"))
+          {
+                <div class="col-md-3">@ing.Codigo</div>
+                  <div class="col-md-8">@ing.Detalle</div>
+          }
+        }
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-md-6"></div>
+          <div class="col-md-6 text-right">
+            <button type="button" class="btn bg-dark btn-sm" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+    </div>
+
+<style>
+ .bordes {
+   border-radius: 7px;
+ }
+   .bordes b {
+     margin-bottom: 3px;
+   }
+
+ .margin-top {
+   margin-top: 7px;
+ }
+
+ .modal-title {
+   margin-left: 15px;
+ }
+  .padding-cero {
+  padding-right:0px
+  }
+</style>

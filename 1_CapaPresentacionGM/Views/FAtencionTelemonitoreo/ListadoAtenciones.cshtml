@@ -1,0 +1,205 @@
+﻿@model List<_1_CapaPresentacionGM.Models.LstFATModel>
+@{
+    ViewBag.Title = "Lista FAT";
+}
+
+
+<div class="content-wrapper">
+
+  <section class="content">
+
+    <div class="box box-default">
+      <div class="box-header">
+        <div class="row">
+          <div class="col-md-10 title col-12">
+            Lista de Atenciones
+          </div>
+          @*<div class="col-md-2 col-4 text-right">
+              <a href="@Url.Action("FormularioAtencion","FAtencionTelemonitoreo",new { bgs=0})" class="btn bg-primary"><i class="fas fa-notes-medical"></i>Nuevo</a>
+            </div>*@
+        </div>
+      </div>
+      <div class="box-body">
+        <form id="form-atenciones">
+          <div class="row">
+            <div class="col-md-1 text-right col-1">
+              <label>Desde:</label>
+            </div>
+            <div class="col-md-2 col-12">
+              <div class="input-group input-group-sm">
+                <input id="fec-ini" name="fecinicio" data-column="3" type='text' class="dateTime form-control" placeholder="dd/mm/yyyy" value="@ViewBag.fecinicio" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-input btn-flat btn-sm btn-date" data-input="fec-ini"><i class="fas fa-calendar-alt"></i></button>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-1 text-right col-1"><label>Hasta</label></div>
+            <div class="col-md-2 col-12">
+              <div class="input-group input-group-sm">
+                <input id="fec-final" name="fecfin" data-column="3" type='text' class="dateTime form-control" placeholder="dd/mm/yyyy" value="@ViewBag.fecfin" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-input btn-flat btn-sm btn-date" data-input="fec-final"><i class="fas fa-calendar-alt"></i></button>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-3 text-right">
+              <button id="btn-submit" type="button" class="btn bg-info btn-sm">
+                <i class="fas fa-search"></i> Buscar
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="loader"></div>
+      </div>
+      <div id="tabla" class="col-md-12 table-responsive" style="display:none;">
+        <table id="table" style="width:100%" class="row-border table table-hover">
+          <thead class="bg-secondary">
+            <tr>
+              <th width="100">N&deg; Atenci&oacute;n</th>
+              <th width="140">Fecha Cita</th>
+              <th width="150">Documento</th>
+              <th width="350">Paciente</th>
+              <th>Seguro</th>
+              <th width="100">Estado</th>
+              <th width="50">FAT</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var l in Model)
+            {
+                <tr>
+                  <td>@l.NroAtencion</td>
+                  <td>@l.FecAtencion</td>
+                  <td>@l.DocumentoPaciente</td>
+                  <td>@l.NombrePaciente</td>
+                  <td>@l.Seguro</td>
+                  <td>@l.Estado</td>
+                  <td>@l.idAtencion</td>
+                </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+@*<!------------SECTION TABLE>>------->*@
+<link rel="stylesheet" href="~/Content/dataTable.css" />
+<link rel="stylesheet" href="~/Content/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Scripts/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="~/Scripts/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="~/Scripts/Buttons-1.6.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="~/Scripts/JSZip-2.5.0/jszip.min.js"></script>
+<script type="text/javascript" src="~/Scripts/pdfmake-0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="~/Scripts/pdfmake-0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="~/Scripts/Buttons-1.6.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="~/Scripts/Buttons-1.6.2/js/buttons.flash.js"></script>
+@*<!------------SECTION DATETIME>>------->*@
+<link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.min.css" />
+<script type="text/javascript" src="~/Scripts/moment-with-locales.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/Funciones/Fechas.js"></script>
+<style>
+ tbody {
+   text-transform: uppercase;
+ }
+ /*#tabla{
+   min-height:900px
+ }*/
+</style>
+<script>
+  $(document).ready(function () {
+    setTimeout(function () {
+      $('.loader').css("display", "none")
+      $('#tabla').css("display", "block")
+    }, 1500);
+    var dom = 'Bfrtip'
+    if ('@ViewBag.isAdmin' == 'True') {
+      dom = ''
+    }
+    var table = $('#table').DataTable({
+      dom: dom,
+      buttons: [
+          {
+            extend: 'excelHtml5',
+            text: '<i class="fas fa-file-excel"></i>Exportar',
+            className: 'btn btn-success btn-sm',
+            exportOptions: {
+              columns: [0, 1, 3, 4, 5]
+            }
+          }
+      ],
+      autoWidth: false,
+      info: true,
+      lengthChange: false,
+      ordering: false,
+      paging: true,
+      searching: false,
+      language: { // Se configura la DataTable para mostrar los textos en español
+        info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+        lengthMenu: "Mostrar _MENU_ registros",
+        paginate: {
+          first: "Primero",
+          last: "Último",
+          next: "Siguiente",
+          previous: "Anterior"
+        },
+        //search: "Buscar:",
+        zeroRecords: "No se encontraron resultados",
+      },
+      'columnDefs': [{//oculta la columna documento
+        'targets': [2], // column index (start from 0)
+        'visible': false, // set orderable false for selected columns
+        "searchable": false,
+      }],
+      rowCallback: function (row, data) {
+        if (data[5] == "CERRADO") {
+          $($(row).find("td")[5]).html(
+          '<a class="text-secondary" href="@Url.Action("FAT", "Reporte")\~' + data[6] + "/" + data[0] + '" target=\"_blank\">' +
+          '<h4><i class="fas fa-file-medical"></h4></i></a>');
+        } else {
+          $($(row).find("td")[5]).html("");
+        }
+      }
+    });
+
+    $("#btn-submit").click(function () {
+      $('#tabla').attr("style", "display:none");
+      $(".loader").removeAttr("style");
+      table.rows().remove().draw();
+      $.get('@Url.Action("BuscarAtencion", "FAT")',
+        $("#form-atenciones").serialize(), function (data) {
+          if (data.outsession) {
+            return outSession();
+          }
+          $(".loader").attr("style", "display:none")
+          var l = data.list
+          if (data.list == null) {
+            mostrarModal("#modal-error", "", "Hubo un error en la busqueda, por favor comuniquese con el área de sistemas", "")
+          } else {
+            $('#tabla').removeAttr("style");
+            for (var i = 0; i < l.length; i++) {
+              table.row.add([
+                    l[i].NroAtencion,
+                    l[i].FecAtencion,
+                    l[i].DocumentoPaciente,
+                    l[i].NombrePaciente,
+                    l[i].Seguro,
+                    l[i].Estado,
+                    l[i].idAtencion
+              ]);
+              table.draw();
+            }
+          }
+        })
+    })
+    $('#table tbody').on('click', 'td', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row(tr);
+      if ($(this).find("a").length == 0) {
+        window.location = "@Url.Action("GuardarFAT", "FAT")/" + row.data()[6] + "x00"
+      }
+    });
+  })
+
+</script>

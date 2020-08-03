@@ -1,0 +1,522 @@
+@model _1_CapaPresentacionGM.Models.CartaGarantiaServiciosViewModel
+@{
+    ViewBag.Title = "Servicio";
+    var carta = Model.cartaG;
+    var paciente = Model.cartaG.paciente;
+    var planSalud = Model.cartaG.paciente.planSalud;
+    var especialidades = Model.lstEspecialidades;
+    var diagnosticos = Model.lstDiagnosticoCIE;
+    var medicos = Model.lstMedico;
+    var tipoatencion = Model.lstTipoAtencion;
+}
+
+<div class="content-wrapper">
+  <section class="content">
+    <div class="box box-default">
+      <div class="box-header">
+        <div class="row">
+          <div class="col-md-8 title">
+            PlanSalud - Solicitud de Carta de Garant&iacute;a
+          </div>
+          <div class="col-md-4 text-right" style="padding-top:10px">
+            <label class="label label-@carta.colorEstado" style="font-size:20px">
+              @carta.estado
+            </label>
+          </div>
+        </div>
+      </div>
+      @if (carta.nrosolicitud == "")
+      {
+          @Html.Partial("EditableFS")
+      }
+      else
+      {
+          <div class="box-body accordion">
+            <div class="subtitle">
+              <a data-toggle="collapse" data-target="#accordeon-1" aria-expanded="true" aria-controls="collapseOne">
+                <h5> Datos Solicitud</h5><i class="fas fa-caret-up"></i>
+              </a>
+            </div>
+            <div id="accordeon-1" class="collapse">
+              <div class="row">
+                <div class="col-md-2 text-right"><b>N&deg; Solicitud:</b></div>
+                <div class="col-md-2"><span>@carta.nrosolicitud</span></div>
+                @*<div class="col-md-2 text-right"><b>Financiador:</b></div>
+                  <div class="col-md-2"><input type="text" /></div>*@
+                <div class="col-md-2 text-right"><b>Fecha de Registro:</b></div>
+                <div class="col-md-1"><span>@carta.fechaRegistro</span></div>
+                <div class="col-md-2 text-right"><b>Especialidad:</b></div>
+                <div class="col-md-3 mayusculas"> <span>@carta.especialidad.descripcion</span></div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 text-right"><b>N° Documento:</b></div>
+                <div class="col-md-1"><span>@paciente.DNI</span></div>
+                <div class="col-md-1 text-right"><b>HC:</b></div>
+                <div class="col-md-2"><span>@paciente.NroHistoria</span></div>
+                <div class="col-md-1 text-right"><b>Edad:</b></div>
+                <div class="col-md-1">
+                  <span> @paciente.Edad </span>
+                </div>
+                <div class="col-md-1 text-right"><b>Celular:</b></div>
+                <div class="col-md-2">
+                  <span> @paciente.celular </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 text-right"><b>Paciente:</b></div>
+                <div class="col-md-3 mayusculas">
+                  <span style="text-transform:capitalize">@paciente.mostrarNombre</span>
+                </div>
+                <div class="col-md-2 text-right"><b>Correo:</b></div>
+                <div class="col-md-2">@paciente.eMail</div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 text-right"><b>Plan:</b></div>
+                <div class="col-md-4">
+                  <span class="badge badge-pill badge-secondary" style="margin-bottom:5px">@planSalud.plan</span>
+                  <span class="mayusculas">@planSalud.producto</span>
+                </div><div class="col-md-1 left-cero text-right"><b>N° Contrato:</b></div>
+                <div class="col-md-1">
+                  <span>@planSalud.contratoCodigo</span>
+                </div>
+                <div class="col-md-1 text-right"><b>Estado:</b></div>
+                <div class="col-md-2 right-cero" style="font-size:12px">
+                  @if (planSalud.estadocontrato == "VIGENTE")
+                  {
+                      <label class="label-success label">@planSalud.estadocontrato</label>
+                  }
+                  else
+                  {<label class="label-danger">@planSalud.estadocontrato</label>
+                  }
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-2 text-right"><b>Inicio de vigencia:</b></div>
+                <div class="col-md-2">
+                  <span>@planSalud.contratoIniVigencia</span>
+                </div>
+                <div class="col-md-2 text-right"><b>Fecha de Afiliaci&oacute;n:</b></div>
+                <div class="col-md-1">@planSalud.fafiliacion</div>
+                <div class="col-md-2 text-right"><b>Fecha de contrato:</b></div>
+                <div class="col-md-1">@planSalud.fcontrato</div>
+
+                @if (planSalud.preexistencias != null)
+                {
+                    <div id="preexistencias" class="col-md-2 text-right" style="padding-right:15px">
+                      <button type="button" class="btn bg-info btn-sm" data-toggle="modal" data-target="#modal-preexistencias">
+                        <i class="fas fa-info-circle"></i> Pre Existencias
+                      </button>
+                    </div>
+                }
+              </div>
+              @*</div>
+                <div class="subtitle">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#accordeon-2" aria-expanded="true" aria-controls="collapseOne">
+                    <h5>  Datos  del Seguro</h5>
+                  </button>
+                </div>
+                <div id="accordeon-2" class="collapse">*@
+            </div>
+            <div class="subtitle">
+              <a data-toggle="collapse" data-target="#accordeon-3" aria-expanded="true" aria-controls="collapseOne">
+                <h5>Informaci&oacute;n M&eacute;dica</h5><i class="fas fa-caret-up"></i>
+              </a>
+            </div>
+            <div id="accordeon-3" class="collapse">
+              <div class="row">
+                <div class="col-md-2 col-sm-2 text-right">
+                  <b>M&eacute;dico Trantante:</b>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                  <span>@carta.medicoTratante.descripcion</span>
+                </div>
+                <div class="col-md-3 col-sm-3 text-right">
+                  <b>Tiempo Enfer.: </b>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                  @if (@carta.TenfAnio != "")
+                  {<span>@carta.TenfAnio A&Ntilde;O(S)</span> }
+                  @if (@carta.TenfMes != "")
+                  { <span> @carta.TenfMes MES(ES)</span> }
+                  @if (@carta.TenfDia != "")
+                  { <span>@carta.TenfDia D&Iacute;A(S)</span>}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 col-sm-3 text-right">
+                  <b> Observaci&oacute;n M&eacute;dico Tratante: </b>
+                </div>
+                <div class="col-md-8 col-sm-3">
+                  <textarea name="carta.obsMedTratante" rows="2" readonly="readonly"> @carta.obsMedTratante</textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 text-right">
+                  <b>Diagn&oacute;stico:</b>
+                </div>
+                <div class="col-md-8">
+                  @*<textarea name="carta.obsMedTratante" rows="2" readonly="readonly">
+                    @carta.diagnostico.descripcion</textarea>*@
+                  @carta.diagnostico.descripcion
+                </div>
+              </div>
+              @*</div>
+                <div class="subtitle">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#accordeon-4" aria-expanded="true" aria-controls="collapseOne">
+                    <h5>Procedimiento</h5>
+                  </button>
+                </div>
+                <div id="accordeon-4" class="collapse">*@
+              <div class="row">
+                <div class="col-md-2 text-right"><b>Procedimientos</b></div>
+                <div class="col-md-8">
+                  @if (carta.procedimientos != null)
+                  {
+                    foreach (var p in carta.procedimientos)
+                    {
+                          @*<div class="col-md-1"></div>
+                            <div class="col-md-5">
+                              <b>*</b>   (@p.codigo) @p.descripcion
+                            </div>*@
+                          <span><b>*</b>  (@p.codigo) @p.descripcion <br /></span>
+                    }
+                  }
+                  else
+                  { <span>Ninguno seleccionado.</span>}
+                </div>
+              </div>
+            </div>
+
+            <div class="subtitle">
+              <a data-toggle="collapse" data-target="#accordeon-6" aria-expanded="true" aria-controls="collapseOne">
+                <h5> Beneficio Alternativa Copago</h5><i class="fas fa-caret-up"></i>
+              </a>
+            </div>
+            <div id="accordeon-6" class="collapse">
+              <div class="row">
+                <div class="col-md-2 col-sm-2 text-right">
+                  <b>Tipo Atenci&oacute;n:</b>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                  <span>@carta.tipoAtencion</span>
+                </div>
+                <div class="col-md-4 text-right">
+                  <b>N&deg; D&iacute;as Hospitalizaci&oacute;n: </b>
+                </div>
+                <div class="col-md-2">@carta.nroDiasHosp
+                </div>
+              </div><div class="row">
+                @if (planSalud.beneficios.Count() != 0)
+                {
+                    <div class="col-md-2 text-right">
+                      @{ var beneficio = planSalud.beneficios.Where(x => x.seleccionado).FirstOrDefault();}
+                      <b>Beneficio:</b>
+                    </div>
+                    <div class="col-md-3 col-sm-3">@beneficio.codigo - @beneficio.cobertura</div>
+                    <div class="col-md-2 text-right">
+                      <b>Copago Fijo: </b>
+                    </div>
+                    <div class="col-md-1">
+                      @beneficio.copagofijo
+                  </div>
+                    <div class="col-md-2 text-right">
+                      <b>Copago variable: </b>
+                    </div>
+                    <div class="col-md-1">
+                      @beneficio.copagovariable %
+                  </div>
+                          }
+              </div>
+            </div>
+            @if (carta.colorEstado != "light" && carta.nrosolicitud != "")
+            {
+                <div class="subtitle">
+                  <a data-toggle="collapse" data-target="#accordeon-7" aria-expanded="true" aria-controls="collapseOne">
+                    <h5>   Observaciones Auditor</h5><i class="fas fa-caret-up"></i>
+                  </a>
+                </div>
+                <div id="accordeon-7" class="collapse">
+                  <div class="row">
+                    <div class="col-md-2 text-right">
+                      <b>Motivo:</b>
+                    </div>
+                    <div class="col-md-6">@carta.auditor.motivoEstado.descripcion</div>
+                    @if (carta.colorEstado == "success" || (carta.colorEstado == "danger" && carta.estado.ToUpper() != "ANULADO"))
+                    {
+                      
+                        <div class="col-md-4 text-right">
+                          <a target="_blank" href="@ViewBag.BaseUrl/GestionReporteCG/CartaGarantiaAuditada?codsolicitud=@carta.nrosolicitud" class="btn btn-outline-primary">
+                            <i class="fas fa-file-contract"></i> Carta Garant&iacute;a Plan Salud
+                          </a>
+                        </div>
+                    }
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2 col-sm-6  text-right">
+                      <b> Observaciones m&eacute;dicas de la carta: </b>
+                    </div>
+                    <div class="col-md-8">
+                      <textarea rows="2" readonly="readonly">@carta.auditor.oMedica</textarea>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2 text-right">
+                      <b> Observaciones internas: </b>
+                    </div>
+                    <div class="col-md-8">
+                      <textarea rows="2" readonly="readonly"> @carta.auditor.oInterna</textarea>
+                    </div>
+                  </div>
+                </div>
+            }
+            <div class="subtitle">
+              <a data-toggle="collapse" data-target="#accordeon-5" aria-expanded="true" aria-controls="collapseOne">
+                <h5>  Importe y Anexo </h5><i class="fas fa-caret-up"></i>
+              </a>
+            </div>
+            <div id="accordeon-5" class="collapse">
+              <div class="row">
+                @if (carta.colorEstado != "light")
+                {
+                    <div class="col-md-2 col-sm-3 text-right">
+                      <b> Importe Aprobado: </b>
+                    </div>
+                    <div class="col-md-2 col-sm-3">
+                      <b>S/. @carta.importe</b>
+                    </div>
+                }
+                <div class="col-md-2 col-sm-3 text-right">
+                  <b> Importe Presupuestado: </b>
+                </div>
+                <div class="col-md-2 col-sm-3">
+                  <span>S/. @carta.importePresup</span>
+                </div>
+                @if (carta.archivos.Count() != 0)
+                {
+                    <div class="col-md-2 text-right">
+                      <b>Anexo:</b>
+                    </div>
+                    <div class="col-md-2">
+                      @foreach (var e in carta.archivos)
+                    {
+                          <a href="@ViewBag.BaseURL/GestionReporteCG/GenerarCartaGarantia?id=@e.idArchivo&codsolicitud=@carta.nrosolicitud" target="_blank" class="btn btn-sm btn-outline-info">
+                      <i class="fas fa-file-alt"></i>
+                      Ver Doc. Adjunto</a><br />
+
+                      }
+                    </div>
+                }
+              </div>
+            </div>
+          </div>
+                          }
+      <div class="box-footer row">
+        <div class="col-md-5 col-sm-6">
+          <a href="@ViewBag.BaseUrl/Servicio/ListadoCG" class="btn bg-dark">
+            <i class="fas fa-hand-point-left"></i>
+            Regresar
+          </a>
+        </div>
+        <div class="col-md-2"></div>
+        @if (carta.nrosolicitud == "")
+        {
+            <div class="col-md-5 col-sm-6 text-right">
+
+              <button id="guardarCarta" class="btn bg-primary" type="submit"><i class="fas fa-save"></i> Guardar</button>
+            </div>
+        }
+      </div>
+
+      <div id="modal-preexistencias" class="modal " tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog " role="document" style="max-width: 1000px;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Pre Existencias</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-1 col-sm-3 text-right">
+                  <b>DNI: </b>
+                </div>
+                <div class="col-md-2 col-sm-3 dni">
+                  @paciente.DNI
+                </div>
+                <div class="col-md-1 col-sm-3 text-right">
+                  <b>Edad: </b>
+                </div>
+                <div class="col-md-1 col-sm-3 edad">
+                  @paciente.Edad
+                </div>
+                <div class="col-md-1 col-sm-3 text-right">
+                  <b>Paciente: </b>
+                </div>
+                <div class="col-md-4 col-sm-3 paciente">
+                  @paciente.mostrarNombre
+                </div>
+                <div class="col-md-1 col-sm-3 text-right">
+                  <b>F. Nac.: </b><b></b>
+                </div>
+                <div class="col-md-1 col-sm-3 fnac">
+                  @paciente.FNacimiento
+                </div>
+              </div>
+              <div class="row">
+
+                <div class="col-md-1 col-sm-2 text-right">
+                  <b>Contrato:</b>
+                </div>
+                <div class="col-md-2 col-sm-4 contrato">
+                  @planSalud.contratoCodigo
+                </div>
+                <div class="col-md-1 col-sm-2 text-right ">
+                  <b>Estado:</b>
+                </div>
+                <div class="col-md-1 col-sm-4">
+                  @if (carta.nrosolicitud != "")
+                  {
+                    if (planSalud.estadocontrato[0] == 'V')
+                    {
+                          <b class="label-success">@planSalud.estadocontrato</b>
+                    }
+                    else if (planSalud.estadocontrato[0] == 'R')
+                    {
+                          <b class="label-primary">@planSalud.estadocontrato</b>
+                    }
+                    else if (planSalud.estadocontrato[0] == 'P')
+                    {
+                          <b class="label-warning">@planSalud.estadocontrato</b>
+                    }
+                    else
+                    {<b class="label-danger">@planSalud.estadocontrato</b>
+                    }
+                  }
+                  else
+                  {
+                      <b class="estadoContrato"></b>}
+                </div>
+                <div class="col-md-1 col-sm-2 text-right">
+                  <b>Plan:</b>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                  <span class="badge badge-secondary plan">@planSalud.plan</span>
+                  <span class="producto">@planSalud.producto</span>
+                </div>
+                <div class="col-md-1 col-sm-2 text-right">
+                  <b>Vigencia:</b>
+                </div>
+                <div class="col-md-1 col-sm-4 inicVigencia">
+                  @planSalud.contratoIniVigencia
+                </div>
+              </div>
+              <div class="row">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist" style="width:100%">
+                  <a class="nav-item nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="nav-home" aria-selected="true">Pre Existencias</a>
+                  <a class="nav-item nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="nav-home" aria-selected="true">Declaracion Jurada</a>
+                </div>
+                <div class="tab-content" id="nav-tabContent" style="width:100% ;padding-top:15px; max-height:220px; min-height:150px;overflow-y:auto">
+                  <div class="tab-pane fade show col-md-12 active" id="tab-1" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="table-response" style="margin:7px 15px">
+                      <table id="table-preexistencias" style="width: 100%;max-height:100px">
+                        <thead class="bg-secondary">
+                          <tr>
+                            <th>C&oacute;digo</th>
+                            <th>Descripci&oacute;n</th>
+                            <th>Comentario</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @if (planSalud.preexistencias != null)
+                          {
+                            foreach (var p in planSalud.preexistencias)
+                            {
+                                  <tr>
+                                    <td>@p.codigo</td>
+                                    <td>@p.descripcion</td>
+                                    <td>@p.observaciones</td>
+                                  </tr>
+                            }
+                          }
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
+                  <div class="tab-pane fade show col-md-12" id="tab-2" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div id="declaracion" class="row">
+                      @if (planSalud.declaracionJur != null)
+                      {
+                        foreach (var dj in planSalud.declaracionJur)
+                        {
+                              <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                <div class="row">
+                                  <div class="col-md-11 mayusculas">@dj.texto</div>
+                                  <div class="col-md-1">@dj.respuesta</div>
+                                </div>
+                                </li>
+                              </ul>
+                          if (dj.dolencia.Count() > 0)
+                          {
+                                  <table class="table-bordered" style="width: 70%;margin-left: 15px;margin-bottom:5px">
+                                    <thead class="text-dark" style="text-transform: uppercase; background-color: rgb(249, 249, 249);">
+                                      <tr>
+                                        <th>Descripción</th>
+                                        <th>Situación actual</th>
+                                        <th>Detalle</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody style="text-transform: capitalize;">
+                                      @foreach (var d in dj.dolencia)
+                                      {
+                                          <tr>
+                                            <td>@d.descripcion</td>
+                                            <td>@d.situacionActual</td>
+                                            <td>@d.detalle</td>
+                                          </tr>
+                                      }
+                                    </tbody>
+                                  </table>
+
+                          }
+                        }
+
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn bg-dark btn-sm" data-dismiss="modal">Cerrar</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+<style>
+
+ .btn-link:hover, .btn-link:active, .btn-link:focus {
+   text-decoration: none;
+ }
+</style>
+<link rel="stylesheet" href="@ViewBag.BaseUrl/Content/dataTable.css" />
+<link href="@ViewBag.BaseUrl/Content/icheck-1.x/skins/square/green.css" rel="stylesheet">
+<link rel="stylesheet" href="@ViewBag.BaseUrl/Content/jquery-UI/jquery-ui.css">
+<script src="@ViewBag.BaseUrl/Scripts/icheck.js"></script>
+@*<script src="@ViewBag.BaseUrl/Scripts/jquery-ui-1.12.1.custom/jquery-1.12.4.js"></script>*@
+<script src="@ViewBag.BaseUrl/Scripts/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+<script src="@ViewBag.BaseUrl/Scripts/Forms.js"></script>
+@section scripts
+{
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      $(".collapse").collapse('show')
+
+    })</script>
+}

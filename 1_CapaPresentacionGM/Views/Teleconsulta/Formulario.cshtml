@@ -1,0 +1,386 @@
+﻿@model _1_CapaPresentacionGM.Models.Modelos.TeleconsultaModel
+@{
+    ViewBag.Title = "Teleconsulta";
+    var fat = Model;
+}
+
+<div class="content-wrapper">
+
+    <section class="content">
+        <div class="box box-default">
+            <div class="box-header">
+                <div class="row">
+                    <div class="col">
+                        <h3>
+                            Formulario de Atenci&oacute;n de Telemonitoreo
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("Formulario", "Teleconsulta", FormMethod.Post, new { id = "form-fat" }))
+            {
+                @Html.AntiForgeryToken();
+                <div class="box-body">
+                    <h6 class="subtitle"><span>Datos de la atenci&oacute;n</span></h6>
+                    <div class="row">
+                        <div class="col-md-1 text-right col-4"><label>N&deg; Atenci&oacute;n</label></div>
+                        <div class="col-md-1 col-8">
+                            <input type="text" readonly="readonly" name="fat.NroAtencion" style="min-width:100px" value="@fat.IdAtencion" />
+                        </div>
+                        <div class="col-md-1 text-right col-4"><label>OAA</label></div>
+                        <div class="col-md-1 mayusculas col-8">
+                            <input type="text" readonly="readonly" name="fat.nroOaa" value="@fat.OAA" />
+                        </div>
+                        <div class="col-md-1 text-right col-4"><label>Modalidad</label></div>
+                        <div class="col-md-1 mayusculas col-8"><input type="text" readonly="readonly" value="@fat.tipoAtencion" /></div>
+                        <div class="col-md-1 text-right col-4"><label>Contacto</label></div>
+                        <div class="col-md-2 col-8">
+                            <input type="text" readonly="readonly" />
+                        </div>
+                        <div class="col-md-1 text-right col-4"><label>Fecha Cita</label></div>
+
+                        <div class="col-md-1 mayusculas col-5"><input type="text" value="@fat.FechaCita" readonly="readonly" /></div>
+                        <div class="col-md-1 col-3"><input type="text" value="@fat.HoraCita" readonly="readonly" /></div>
+                    </div>
+                    <h6 class="subtitle"><span>Datos del Paciente</span></h6>
+                    <div class="row info-paciente">
+                        <div class="col-md-1 text-right col-4">
+                            <label>N&deg; Documento</label>
+                        </div>
+                        <div class="col-md-2 col-8">
+                            <input type="text" class="form-control" name="fat.paciente.DNI" readonly="readonly">
+                        </div>
+
+                        <div class="col-md-1 text-right col-4"><label>HC</label></div>
+                        <div class="col-md-2 input-group input-group-sm col-8">
+                            <input type="text" name="fat.paciente.NroHistoria" class="form-control" id="pacienteHC" readonly="readonly" placeholder="HC" />
+                        </div>
+                        <div class="col-md-1 col-4 text-right"><label>Celular</label></div>
+                        <div class="col-md-1 col-8">
+                            <input type="text" class="editor" name="fat.paciente.celular" readonly="readonly" />
+                        </div>
+                        <div class="col-md-1 col-4 text-right">
+                            <label>Edad</label>
+                        </div>
+                        <div class="col-md-1 col-8">
+                            <input type="text" name="fat.paciente.Edad" class="editor" required="required" readonly="readonly" data-label="Edad" />
+                            <input type="hidden" name="fat.DescripcionCentroTrabajo" class="editor" />
+                        </div>
+                        <div class="col-md-1 col-4 text-right">
+                            <label>Sexo</label>
+                        </div>
+                        <div class="col-md-1 col-8 sexo">
+                            <input type="text" readonly="readonly" style="min-width:85px" name="fat.paciente.Sexo">
+                            <div class="result" style="padding-top:7px"></div>
+                        </div>
+                        <div class="col-md-1 text-right col-4"><label>Nombres</label></div>
+                        <div class="col-md-5 col-8 row">
+                            <div class="col-md-4 col-6" style="padding-right:0px;padding-left:0px"><input class="editor" required="required" readonly="readonly" type="text" placeholder="Apellido Paterno" name="fat.paciente.ApellidoPaterno" value=".ApellidoPaterno" /></div>
+                            <div class="col-md-4 col-6" style="padding-right:0px"><input class="editor" readonly="readonly" type="text" placeholder="Apellido Materno" name="fat.paciente.ApellidoMaterno" value=".ApellidoMaterno"></div>
+                            <div class="col-md-4 col-12" style="padding-right:0px">
+                                <input class="editor" required="required" readonly="readonly" type="text" placeholder="Nombres" name="fat.paciente.Nombre" value=".Nombre">
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-4 text-right"><label>T&eacute;lefono</label></div>
+                        <div class="col-md-1 col-8">
+                            <input type="text" name="fat.paciente.Telefono" class="editor" />
+                        </div>
+                        <div class="col-md-1 col-4 text-right"><label>Atenci&oacute;n</label></div>
+                        <div class="col-md-2 col-8">
+                            <input type="text" readonly="readonly" value="Consulta Externa" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 col-4  text-right"><label>Correo</label></div>
+                        <div class="col-md-5 col-8">
+                            <input type="text" name="fat.paciente.eMail" readonly="readonly" class="editor" />
+                        </div>
+                        <div class="col-md-1 col-4 text-right"><label>Fec. Ult. Atenci&oacute;n</label></div>
+                        <div class="col-md-1 col-8">
+                            <input type="text" readonly="readonly" name="fat.paciente.FUtimaAtencion" />
+                        </div>
+                        <div class="col-md-1 text-right col-4"><label>Financiador</label></div>
+                        <div class="col-md-2 col-8">
+                            <input type="text" class="form-control" readonly="readonly" name="fat.Financiador">
+                        </div>
+
+                    </div>
+                    <h6 class="subtitle"><span>Atenci&oacute;n del Telemonitoreo</span></h6>
+                    <div class="row">
+                        <div class="col-md-7" style="padding-left:15px">
+                            <medium>Breve resumen cl&iacute;nico (Antecedentes de importancia, enfermedad actual, anamnesis, impresi&oacute;n diagnostica) </medium>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12 text-right">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1 text-right col-4"><label>Motivo:</label></div>
+                            <div class="col-md-10 col-8">
+                                <textarea rows="3" name="fat.Motivo"></textarea>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-1 text-right col-sm-3 col-4"><label>Anamnesis:</label></div>
+                            <div class="col-md-10 col-sm-9 col-8">
+                                <textarea rows="3" name="fat.Anamnesis" required="required"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 text-right col-4">
+                            <label>Diagn&oacute;stico: </label>
+                        </div>
+                        <div class="col-md-10 col-8">
+
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control ui-autocomplete col-7 col-md-10" data-tipo="b"
+                                       id="uiDiagnostico" data-name="dx" data-index="0" style="width:80%">
+                                <select id="uiDiagnosticoTipo" class="col-2 col-md-1" style="margin-left:5px">
+                                    <option value="P">PRESUNTIVO</option>
+                                    <option value="D">DEFINITIVO</option>
+                                    <option value="R">REPETIDO</option>
+                                </select>
+                                <span class="input-group-btn col-2 col-md-1">
+                                    <button type="button" class="btn btn-input btn-flat btn-sm input-AddRow" data-id="uiDiagnostico" data-tabla="tabla-diagnostico" data-index="0"><i class="fas fa-plus"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    <div class="row  justify-content-end">
+                        <div class="col-md-10 addRow col-11 table-responsive">
+                            <table class="header_fijo">
+                                <thead>
+                                    <tr>
+                                        <th width="15%" class="text-center">CIE - 10</th>
+                                        <th width="65%">Descripci&oacute;n</th>
+                                        <th width="400" colspan="2">Tipo</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-diagnostico"></tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-1 text-right">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 text-right col-4">
+                            <label>Laboratorio: </label>
+                        </div>
+
+                        <div class="col-md-10 col-8">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control ui-autocomplete" id="uiLaboratorio" data-name="laboratorio" data-index="0">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-input btn-flat btn-sm input-AddRow" data-id="uiLaboratorio" data-tabla="tabla-laboratorio" data-tipo="a"><i class="fas fa-plus"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-md-10 addRow col-11 table-responsive">
+                            <table class="header_fijo">
+                                <thead>
+                                    <tr>
+                                        <th width="15%" class="text-center">C&oacute;d. Lab.</th>
+                                        <th class="text-left" width="65%">Prueba de Laboratorio</th>
+                                        <th width="400" colspan="2" align="left">Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-laboratorio"></tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-1 text-right">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1 text-right col-4">
+                            <label>Radiolog&iacute;a: </label>
+                        </div>
+
+                        <div class="col-md-10 col-8">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control ui-autocomplete" id="uiRadiologia" data-name="radiologia" data-index="0">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-input btn-flat btn-sm input-AddRow" data-id="uiRadiologia" data-tabla="tabla-radiologia" data-tipo="a"><i class="fas fa-plus"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-end">
+                        <div class="col-md-10 addRow col-11 table-responsive">
+                            <table class="header_fijo">
+                                <thead>
+                                    <tr>
+                                        <th width="15%" class="text-center">C&oacute;d. Rad.</th>
+                                        <th width="65%">Examen de Radiolog&iacute;a</th>
+                                        <th width="400">Observaciones</th>
+                                        <th class="ocultar"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-radiologia"></tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-1 text-right">
+                        </div>
+                    </div>
+                    <h6 class="subtitle"><span>Medicaci&oacute;n e Indicaciones</span></h6>
+                    <div class="row">
+                        <div class="col-md-1 text-right col-4"><label>Medicaci&oacute;n:</label></div>
+                        <div class="col-md-11"><textarea></textarea></div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-6 col-6">
+
+                            <a href="@Url.Action("ListadoTeleconsulta", "Teleconsulta")" class="btn bg-dark">
+                                <i class="fas fa-hand-point-left"></i>Regresar
+                            </a>
+
+                        </div>
+                        <div class="col-md-6 text-right col-6">
+                            <button class="btn bg-primary" id="guardarform" type="button"><i class="fas fa-save"></i>Cerra FAT</button>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </section>
+</div>
+
+<link rel="stylesheet" href="~/Content/jquery-UI/jquery-ui.css">
+<link rel="stylesheet" href="~/Content/icheck-1.x/skins/square/green.css">
+@*<!------------SECTION DATATABLE------->*@
+<link rel="stylesheet" href="~/Content/dataTable.css" />
+<link rel="stylesheet" href="~/Content/dataTables.bootstrap.min.css" />
+<style>
+    .error {
+        display: block;
+        width: 100%;
+        color: #8c2828;
+        font-style: italic;
+    }
+
+    span.input-group-btn {
+        right: 0;
+        position: absolute;
+        z-index: 100;
+    }
+
+    tbody {
+        text-transform: uppercase;
+    }
+</style>
+@section scripts{
+
+    <script src="~/Scripts/Forms.js"></script>
+    <script src="~/Scripts/icheck.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/Funciones/InputAutocompleteFunction.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+    @*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+
+
+
+
+    <script>
+    $(document).ready(function () {
+
+      if ('isEditable' == 'False') {
+        $("input[name*='fat.'] , textarea").attr("readonly", "readonly");
+      }
+
+
+      autocompleteSimple("#uiDiagnostico", "@Url.Action("getDiagnosticos", "FiltroAutocomplete")", 3)
+      autocompleteSimple("#uiLaboratorio", "@Url.Action("getLaboratorio", "FiltroAutocomplete")", 4)
+      autocompleteSimple("#uiRadiologia", "@Url.Action("getRadiologia", "FiltroAutocomplete")", 4)
+
+      $(".input-AddRow").click(function () {
+        var tabla = $(this).attr("data-tabla");
+        var indice = $(this).attr("data-index");
+        var input = $("#" + $(this).attr("data-id"));
+        var tipoTabla = $(this).attr("data-tipo");
+        var codigo = input.attr("data-codigo");
+        if (typeof codigo == "undefined" || codigo == "") {
+          mostrarModal("#modal-informativo", "Debe seleccionar una descripcion válida.", "", "")
+          return false;
+        } else if (input.val() == "") {
+          mostrarModal("#modal-informativo", "Debe ingresar una descripción", "", "")
+          return false;
+        }
+        var ret = false;
+        $("#" + tabla + " td").each(function () {
+          var code = $(this).text();
+          if (codigo == code) {
+            mostrarModal("#modal-informativo", "Ya ha seleccionado esa opción.", "", "")
+            ret = true;
+            return false;
+          }
+        })
+        if (ret) {
+          return false;
+        } else {
+          var columnas = "";
+
+          if (tipoTabla == "a") {
+            columnas = "<td width=\"15%\" >" + codigo +
+              "<input data-id=\"" + indice + "\" type=\"hidden\" data-name=\"codigo\" class=\"" + input.attr("data-name") + "\" value=\"" + codigo + "\"></td>" +
+            "<td width=\"65%\">" + input.val() + "</td>" +
+            "<input type=\"hidden\" class=\"" + input.attr("data-name") + "\" data-name=\"descripcion\" value=\"" + input.val() + "\">" +
+            "<td width=\"27%\"><textarea rows=\"1\" data-name=\"observaciones\" class=\"" + input.attr("data-name") + "\" ></textarea></td>"
+          } else {
+            columnas = "<td width=\"15%\">" + codigo + "</td>" +
+            "<input type=\"hidden\" class=\"" + input.attr("data-name") + "\" data-name=\"codigo\" value=\"" + codigo + "\">" +
+            "<input type=\"hidden\" class=\"" + input.attr("data-name") + "\" data-name=\"Detalle\" value=\"" + input.val() + "\">" +
+            "<input type=\"hidden\" class=\"" + input.attr("data-name") + "\" data-name=\"tipo\" value=\"" + $("#uiDiagnosticoTipo").val() + "\">" +
+            "<td width=\"65%\">" + input.val() + "</td>" +
+            "<td width=\"27%\">" + $("#uiDiagnosticoTipo option:selected").text() + "</td>";
+          }
+          input.attr("data-codigo", "");
+          input.val("");
+          addRow(tabla, columnas);
+        }
+      })
+
+
+      $("#guardarform").click(function () {
+        btn = $(this);
+        btn.attr("disabled","disabled");
+        $("label.error").remove()
+        var inputs = $("textarea[required='required'],input[name='fat.RNE'] ");
+        var rpta = true;
+        inputs.each(function () {
+          var int = $(this);
+          if (int.val() == "") {
+            btn.removeAttr("disabled", "disabled")
+            int.parent().append('<label class="error" >Este campo es obligatorio</label>')
+            rpta = false;
+          }
+        })
+        if (!rpta) { return false; }
+        listaInputColumnas("tabla-diagnostico", "fat.dx", "dx")
+        var i = $("input[name*='fat.dx']").length;
+        if (parseInt(i) == 0) {
+          btn.removeAttr("disabled", "disabled")
+          mostrarModal("#modal-informativo", "Debe ingresar al menos un diagnóstico", " ", "")
+          return false;
+        } else {
+          listaInputColumnas("tabla-radiologia", "fat.radiologia", "radiologia")
+          listaInputColumnas("tabla-laboratorio", "fat.laboratorio", "laboratorio")
+          $("#form-fat").submit();
+        }
+      })
+
+
+    });
+    </script>
+
+
+}

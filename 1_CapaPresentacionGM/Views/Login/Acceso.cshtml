@@ -1,0 +1,116 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_LayoutBlanco.cshtml";
+}
+<div class="login-box">
+
+    <div class="login-box-body form-acceso" style="border-radius:1px;background-color:#f9f9f9">@*background-color:rgba(224, 226, 230, 0.49)">*@
+        <div style="padding: 5px 45px 10px;width:100%;text-align:center">
+            CRPONLINE
+        </div>
+      <div>
+        
+      </div>
+
+
+        @using (Html.BeginForm("Acceso", "Login", FormMethod.Post, new { id = "frmLogin" }))
+        {
+            @Html.AntiForgeryToken()
+          
+            <div class="form-group has-feedback" style="padding-top:15px;">
+                <i class="fas fa-user-tie form-control-feedback" style="padding-top:15px;"></i>
+                <input id="usuario" name="usuario" type="text" placeholder="Usuario" style="text-transform:none!important" required />
+            </div>
+            <div class="form-group has-feedback">
+                <input id="password" type="password" name="password" placeholder="Contraseña" required />
+                <span class="fas fa-key form-control-feedback"></span>
+            </div>
+
+            <button type="submit" id="btnIngresar" class="btn btn-block btn-flat" style="background-color:#00b2A9;color:#f9f9f9">
+                <i class="fas fa-sign-in-alt"></i>
+                Iniciar Sesi&oacute;n
+            </button>
+
+        }
+
+
+        <div class="col-md-12 text-center" style="padding-top:12px;">
+            <i id="mnsj" style="color: red;"></i>
+        </div>
+    </div>
+
+</div>
+
+@Html.Partial("Modals")
+<style>
+ .has-feedback {
+   position: relative;
+ }
+
+   .has-feedback .form-control {
+     padding-right: 42.5px;
+   }
+
+ .form-control-feedback {
+   position: absolute;
+   top: 0;
+   color: #6c757d!important;
+   z-index: 2;
+   display: block;
+   width: 35px;
+   height: 35px;
+   line-height: 38px;
+   text-align: center;
+   pointer-events: none;
+ }
+  input {
+  border-radius:0px!important;
+  padding-left:35px!important;
+  height:40px;
+  }
+  
+
+::-webkit-input-placeholder { color: #aab3bd; } 
+ 
+:-moz-placeholder { /* Firefox 18- */ color: #aab3bd; } 
+ 
+::-moz-placeholder { /* Firefox 19+ */ color: #aab3bd; } 
+ 
+:-ms-input-placeholder { color: #aab3bd; }
+</style>
+
+@section scripts{
+
+  <script>
+
+    $(function () {
+
+      var events, bindEvents, dom, catchDom, start;
+
+      dom = {
+        formLogin: null
+      };
+
+      events = {
+
+        load: function () {
+
+          if (respuesta != "") {
+
+            var rpta_array = respuesta.split("|");
+
+            if (rpta_array[0] == "1") {
+              window.location.href = "@Url.Action("Index", "Home")"
+
+            } 
+          }
+
+        }
+
+      };
+
+    });
+
+
+  </script>
+}

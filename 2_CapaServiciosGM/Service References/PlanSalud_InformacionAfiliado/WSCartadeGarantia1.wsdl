@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ListarAfiliadoPlanSalud">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tipoDocumento" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="numeroDocumento" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListarAfiliadoPlanSaludResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarAfiliadoPlanSaludResult" type="tns:Afiliado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Afiliado">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="contrato" type="tns:EContrato" />
+          <s:element minOccurs="0" maxOccurs="1" name="paciente" type="tns:EPaciente" />
+          <s:element minOccurs="0" maxOccurs="1" name="contratante" type="tns:EContratante" />
+          <s:element minOccurs="0" maxOccurs="1" name="titular" type="tns:ETitularContrato" />
+          <s:element minOccurs="0" maxOccurs="1" name="beneficios" type="tns:ArrayOfBeneficio" />
+          <s:element minOccurs="0" maxOccurs="1" name="declaracion" type="tns:ArrayOfPregunta" />
+          <s:element minOccurs="0" maxOccurs="1" name="preexistencias" type="tns:ArrayOfPreexistencia" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EContrato">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="codigo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="inicio_vigencia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="fin_vigencia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="estado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="contratoProcedencia" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="fechainscripcionOrigen" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EPaciente">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="tipo_documento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="numero_documento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="segundo_nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellido_paterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellido_materno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="fecha_nacimiento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="edad" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="genero" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="parentesco" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="contrato_procedencia" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="fecha_continuidad" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="plan" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre_plan" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="celular" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="correo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="id_afiliado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="fecha_afiliacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="numero_hc" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EContratante">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="tipo_persona" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tipo_documento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="numero_documento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="razon_social" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="segundo_nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellido_paterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellido_materno" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ETitularContrato">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="tipo_documento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="numero_documento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="segundo_nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellido_paterno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="apellido_materno" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBeneficio">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="beneficio" nillable="true" type="tns:beneficio" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="beneficio">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cobertura" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sede" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="copagoFijo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="copagoVariable" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPregunta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="pregunta" nillable="true" type="tns:pregunta" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="pregunta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="texto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="respuesta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="dolencias" type="tns:ArrayOfDolencia" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDolencia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="dolencia" nillable="true" type="tns:dolencia" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="dolencia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="detalle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="situacion_actual" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPreexistencia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="preexistencia" nillable="true" type="tns:preexistencia" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="preexistencia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="observaciones" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BusquedaAfiliadosPlanSalud">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="busquedaAfiliadoPlansalud" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BusquedaAfiliadosPlanSaludResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BusquedaAfiliadosPlanSaludResult" type="tns:ArrayOfAfiliado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAfiliado">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Afiliado" nillable="true" type="tns:Afiliado" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="consultarListaCopago">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="consultarListaCopagoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="consultarListaCopagoResult" type="tns:ArrayOfECopago" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfECopago">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ECopago" nillable="true" type="tns:ECopago" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ECopago">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="idCopago" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="desCopago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="copagoFijo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="copagoVariable" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ListarAfiliadoPlanSaludSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarAfiliadoPlanSalud" />
+  </wsdl:message>
+  <wsdl:message name="ListarAfiliadoPlanSaludSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarAfiliadoPlanSaludResponse" />
+  </wsdl:message>
+  <wsdl:message name="BusquedaAfiliadosPlanSaludSoapIn">
+    <wsdl:part name="parameters" element="tns:BusquedaAfiliadosPlanSalud" />
+  </wsdl:message>
+  <wsdl:message name="BusquedaAfiliadosPlanSaludSoapOut">
+    <wsdl:part name="parameters" element="tns:BusquedaAfiliadosPlanSaludResponse" />
+  </wsdl:message>
+  <wsdl:message name="consultarListaCopagoSoapIn">
+    <wsdl:part name="parameters" element="tns:consultarListaCopago" />
+  </wsdl:message>
+  <wsdl:message name="consultarListaCopagoSoapOut">
+    <wsdl:part name="parameters" element="tns:consultarListaCopagoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSCartadeGarantiaSoap">
+    <wsdl:operation name="ListarAfiliadoPlanSalud">
+      <wsdl:input message="tns:ListarAfiliadoPlanSaludSoapIn" />
+      <wsdl:output message="tns:ListarAfiliadoPlanSaludSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BusquedaAfiliadosPlanSalud">
+      <wsdl:input message="tns:BusquedaAfiliadosPlanSaludSoapIn" />
+      <wsdl:output message="tns:BusquedaAfiliadosPlanSaludSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="consultarListaCopago">
+      <wsdl:input message="tns:consultarListaCopagoSoapIn" />
+      <wsdl:output message="tns:consultarListaCopagoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSCartadeGarantiaSoap" type="tns:WSCartadeGarantiaSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListarAfiliadoPlanSalud">
+      <soap:operation soapAction="http://tempuri.org/ListarAfiliadoPlanSalud" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BusquedaAfiliadosPlanSalud">
+      <soap:operation soapAction="http://tempuri.org/BusquedaAfiliadosPlanSalud" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="consultarListaCopago">
+      <soap:operation soapAction="http://tempuri.org/consultarListaCopago" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSCartadeGarantiaSoap12" type="tns:WSCartadeGarantiaSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListarAfiliadoPlanSalud">
+      <soap12:operation soapAction="http://tempuri.org/ListarAfiliadoPlanSalud" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BusquedaAfiliadosPlanSalud">
+      <soap12:operation soapAction="http://tempuri.org/BusquedaAfiliadosPlanSalud" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="consultarListaCopago">
+      <soap12:operation soapAction="http://tempuri.org/consultarListaCopago" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSCartadeGarantia">
+    <wsdl:port name="WSCartadeGarantiaSoap" binding="tns:WSCartadeGarantiaSoap">
+      <soap:address location="http://10.12.1.10/WS_CRPPS_AFILIADOS/WSCartadeGarantia.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSCartadeGarantiaSoap12" binding="tns:WSCartadeGarantiaSoap12">
+      <soap12:address location="http://10.12.1.10/WS_CRPPS_AFILIADOS/WSCartadeGarantia.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

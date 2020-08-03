@@ -1,0 +1,1940 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BD_CRPCGModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="PRCGA_ELIMINA_BENEFICIO_PS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cNroSol" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRFAT_BUSCAR_HC_DOC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IS_HC_DOCUMENTO" Type="varchar" Mode="In" />
+          <Parameter Name="IS_tipoBusqueda" Type="char" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_Buscar_RNE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_sBusCMP" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_ELIMINA_ARCHIVOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idArchivo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_ELIMINA_VIDEOCONFERENCIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_videoconferencia" Type="int" Mode="In" />
+          <Parameter Name="is_usr_eliminacion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_EliminaProcedimientos_PS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_NroSolicitud" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodProcedimiento" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_Eliminar_OIQUIRURGICA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idOrdenQx" Type="int" Mode="In" />
+          <Parameter Name="I_NroOrden" Type="varchar" Mode="In" />
+          <Parameter Name="I_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="I_Equipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_EliminarCDESOIQx" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_IdCorrelativoInterno" Type="int" Mode="In" />
+          <Parameter Name="I_Codigo" Type="varchar" Mode="In" />
+          <Parameter Name="TipoIns" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_FAT_EliminarDetalles_Receta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_IdCorrelativoInterno" Type="int" Mode="In" />
+          <Parameter Name="TipoIns" Type="varchar" Mode="In" />
+          <Parameter Name="codigo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_Filtros" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_STipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_FiltrosAutocompletar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_STipo" Type="varchar" Mode="In" />
+          <Parameter Name="I_term" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_getArchivosXCarta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_CorrelativoInterno" Type="int" Mode="In" />
+          <Parameter Name="I_CodSolicitud" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_getBenefYProcedxSolicitud" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_NroSolicitud" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_getCarta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_codSolicitud" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_getCartaOIQx" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idOrden" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_getCartaPS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_NroSolicitud" Type="int" Mode="In" />
+          <Parameter Name="I_Departamento" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_getCDESxOIQuirurgica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_NroOIQx" Type="int" Mode="In" />
+          <Parameter Name="TipoIns" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GetFAT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idFAT" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GetFAT_DxLAbRx" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idAtencion" Type="int" Mode="In" />
+          <Parameter Name="I_TipoIns" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GetFAT_Medicamentos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idAtencion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_getFAT_Reporte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idFAT" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GetFAT_VIDEOCONFERENCIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_atencion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GetFAT_VIDEOCONFERENCIA_GUID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ui_guid" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_getOIQx" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idOrden" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_getPreQuirurgicoxCartaOiqx" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idSolicitud" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_getSuministrosxOIQuirurgica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_NroOIQx" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_Guarda_ArchivoFAT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_IdFAT" Type="int" Mode="In" />
+          <Parameter Name="I_OAA" Type="varchar" Mode="In" />
+          <Parameter Name="I_Tipo" Type="varchar" Mode="In" />
+          <Parameter Name="I_Archivo" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="I_User" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GUARDA_ARCHIVOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_carta" Type="int" Mode="In" />
+          <Parameter Name="Id_Solcarta" Type="varchar" Mode="In" />
+          <Parameter Name="iS_nomarchivo" Type="varchar" Mode="In" />
+          <Parameter Name="Is_ctipo" Type="varchar" Mode="In" />
+          <Parameter Name="is_vp_usuario" Type="varchar" Mode="In" />
+          <Parameter Name="is_vp_equipo" Type="varchar" Mode="In" />
+          <Parameter Name="is_archivo" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="is_Origen" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GUARDA_CartaOrdenIQx" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_carta" Type="int" Mode="In" />
+          <Parameter Name="Id_Solcarta" Type="varchar" Mode="In" />
+          <Parameter Name="iS_estadoPreqx" Type="varchar" Mode="In" />
+          <Parameter Name="Is_criteriopreqx" Type="varchar" Mode="In" />
+          <Parameter Name="is_observaciones" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Is_fechaCirugia" Type="varchar" Mode="In" />
+          <Parameter Name="Is_qxProgramada" Type="bit" Mode="In" />
+          <Parameter Name="Is_sala" Type="varchar" Mode="In" />
+          <Parameter Name="is_tipo" Type="char" Mode="In" />
+          <Parameter Name="is_tipoAnestesia" Type="varchar" Mode="In" />
+          <Parameter Name="is_vp_usuario" Type="varchar" Mode="In" />
+          <Parameter Name="is_vp_equipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GUARDA_VIDEOCONFERENCIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_atencion" Type="int" Mode="In" />
+          <Parameter Name="ig_guid" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="is_video_token" Type="varchar" Mode="In" />
+          <Parameter Name="is_url_video" Type="varchar" Mode="In" />
+          <Parameter Name="Id_fec_registro" Type="datetime2" Mode="In" />
+          <Parameter Name="is_estado" Type="int" Mode="In" />
+          <Parameter Name="Id_fec_creacion" Type="datetime2" Mode="In" />
+          <Parameter Name="is_usr_creacion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GUARDAR_CARTASERVICIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idSol_CarGarantia" Type="varchar" Mode="In" />
+          <Parameter Name="I_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="I_Equipo" Type="varchar" Mode="In" />
+          <Parameter Name="I_Num_Doc_Paciente" Type="varchar" Mode="In" />
+          <Parameter Name="I_HC_paciente" Type="varchar" Mode="In" />
+          <Parameter Name="I_Num_Telefono" Type="varchar" Mode="In" />
+          <Parameter Name="I_Nom_Paciente" Type="varchar" Mode="In" />
+          <Parameter Name="I_Fnacimiento" Type="varchar" Mode="In" />
+          <Parameter Name="I_Num_Celular" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodigoAfiliado" Type="varchar" Mode="In" />
+          <Parameter Name="I_Edad" Type="int" Mode="In" />
+          <Parameter Name="I_CorreoContacto" Type="varchar" Mode="In" />
+          <Parameter Name="I_idFinanciador" Type="varchar" Mode="In" />
+          <Parameter Name="I_Contratante" Type="varchar" Mode="In" />
+          <Parameter Name="I_idEspecialidad" Type="varchar" Mode="In" />
+          <Parameter Name="I_ImporteCarta" Type="varchar" Mode="In" />
+          <Parameter Name="I_PSdiagnostico" Type="varchar" Mode="In" />
+          <Parameter Name="I_PSMed_Tratante" Type="varchar" Mode="In" />
+          <Parameter Name="I_PSTiempo_year" Type="varchar" Mode="In" />
+          <Parameter Name="I_PSTiempo_Mes" Type="varchar" Mode="In" />
+          <Parameter Name="I_PSTiempo_dia" Type="varchar" Mode="In" />
+          <Parameter Name="I_PSObs_medTratante" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_PSTipoAtencion" Type="varchar" Mode="In" />
+          <Parameter Name="I_PSDiashospitalizado" Type="int" Mode="In" />
+          <Parameter Name="I_PSTitular" Type="varchar" Mode="In" />
+          <Parameter Name="I_PSParentesco" Type="varchar" Mode="In" />
+          <Parameter Name="I_PSnumContrato" Type="varchar" Mode="In" />
+          <Parameter Name="I_PSEstadoContrato" Type="varchar" Mode="In" />
+          <Parameter Name="I_PSPlan" Type="varchar" Mode="In" />
+          <Parameter Name="I_PSProducto" Type="varchar" Mode="In" />
+          <Parameter Name="I_Fcontrato" Type="datetime" Mode="In" />
+          <Parameter Name="I_FAfiliacion" Type="datetime" Mode="In" />
+          <Parameter Name="I_Finivigencia" Type="datetime" Mode="In" />
+          <Parameter Name="I_Anexo" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="I_tipodocto" Type="char" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GUARDAR_OIQUIRURGICA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idOrdenQx" Type="int" Mode="In" />
+          <Parameter Name="I_NroOrden" Type="varchar" Mode="In" />
+          <Parameter Name="I_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="I_Equipo" Type="varchar" Mode="In" />
+          <Parameter Name="I_Num_Doc_Paciente" Type="varchar" Mode="In" />
+          <Parameter Name="I_HC_paciente" Type="varchar" Mode="In" />
+          <Parameter Name="I_Edad" Type="varchar" Mode="In" />
+          <Parameter Name="I_Num_Celular" Type="varchar" Mode="In" />
+          <Parameter Name="I_Nom_Paciente" Type="varchar" Mode="In" />
+          <Parameter Name="I_CorreoContacto" Type="varchar" Mode="In" />
+          <Parameter Name="I_codFinanciador" Type="varchar" Mode="In" />
+          <Parameter Name="I_codEspecialidad" Type="varchar" Mode="In" />
+          <Parameter Name="I_codTipoCirugia" Type="varchar" Mode="In" />
+          <Parameter Name="I_Tiempo_year" Type="char" Mode="In" />
+          <Parameter Name="I_Tiempo_Mes" Type="char" Mode="In" />
+          <Parameter Name="I_Tiempo_dia" Type="char" Mode="In" />
+          <Parameter Name="I_HorasQx" Type="varchar" Mode="In" />
+          <Parameter Name="I_Alergias" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_Morbilidades" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_Requisito1" Type="bit" Mode="In" />
+          <Parameter Name="I_Requisito2" Type="bit" Mode="In" />
+          <Parameter Name="I_Requisito3" Type="bit" Mode="In" />
+          <Parameter Name="I_Requisito4" Type="bit" Mode="In" />
+          <Parameter Name="I_Requisito5" Type="bit" Mode="In" />
+          <Parameter Name="I_Requisito6" Type="bit" Mode="In" />
+          <Parameter Name="I_Requisito7" Type="bit" Mode="In" />
+          <Parameter Name="I_Requisito8" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_FCirugia" Type="varchar" Mode="In" />
+          <Parameter Name="I_HoraCirugia" Type="varchar" Mode="In" />
+          <Parameter Name="I_FHospitalizacion" Type="varchar" Mode="In" />
+          <Parameter Name="I_HoraHosp" Type="varchar" Mode="In" />
+          <Parameter Name="I_Testancia" Type="char" Mode="In" />
+          <Parameter Name="I_Profilaxis" Type="bit" Mode="In" />
+          <Parameter Name="I_Justificacion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_CMPmedicoReg" Type="varchar" Mode="In" />
+          <Parameter Name="I_ValidaTiempo" Type="bit" Mode="In" />
+          <Parameter Name="I_TipoAnestesia" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GuardarBenefYProced_PS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_NroSolicitud" Type="varchar" Mode="In" />
+          <Parameter Name="I_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="I_Equipo" Type="varchar" Mode="In" />
+          <Parameter Name="I_Codigo" Type="varchar" Mode="In" />
+          <Parameter Name="I_Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="I_CorrelativoInt" Type="int" Mode="In" />
+          <Parameter Name="I_cpfijo" Type="varchar" Mode="In" />
+          <Parameter Name="I_cpVariable" Type="varchar" Mode="In" />
+          <Parameter Name="I_flagSeleccion" Type="int" Mode="In" />
+          <Parameter Name="I_tipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_guardarCDESxOIQuirurgica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_NroOIQx" Type="int" Mode="In" />
+          <Parameter Name="I_CodigoOIQx" Type="varchar" Mode="In" />
+          <Parameter Name="I_Codigo" Type="varchar" Mode="In" />
+          <Parameter Name="I_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="I_Equipo" Type="varchar" Mode="In" />
+          <Parameter Name="TipoIns" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GuardarFAT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idFAT" Type="int" Mode="In" />
+          <Parameter Name="I_NroAtencion" Type="varchar" Mode="In" />
+          <Parameter Name="I_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="I_Equipo" Type="varchar" Mode="In" />
+          <Parameter Name="I_Num_Doc_Paciente" Type="varchar" Mode="In" />
+          <Parameter Name="I_FecUltimaAtencion" Type="varchar" Mode="In" />
+          <Parameter Name="I_HC_paciente" Type="varchar" Mode="In" />
+          <Parameter Name="I_Edad" Type="varchar" Mode="In" />
+          <Parameter Name="I_Celular" Type="varchar" Mode="In" />
+          <Parameter Name="I_Telefono" Type="varchar" Mode="In" />
+          <Parameter Name="I_Email" Type="varchar" Mode="In" />
+          <Parameter Name="I_Sexo" Type="char" Mode="In" />
+          <Parameter Name="I_TipoAtencion" Type="int" Mode="In" />
+          <Parameter Name="I_Modalidad" Type="int" Mode="In" />
+          <Parameter Name="I_Nom_Paciente" Type="varchar" Mode="In" />
+          <Parameter Name="I_ApePaterno_Paciente" Type="varchar" Mode="In" />
+          <Parameter Name="I_ApeMaterno_Paciente" Type="varchar" Mode="In" />
+          <Parameter Name="I_codFinanciador" Type="varchar" Mode="In" />
+          <Parameter Name="I_Anamnesis" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_Motivo" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_Tratamiento" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_Medicacion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_RNE" Type="varchar" Mode="In" />
+          <Parameter Name="I_CMP" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GuardarFAT_DxLABRx" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idAtencion" Type="int" Mode="In" />
+          <Parameter Name="I_TipoIns" Type="varchar" Mode="In" />
+          <Parameter Name="I_TipoDX" Type="char" Mode="In" />
+          <Parameter Name="I_Codigo" Type="varchar" Mode="In" />
+          <Parameter Name="I_Observacion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_Usuario" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_GuardarFAT_Medicamentos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_idAtencion" Type="int" Mode="In" />
+          <Parameter Name="I_Codigo" Type="varchar" Mode="In" />
+          <Parameter Name="I_Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="I_DescripcionPA" Type="varchar" Mode="In" />
+          <Parameter Name="I_DOSIS" Type="varchar" Mode="In" />
+          <Parameter Name="I_Via" Type="varchar" Mode="In" />
+          <Parameter Name="I_Duracion" Type="varchar" Mode="In" />
+          <Parameter Name="I_intervalo" Type="varchar" Mode="In" />
+          <Parameter Name="I_Cantidad" Type="varchar" Mode="In" />
+          <Parameter Name="I_TipoIns" Type="varchar" Mode="In" />
+          <Parameter Name="I_Otros" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="I_Forma" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_guardarSuministroxOIQuirurgica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_NroOIQx" Type="int" Mode="In" />
+          <Parameter Name="I_TipoIns" Type="varchar" Mode="In" />
+          <Parameter Name="I_Codigo" Type="varchar" Mode="In" />
+          <Parameter Name="I_Observacion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_cantidad" Type="int" Mode="In" />
+          <Parameter Name="I_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="I_Equipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_Listar_GuiasDespacho" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_id_NroAtencion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_ListarCartas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_sBusqueda" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodEspecialidad" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_ListarCartasAuditor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_sBusqueda" Type="varchar" Mode="In" />
+          <Parameter Name="I_FInic" Type="varchar" Mode="In" />
+          <Parameter Name="I_FFin" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodEstado" Type="varchar" Mode="In" />
+          <Parameter Name="I_TipoAt" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_ListarCartasOIQx" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_sBusqueda" Type="varchar" Mode="In" />
+          <Parameter Name="I_FInic" Type="varchar" Mode="In" />
+          <Parameter Name="I_FFin" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodEspecialidad" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodEstadoPreQx" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodTipoCirugia" Type="varchar" Mode="In" />
+          <Parameter Name="I_ReqPreQx" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_ListarCartasOIQxProgramador" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_FInic" Type="varchar" Mode="In" />
+          <Parameter Name="I_FFin" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodEstadoCarta" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodEstadoPreQx" Type="varchar" Mode="In" />
+          <Parameter Name="I_QxProgramado" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_ListarCartasServicios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_sBusqueda" Type="varchar" Mode="In" />
+          <Parameter Name="I_FInic" Type="varchar" Mode="In" />
+          <Parameter Name="I_FFin" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodEstado" Type="varchar" Mode="In" />
+          <Parameter Name="I_TipoAt" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_ListarEstadosFarmacia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PRGUR_ListarFAT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_FInic" Type="varchar" Mode="In" />
+          <Parameter Name="I_FFin" Type="varchar" Mode="In" />
+          <Parameter Name="I_user" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_ListarFAT_Farmacia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_FInic" Type="varchar" Mode="In" />
+          <Parameter Name="I_FFin" Type="varchar" Mode="In" />
+          <Parameter Name="I_Busqueda" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodEspecialidad" Type="varchar" Mode="In" />
+          <Parameter Name="I_Estado" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_ListarFAT_GS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_FInic" Type="varchar" Mode="In" />
+          <Parameter Name="I_FFin" Type="varchar" Mode="In" />
+          <Parameter Name="I_Busqueda" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodEspecialidad" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodEstado" Type="int" Mode="In" />
+          <Parameter Name="I_Medico" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_ListarFAT_Servicios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_FInic" Type="varchar" Mode="In" />
+          <Parameter Name="I_FFin" Type="varchar" Mode="In" />
+          <Parameter Name="I_Busqueda" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodEspecialidad" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodTIPO" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_ListarOIQx" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_sBusqueda" Type="varchar" Mode="In" />
+          <Parameter Name="I_FInic" Type="varchar" Mode="In" />
+          <Parameter Name="I_FFin" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodEstado" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodEspecialidad" Type="varchar" Mode="In" />
+          <Parameter Name="I_CConfirmada" Type="bit" Mode="In" />
+          <Parameter Name="I_CMP" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_LOG_DEBUG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_usuario" Type="varchar" Mode="In" />
+          <Parameter Name="I_tipo" Type="char" Mode="In" />
+          <Parameter Name="I_sp" Type="varchar" Mode="In" />
+          <Parameter Name="I_data" Type="varchar" Mode="In" />
+          <Parameter Name="I_Ref" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_MSJ" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_UPD_AUDITORIA_CARTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_Importe" Type="varchar" Mode="In" />
+          <Parameter Name="I_Diagnostico" Type="varchar" Mode="In" />
+          <Parameter Name="I_CodSolicitud" Type="int" Mode="In" />
+          <Parameter Name="I_NroSolicitud" Type="varchar" Mode="In" />
+          <Parameter Name="I_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="I_Equipo" Type="varchar" Mode="In" />
+          <Parameter Name="I_estadoAuditar" Type="varchar" Mode="In" />
+          <Parameter Name="I_motivoEstado" Type="varchar" Mode="In" />
+          <Parameter Name="I_observacionMedica" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_observacionInterna" Type="varchar(max)" Mode="In" />
+          <Parameter Name="I_archivoCarta" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="I_NombreArchivo" Type="varchar" Mode="In" />
+          <Parameter Name="I_departamento" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="BD_CRPCGModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_CRPCGModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BD_CRPCGEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="PRCGA_ELIMINA_BENEFICIO_PS">
+          <Parameter Name="cNroSol" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_ELIMINA_ARCHIVOS">
+          <Parameter Name="I_idArchivo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_EliminaProcedimientos_PS" ReturnType="Collection(BD_CRPCGModel.PRGUR_EliminaProcedimientos_PS_Result)">
+            <Parameter Name="I_NroSolicitud" Mode="In" Type="String" />
+            <Parameter Name="I_CodProcedimiento" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_Eliminar_OIQUIRURGICA">
+            <Parameter Name="I_idOrdenQx" Mode="In" Type="Int32" />
+            <Parameter Name="I_NroOrden" Mode="In" Type="String" />
+            <Parameter Name="I_Usuario" Mode="In" Type="String" />
+            <Parameter Name="I_Equipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_EliminarCDESOIQx">
+            <Parameter Name="I_IdCorrelativoInterno" Mode="In" Type="Int32" />
+            <Parameter Name="I_Codigo" Mode="In" Type="String" />
+            <Parameter Name="TipoIns" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_FAT_EliminarDetalles_Receta">
+            <Parameter Name="I_IdCorrelativoInterno" Mode="In" Type="Int32" />
+            <Parameter Name="TipoIns" Mode="In" Type="String" />
+            <Parameter Name="codigo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_Filtros" ReturnType="Collection(BD_CRPCGModel.Filtros_Result)">
+          <Parameter Name="I_STipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_FiltrosAutocompletar" ReturnType="Collection(BD_CRPCGModel.SelectAutocomplete_Result)">
+            <Parameter Name="I_STipo" Mode="In" Type="String" />
+            <Parameter Name="I_term" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_getArchivosXCarta" ReturnType="Collection(BD_CRPCGModel.ArchivosXCodCarta_Result)">
+            <Parameter Name="I_CorrelativoInterno" Mode="In" Type="Int32" />
+            <Parameter Name="I_CodSolicitud" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_getBenefYProcedxSolicitud" ReturnType="Collection(BD_CRPCGModel.BeneficiosProdecimientos_Result)">
+          <Parameter Name="I_NroSolicitud" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_getCarta" ReturnType="Collection(BD_CRPCGModel.CartaGarantia_Result)">
+          <Parameter Name="I_codSolicitud" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_getCartaOIQx" ReturnType="Collection(BD_CRPCGModel.CartaOIQx_Result)">
+          <Parameter Name="I_idOrden" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_getCartaPS" ReturnType="Collection(BD_CRPCGModel.CartaGarantiaPS_Result)">
+            <Parameter Name="I_NroSolicitud" Mode="In" Type="Int32" />
+            <Parameter Name="I_Departamento" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_getCDESxOIQuirurgica" ReturnType="Collection(BD_CRPCGModel.CDESxOIQx_Result)">
+            <Parameter Name="I_NroOIQx" Mode="In" Type="Int32" />
+            <Parameter Name="TipoIns" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GetFAT_DxLAbRx" ReturnType="Collection(BD_CRPCGModel.DxLabRx_Result)">
+            <Parameter Name="I_idAtencion" Mode="In" Type="Int32" />
+            <Parameter Name="I_TipoIns" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GetFAT_Medicamentos" ReturnType="Collection(BD_CRPCGModel.FATMedicamentos_Result)">
+          <Parameter Name="I_idAtencion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_getOIQx" ReturnType="Collection(BD_CRPCGModel.OIQirurgica_Result)">
+          <Parameter Name="I_idOrden" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_getPreQuirurgicoxCartaOiqx" ReturnType="Collection(BD_CRPCGModel.PreQuirurgicoxCartaOiqx_Result)">
+          <Parameter Name="I_idSolicitud" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_getSuministrosxOIQuirurgica" ReturnType="Collection(BD_CRPCGModel.SuministrosxOIQuirurgica_Result)">
+          <Parameter Name="I_NroOIQx" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_Guarda_ArchivoFAT">
+            <Parameter Name="I_IdFAT" Mode="In" Type="Int32" />
+            <Parameter Name="I_OAA" Mode="In" Type="String" />
+            <Parameter Name="I_Tipo" Mode="In" Type="String" />
+            <Parameter Name="I_Archivo" Mode="In" Type="Binary" />
+            <Parameter Name="I_User" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GUARDA_ARCHIVOS">
+            <Parameter Name="id_carta" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Solcarta" Mode="In" Type="String" />
+            <Parameter Name="iS_nomarchivo" Mode="In" Type="String" />
+            <Parameter Name="Is_ctipo" Mode="In" Type="String" />
+            <Parameter Name="is_vp_usuario" Mode="In" Type="String" />
+            <Parameter Name="is_vp_equipo" Mode="In" Type="String" />
+            <Parameter Name="is_archivo" Mode="In" Type="Binary" />
+            <Parameter Name="is_Origen" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GUARDA_CartaOrdenIQx">
+            <Parameter Name="id_carta" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Solcarta" Mode="In" Type="String" />
+            <Parameter Name="iS_estadoPreqx" Mode="In" Type="String" />
+            <Parameter Name="Is_criteriopreqx" Mode="In" Type="String" />
+            <Parameter Name="is_observaciones" Mode="In" Type="String" />
+            <Parameter Name="Is_fechaCirugia" Mode="In" Type="String" />
+            <Parameter Name="Is_qxProgramada" Mode="In" Type="Boolean" />
+            <Parameter Name="Is_sala" Mode="In" Type="String" />
+            <Parameter Name="is_tipo" Mode="In" Type="String" />
+            <Parameter Name="is_tipoAnestesia" Mode="In" Type="String" />
+            <Parameter Name="is_vp_usuario" Mode="In" Type="String" />
+            <Parameter Name="is_vp_equipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GUARDAR_CARTASERVICIO" ReturnType="Collection(BD_CRPCGModel.CARTASERVICIO_Result)">
+            <Parameter Name="I_idSol_CarGarantia" Mode="In" Type="String" />
+            <Parameter Name="I_Usuario" Mode="In" Type="String" />
+            <Parameter Name="I_Equipo" Mode="In" Type="String" />
+            <Parameter Name="I_Num_Doc_Paciente" Mode="In" Type="String" />
+            <Parameter Name="I_HC_paciente" Mode="In" Type="String" />
+            <Parameter Name="I_Num_Telefono" Mode="In" Type="String" />
+            <Parameter Name="I_Nom_Paciente" Mode="In" Type="String" />
+            <Parameter Name="I_Fnacimiento" Mode="In" Type="String" />
+            <Parameter Name="I_Num_Celular" Mode="In" Type="String" />
+            <Parameter Name="I_CodigoAfiliado" Mode="In" Type="String" />
+            <Parameter Name="I_Edad" Mode="In" Type="Int32" />
+            <Parameter Name="I_CorreoContacto" Mode="In" Type="String" />
+            <Parameter Name="I_idFinanciador" Mode="In" Type="String" />
+            <Parameter Name="I_Contratante" Mode="In" Type="String" />
+            <Parameter Name="I_idEspecialidad" Mode="In" Type="String" />
+            <Parameter Name="I_ImporteCarta" Mode="In" Type="String" />
+            <Parameter Name="I_PSdiagnostico" Mode="In" Type="String" />
+            <Parameter Name="I_PSMed_Tratante" Mode="In" Type="String" />
+            <Parameter Name="I_PSTiempo_year" Mode="In" Type="String" />
+            <Parameter Name="I_PSTiempo_Mes" Mode="In" Type="String" />
+            <Parameter Name="I_PSTiempo_dia" Mode="In" Type="String" />
+            <Parameter Name="I_PSObs_medTratante" Mode="In" Type="String" />
+            <Parameter Name="I_PSTipoAtencion" Mode="In" Type="String" />
+            <Parameter Name="I_PSDiashospitalizado" Mode="In" Type="Int32" />
+            <Parameter Name="I_PSTitular" Mode="In" Type="String" />
+            <Parameter Name="I_PSParentesco" Mode="In" Type="String" />
+            <Parameter Name="I_PSnumContrato" Mode="In" Type="String" />
+            <Parameter Name="I_PSEstadoContrato" Mode="In" Type="String" />
+            <Parameter Name="I_PSPlan" Mode="In" Type="String" />
+            <Parameter Name="I_PSProducto" Mode="In" Type="String" />
+            <Parameter Name="I_Fcontrato" Mode="In" Type="DateTime" />
+            <Parameter Name="I_FAfiliacion" Mode="In" Type="DateTime" />
+            <Parameter Name="I_Finivigencia" Mode="In" Type="DateTime" />
+            <Parameter Name="I_Anexo" Mode="In" Type="Binary" />
+            <Parameter Name="I_tipodocto" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GUARDAR_OIQUIRURGICA" ReturnType="Collection(BD_CRPCGModel.CodIdOIQx_Result)">
+            <Parameter Name="I_idOrdenQx" Mode="In" Type="Int32" />
+            <Parameter Name="I_NroOrden" Mode="In" Type="String" />
+            <Parameter Name="I_Usuario" Mode="In" Type="String" />
+            <Parameter Name="I_Equipo" Mode="In" Type="String" />
+            <Parameter Name="I_Num_Doc_Paciente" Mode="In" Type="String" />
+            <Parameter Name="I_HC_paciente" Mode="In" Type="String" />
+            <Parameter Name="I_Edad" Mode="In" Type="String" />
+            <Parameter Name="I_Num_Celular" Mode="In" Type="String" />
+            <Parameter Name="I_Nom_Paciente" Mode="In" Type="String" />
+            <Parameter Name="I_CorreoContacto" Mode="In" Type="String" />
+            <Parameter Name="I_codFinanciador" Mode="In" Type="String" />
+            <Parameter Name="I_codEspecialidad" Mode="In" Type="String" />
+            <Parameter Name="I_codTipoCirugia" Mode="In" Type="String" />
+            <Parameter Name="I_Tiempo_year" Mode="In" Type="String" />
+            <Parameter Name="I_Tiempo_Mes" Mode="In" Type="String" />
+            <Parameter Name="I_Tiempo_dia" Mode="In" Type="String" />
+            <Parameter Name="I_HorasQx" Mode="In" Type="String" />
+            <Parameter Name="I_Alergias" Mode="In" Type="String" />
+            <Parameter Name="I_Morbilidades" Mode="In" Type="String" />
+            <Parameter Name="I_Requisito1" Mode="In" Type="Boolean" />
+            <Parameter Name="I_Requisito2" Mode="In" Type="Boolean" />
+            <Parameter Name="I_Requisito3" Mode="In" Type="Boolean" />
+            <Parameter Name="I_Requisito4" Mode="In" Type="Boolean" />
+            <Parameter Name="I_Requisito5" Mode="In" Type="Boolean" />
+            <Parameter Name="I_Requisito6" Mode="In" Type="Boolean" />
+            <Parameter Name="I_Requisito7" Mode="In" Type="Boolean" />
+            <Parameter Name="I_Requisito8" Mode="In" Type="String" />
+            <Parameter Name="I_FCirugia" Mode="In" Type="String" />
+            <Parameter Name="I_HoraCirugia" Mode="In" Type="String" />
+            <Parameter Name="I_FHospitalizacion" Mode="In" Type="String" />
+            <Parameter Name="I_HoraHosp" Mode="In" Type="String" />
+            <Parameter Name="I_Testancia" Mode="In" Type="String" />
+            <Parameter Name="I_Profilaxis" Mode="In" Type="Boolean" />
+            <Parameter Name="I_Justificacion" Mode="In" Type="String" />
+            <Parameter Name="I_CMPmedicoReg" Mode="In" Type="String" />
+            <Parameter Name="I_ValidaTiempo" Mode="In" Type="Boolean" />
+            <Parameter Name="I_TipoAnestesia" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GuardarBenefYProced_PS">
+            <Parameter Name="I_NroSolicitud" Mode="In" Type="String" />
+            <Parameter Name="I_Usuario" Mode="In" Type="String" />
+            <Parameter Name="I_Equipo" Mode="In" Type="String" />
+            <Parameter Name="I_Codigo" Mode="In" Type="String" />
+            <Parameter Name="I_Descripcion" Mode="In" Type="String" />
+            <Parameter Name="I_CorrelativoInt" Mode="In" Type="Int32" />
+            <Parameter Name="I_cpfijo" Mode="In" Type="String" />
+            <Parameter Name="I_cpVariable" Mode="In" Type="String" />
+            <Parameter Name="I_flagSeleccion" Mode="In" Type="Int32" />
+            <Parameter Name="I_tipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_guardarCDESxOIQuirurgica">
+            <Parameter Name="I_NroOIQx" Mode="In" Type="Int32" />
+            <Parameter Name="I_CodigoOIQx" Mode="In" Type="String" />
+            <Parameter Name="I_Codigo" Mode="In" Type="String" />
+            <Parameter Name="I_Usuario" Mode="In" Type="String" />
+            <Parameter Name="I_Equipo" Mode="In" Type="String" />
+            <Parameter Name="TipoIns" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GuardarFAT" ReturnType="Collection(BD_CRPCGModel.idNroFAT_Result)">
+            <Parameter Name="I_idFAT" Mode="In" Type="Int32" />
+            <Parameter Name="I_NroAtencion" Mode="In" Type="String" />
+            <Parameter Name="I_Usuario" Mode="In" Type="String" />
+            <Parameter Name="I_Equipo" Mode="In" Type="String" />
+            <Parameter Name="I_Num_Doc_Paciente" Mode="In" Type="String" />
+            <Parameter Name="I_FecUltimaAtencion" Mode="In" Type="String" />
+            <Parameter Name="I_HC_paciente" Mode="In" Type="String" />
+            <Parameter Name="I_Edad" Mode="In" Type="String" />
+            <Parameter Name="I_Celular" Mode="In" Type="String" />
+            <Parameter Name="I_Telefono" Mode="In" Type="String" />
+            <Parameter Name="I_Email" Mode="In" Type="String" />
+            <Parameter Name="I_Sexo" Mode="In" Type="String" />
+            <Parameter Name="I_TipoAtencion" Mode="In" Type="Int32" />
+            <Parameter Name="I_Modalidad" Mode="In" Type="Int32" />
+            <Parameter Name="I_Nom_Paciente" Mode="In" Type="String" />
+            <Parameter Name="I_ApePaterno_Paciente" Mode="In" Type="String" />
+            <Parameter Name="I_ApeMaterno_Paciente" Mode="In" Type="String" />
+            <Parameter Name="I_codFinanciador" Mode="In" Type="String" />
+            <Parameter Name="I_Anamnesis" Mode="In" Type="String" />
+            <Parameter Name="I_Motivo" Mode="In" Type="String" />
+            <Parameter Name="I_Tratamiento" Mode="In" Type="String" />
+            <Parameter Name="I_Medicacion" Mode="In" Type="String" />
+            <Parameter Name="I_RNE" Mode="In" Type="String" />
+            <Parameter Name="I_CMP" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GuardarFAT_DxLABRx">
+            <Parameter Name="I_idAtencion" Mode="In" Type="Int32" />
+            <Parameter Name="I_TipoIns" Mode="In" Type="String" />
+            <Parameter Name="I_TipoDX" Mode="In" Type="String" />
+            <Parameter Name="I_Codigo" Mode="In" Type="String" />
+            <Parameter Name="I_Observacion" Mode="In" Type="String" />
+            <Parameter Name="I_Usuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GuardarFAT_Medicamentos">
+            <Parameter Name="I_idAtencion" Mode="In" Type="Int32" />
+            <Parameter Name="I_Codigo" Mode="In" Type="String" />
+            <Parameter Name="I_Nombre" Mode="In" Type="String" />
+            <Parameter Name="I_DescripcionPA" Mode="In" Type="String" />
+            <Parameter Name="I_DOSIS" Mode="In" Type="String" />
+            <Parameter Name="I_Via" Mode="In" Type="String" />
+            <Parameter Name="I_Duracion" Mode="In" Type="String" />
+            <Parameter Name="I_intervalo" Mode="In" Type="String" />
+            <Parameter Name="I_Cantidad" Mode="In" Type="String" />
+            <Parameter Name="I_TipoIns" Mode="In" Type="String" />
+            <Parameter Name="I_Otros" Mode="In" Type="String" />
+            <Parameter Name="I_Usuario" Mode="In" Type="String" />
+            <Parameter Name="I_Forma" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_guardarSuministroxOIQuirurgica">
+            <Parameter Name="I_NroOIQx" Mode="In" Type="Int32" />
+            <Parameter Name="I_TipoIns" Mode="In" Type="String" />
+            <Parameter Name="I_Codigo" Mode="In" Type="String" />
+            <Parameter Name="I_Observacion" Mode="In" Type="String" />
+            <Parameter Name="I_cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="I_Usuario" Mode="In" Type="String" />
+            <Parameter Name="I_Equipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_Listar_GuiasDespacho" ReturnType="Collection(BD_CRPCGModel.Listar_GuiasDespacho_Result)">
+          <Parameter Name="I_id_NroAtencion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_ListarCartas" ReturnType="Collection(BD_CRPCGModel.ListarCartas_Result)">
+            <Parameter Name="I_sBusqueda" Mode="In" Type="String" />
+            <Parameter Name="I_CodEspecialidad" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_ListarCartasAuditor" ReturnType="Collection(BD_CRPCGModel.ListarCartasAuditor_Result)">
+            <Parameter Name="I_sBusqueda" Mode="In" Type="String" />
+            <Parameter Name="I_FInic" Mode="In" Type="String" />
+            <Parameter Name="I_FFin" Mode="In" Type="String" />
+            <Parameter Name="I_CodEstado" Mode="In" Type="String" />
+            <Parameter Name="I_TipoAt" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_ListarCartasOIQx" ReturnType="Collection(BD_CRPCGModel.ListarCartasOIQx_Result)">
+            <Parameter Name="I_sBusqueda" Mode="In" Type="String" />
+            <Parameter Name="I_FInic" Mode="In" Type="String" />
+            <Parameter Name="I_FFin" Mode="In" Type="String" />
+            <Parameter Name="I_CodEspecialidad" Mode="In" Type="String" />
+            <Parameter Name="I_CodEstadoPreQx" Mode="In" Type="String" />
+            <Parameter Name="I_CodTipoCirugia" Mode="In" Type="String" />
+            <Parameter Name="I_ReqPreQx" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_ListarCartasOIQxProgramador" ReturnType="Collection(BD_CRPCGModel.ListarCartasOIQxProgramador_Result)">
+            <Parameter Name="I_FInic" Mode="In" Type="String" />
+            <Parameter Name="I_FFin" Mode="In" Type="String" />
+            <Parameter Name="I_CodEstadoCarta" Mode="In" Type="String" />
+            <Parameter Name="I_CodEstadoPreQx" Mode="In" Type="String" />
+            <Parameter Name="I_QxProgramado" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_ListarCartasServicios" ReturnType="Collection(BD_CRPCGModel.ListarCartasServicios_Result)">
+            <Parameter Name="I_sBusqueda" Mode="In" Type="String" />
+            <Parameter Name="I_FInic" Mode="In" Type="String" />
+            <Parameter Name="I_FFin" Mode="In" Type="String" />
+            <Parameter Name="I_CodEstado" Mode="In" Type="String" />
+            <Parameter Name="I_TipoAt" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_ListarEstadosFarmacia" ReturnType="Collection(String)" />
+          <FunctionImport Name="PRGUR_ListarFAT" ReturnType="Collection(BD_CRPCGModel.ListarFAT_Result)">
+            <Parameter Name="I_FInic" Mode="In" Type="String" />
+            <Parameter Name="I_FFin" Mode="In" Type="String" />
+            <Parameter Name="I_user" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_ListarFAT_Farmacia" ReturnType="Collection(BD_CRPCGModel.ListarFAT_Farmacia_Result)">
+            <Parameter Name="I_FInic" Mode="In" Type="String" />
+            <Parameter Name="I_FFin" Mode="In" Type="String" />
+            <Parameter Name="I_Busqueda" Mode="In" Type="String" />
+            <Parameter Name="I_CodEspecialidad" Mode="In" Type="String" />
+            <Parameter Name="I_Estado" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_ListarOIQx" ReturnType="Collection(BD_CRPCGModel.ListarOIQx_Result)">
+            <Parameter Name="I_sBusqueda" Mode="In" Type="String" />
+            <Parameter Name="I_FInic" Mode="In" Type="String" />
+            <Parameter Name="I_FFin" Mode="In" Type="String" />
+            <Parameter Name="I_CodEstado" Mode="In" Type="String" />
+            <Parameter Name="I_CodEspecialidad" Mode="In" Type="String" />
+            <Parameter Name="I_CConfirmada" Mode="In" Type="Boolean" />
+            <Parameter Name="I_CMP" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_LOG_DEBUG">
+            <Parameter Name="I_usuario" Mode="In" Type="String" />
+            <Parameter Name="I_tipo" Mode="In" Type="String" />
+            <Parameter Name="I_sp" Mode="In" Type="String" />
+            <Parameter Name="I_data" Mode="In" Type="String" />
+            <Parameter Name="I_Ref" Mode="In" Type="String" />
+            <Parameter Name="I_MSJ" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_UPD_AUDITORIA_CARTA">
+            <Parameter Name="I_Importe" Mode="In" Type="String" />
+            <Parameter Name="I_Diagnostico" Mode="In" Type="String" />
+            <Parameter Name="I_CodSolicitud" Mode="In" Type="Int32" />
+            <Parameter Name="I_NroSolicitud" Mode="In" Type="String" />
+            <Parameter Name="I_Usuario" Mode="In" Type="String" />
+            <Parameter Name="I_Equipo" Mode="In" Type="String" />
+            <Parameter Name="I_estadoAuditar" Mode="In" Type="String" />
+            <Parameter Name="I_motivoEstado" Mode="In" Type="String" />
+            <Parameter Name="I_observacionMedica" Mode="In" Type="String" />
+            <Parameter Name="I_observacionInterna" Mode="In" Type="String" />
+            <Parameter Name="I_archivoCarta" Mode="In" Type="Binary" />
+            <Parameter Name="I_NombreArchivo" Mode="In" Type="String" />
+            <Parameter Name="I_departamento" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRFAT_BUSCAR_HC_DOC" ReturnType="Collection(BD_CRPCGModel.PacienteFAT_Result)">
+            <Parameter Name="IS_HC_DOCUMENTO" Mode="In" Type="String" />
+            <Parameter Name="IS_tipoBusqueda" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_ELIMINA_VIDEOCONFERENCIA">
+            <Parameter Name="id_videoconferencia" Mode="In" Type="Int32" />
+            <Parameter Name="is_usr_eliminacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GetFAT_VIDEOCONFERENCIA" ReturnType="Collection(BD_CRPCGModel.PRGUR_GetFAT_VIDEOCONFERENCIA_Result)">
+          <Parameter Name="id_atencion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GetFAT_VIDEOCONFERENCIA_GUID" ReturnType="Collection(BD_CRPCGModel.PRGUR_GetFAT_VIDEOCONFERENCIA_GUID_Result)">
+          <Parameter Name="ui_guid" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GUARDA_VIDEOCONFERENCIA">
+            <Parameter Name="id_atencion" Mode="In" Type="Int32" />
+            <Parameter Name="ig_guid" Mode="In" Type="Guid" />
+            <Parameter Name="is_video_token" Mode="In" Type="String" />
+            <Parameter Name="is_url_video" Mode="In" Type="String" />
+            <Parameter Name="Id_fec_registro" Mode="In" Type="DateTime" />
+            <Parameter Name="is_estado" Mode="In" Type="Int32" />
+            <Parameter Name="Id_fec_creacion" Mode="In" Type="DateTime" />
+            <Parameter Name="is_usr_creacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_Buscar_RNE" ReturnType="Collection(BD_CRPCGModel.getRNE_Result)">
+          <Parameter Name="I_sBusCMP" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_ListarFAT_Servicios" ReturnType="Collection(BD_CRPCGModel.ServiciosFAT_Result)">
+            <Parameter Name="I_FInic" Mode="In" Type="String" />
+            <Parameter Name="I_FFin" Mode="In" Type="String" />
+            <Parameter Name="I_Busqueda" Mode="In" Type="String" />
+            <Parameter Name="I_CodEspecialidad" Mode="In" Type="String" />
+            <Parameter Name="I_CodTIPO" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GUARDA_VIDEOCONFBITACORA">
+            <Parameter Name="id_video_conferencia" Mode="In" Type="Int32" />
+            <Parameter Name="is_evento" Mode="In" Type="String" />
+            <Parameter Name="Id_fec_creacion" Mode="In" Type="DateTime" />
+            <Parameter Name="is_usr_creacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_ListarFAT_GS" ReturnType="Collection(BD_CRPCGModel.ListarFAT_GS_Result)">
+            <Parameter Name="I_FInic" Mode="In" Type="String" />
+            <Parameter Name="I_FFin" Mode="In" Type="String" />
+            <Parameter Name="I_Busqueda" Mode="In" Type="String" />
+            <Parameter Name="I_CodEspecialidad" Mode="In" Type="String" />
+            <Parameter Name="I_CodEstado" Mode="In" Type="Int32" />
+            <Parameter Name="I_Medico" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_getFAT_Reporte" ReturnType="Collection(BD_CRPCGModel.FAT_Reporte_Result)">
+          <Parameter Name="I_idFAT" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_GetFAT" ReturnType="Collection(BD_CRPCGModel.FAT_Result)">
+            <Parameter Name="I_idFAT" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="PRGUR_EliminaProcedimientos_PS_Result">
+          <Property Type="Int32" Name="cPROC_Correlativo" Nullable="false" />
+          <Property Type="String" Name="cCAR_idSol_CarGarantia" Nullable="true" MaxLength="12" />
+          <Property Type="Int32" Name="cCAR_CorrelativoInterno" Nullable="true" />
+          <Property Type="DateTime" Name="AUD_INS_FechaHora" Nullable="true" Precision="23" />
+          <Property Type="String" Name="AUD_INS_Usuario" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="AUD_INS_Equipo" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="sPROC_codigo" Nullable="true" MaxLength="10" />
+          <Property Type="Boolean" Name="fPROC_EstadoRegistro" Nullable="true" />
+          <Property Type="String" Name="sPROC_OrigenDocumento" Nullable="true" MaxLength="3" />
+        </ComplexType>
+        <ComplexType Name="Filtros_Result">
+          <Property Type="String" Name="CODIGO" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="70" />
+        </ComplexType>
+        <ComplexType Name="SelectAutocomplete_Result">
+          <Property Type="String" Name="CODIGO" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="ArchivosXCodCarta_Result">
+          <Property Type="Int32" Name="IdArchivo" Nullable="false" />
+          <Property Type="String" Name="codSolicitud" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NombreArchivo" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="TipoArchivo" Nullable="false" MaxLength="1" />
+          <Property Type="Binary" Name="Archivo" Nullable="true" />
+          <Property Type="String" Name="Origen" Nullable="false" MaxLength="1" />
+          <Property Type="Int32" Name="verWeb" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="BeneficiosProdecimientos_Result">
+          <Property Type="String" Name="CODIGO" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="COPAGOFIJO" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="COPAGOVARIABLE" Nullable="true" MaxLength="25" />
+          <Property Type="Int32" Name="SELECCION" Nullable="true" />
+          <Property Type="String" Name="TIPO" Nullable="false" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="CartaGarantia_Result">
+          <Property Type="String" Name="CODSOLICITUD" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="nrosolicitud" Nullable="true" MaxLength="25" />
+          <Property Type="DateTime" Name="FVencimiento" Nullable="true" Precision="23" />
+          <Property Type="String" Name="nombrepaciente" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="Procedimiento" Nullable="true" />
+          <Property Type="DateTime" Name="fechaRegistro" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Financiador" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="TipoCarta" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="colorEstado" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="Importe" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="NoCubierto" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ObsNocubierto" Nullable="true" />
+          <Property Type="String" Name="Coaseguro" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="deducible" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Agente" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="ObsFinanciador" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="motivoDemora" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="obsrechazado" Nullable="true" MaxLength="70" />
+        </ComplexType>
+        <ComplexType Name="CartaOIQx_Result">
+          <Property Type="Int32" Name="IdMovCarta" Nullable="false" />
+          <Property Type="Int32" Name="IdCGOrden" Nullable="true" />
+          <Property Type="String" Name="NroCGOrden" Nullable="true" MaxLength="12" />
+          <Property Type="DateTime" Name="FRegistro" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NombrePac" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="HCPac" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DocPac" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EdadPac" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="CelularPac" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="CorreoPac" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="SOLICITANTE" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="Departamento" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="Financiador" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="Especialidad" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="colorEstado" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="ReqPreqx" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="PacienteAdmitido" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PreqxRealizado" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EstadoPreQx" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="colorEstadoPreQx" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="CriterioEstadoPreQ" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="ObservacionPreQx" Nullable="true" />
+          <Property Type="DateTime" Name="FechaHoraPrevistaCirugia" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ObservacionFidelizacion" Nullable="true" />
+          <Property Type="Int32" Name="IdArchivo" Nullable="true" />
+          <Property Type="String" Name="SALA" Nullable="true" MaxLength="8" />
+          <Property Type="Int32" Name="IsEditable" Nullable="false" />
+          <Property Type="String" Name="Alergias" Nullable="true" />
+          <Property Type="String" Name="MORBILIDADES" Nullable="true" />
+          <Property Type="String" Name="ObsProgramador" Nullable="true" />
+          <Property Type="String" Name="TipoAnestesia" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="HoraCirugia" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="CartaGarantiaPS_Result">
+          <Property Type="Int32" Name="IdCarta" Nullable="false" />
+          <Property Type="String" Name="nrosolicitud" Nullable="false" MaxLength="12" />
+          <Property Type="DateTime" Name="FVencimiento" Nullable="true" Precision="23" />
+          <Property Type="String" Name="docpaciente" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="historiaclinica" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="nrotelefono" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="nombrepaciente" Nullable="true" MaxLength="80" />
+          <Property Type="Int32" Name="edad" Nullable="true" />
+          <Property Type="String" Name="correo" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="celular" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="fechaRegistro" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Especialidad" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="colorEstado" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Estado" Nullable="false" MaxLength="17" />
+          <Property Type="String" Name="MotivoEstado" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="Importe" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ImportePresup" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="NoCubierto" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ObsNocubierto" Nullable="true" />
+          <Property Type="String" Name="Diagnostico" Nullable="true" MaxLength="261" />
+          <Property Type="String" Name="MedicoTratante" Nullable="true" MaxLength="163" />
+          <Property Type="String" Name="TiempoAnio" Nullable="true" MaxLength="4" />
+          <Property Type="String" Name="TiempoMes" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="TiempoDia" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ObservMedicTrat" Nullable="true" />
+          <Property Type="String" Name="TipoAtencion" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="DiasHospital" Nullable="true" />
+          <Property Type="String" Name="Contratante" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="Titular" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="Parentesco" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="NroContratoPS" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="EstadoContratoPS" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="PSPlan" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PSProducto" Nullable="true" MaxLength="40" />
+          <Property Type="DateTime" Name="PSFechaContrato" Nullable="true" />
+          <Property Type="DateTime" Name="PSFechaAfiliacion" Nullable="true" />
+          <Property Type="DateTime" Name="PSFechAVigencia" Nullable="true" />
+          <Property Type="String" Name="ObservMedica" Nullable="true" />
+          <Property Type="String" Name="ObservInterna" Nullable="true" />
+          <Property Type="String" Name="ObservGenerales" Nullable="true" />
+          <Property Type="String" Name="CodAfiliado" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FecNacPaciente" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="TipoDocto" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Procedimiento" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="CDESxOIQx_Result">
+          <Property Type="String" Name="CODIGO" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="DxLabRx_Result">
+          <Property Type="String" Name="Codigo" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="TIPO" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="OBSERVACIONES" Nullable="true" MaxLength="12" />
+        </ComplexType>
+        <ComplexType Name="FATMedicamentos_Result">
+          <Property Type="String" Name="SFAT_CODIGO" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SFAT_NOMBRE" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="SFAT_DESCRIPCION_PA" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SFAT_DOSIS" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SFAT_CANTIDAD" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="SFAT_INTERVALO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SFAT_VIA_APLICACION" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="SFAT_TIEMPO_APLICACION" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="SFAT_TIPO" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="SFAT_OTROS" Nullable="true" />
+          <Property Type="String" Name="SFAT_FORMA" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="OIQirurgica_Result">
+          <Property Type="Int32" Name="IdOrden" Nullable="false" />
+          <Property Type="String" Name="NroOrden" Nullable="true" MaxLength="12" />
+          <Property Type="DateTime" Name="FRegistro" Nullable="false" Precision="23" />
+          <Property Type="String" Name="NombrePac" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="HCPac" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DocPac" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EdadPac" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="CelularPac" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CorreoPac" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="ReqConsentimiento" Nullable="true" />
+          <Property Type="Boolean" Name="ReqExamenes" Nullable="true" />
+          <Property Type="Boolean" Name="ReqImagenes" Nullable="true" />
+          <Property Type="Boolean" Name="ReqRiesgoCar" Nullable="true" />
+          <Property Type="Boolean" Name="ReqRiesgoNeu" Nullable="true" />
+          <Property Type="Boolean" Name="ReqDSangre" Nullable="true" />
+          <Property Type="Boolean" Name="ReqEvaPre" Nullable="true" />
+          <Property Type="String" Name="ReqOtros" Nullable="true" />
+          <Property Type="String" Name="Justificacion" Nullable="true" />
+          <Property Type="String" Name="Alergias" Nullable="true" />
+          <Property Type="String" Name="Morbilidades" Nullable="true" />
+          <Property Type="String" Name="TEstimado" Nullable="true" MaxLength="6" />
+          <Property Type="DateTime" Name="FecCirugia" Nullable="true" />
+          <Property Type="String" Name="HorCirugia" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="FecHospit" Nullable="true" />
+          <Property Type="String" Name="HorHospit" Nullable="true" MaxLength="10" />
+          <Property Type="Boolean" Name="Profilaxis" Nullable="true" />
+          <Property Type="String" Name="TenfAnios" Nullable="true" MaxLength="4" />
+          <Property Type="String" Name="TenfMes" Nullable="true" MaxLength="4" />
+          <Property Type="String" Name="TenfDia" Nullable="true" MaxLength="4" />
+          <Property Type="String" Name="DuracionHorQx" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="Especialidad" Nullable="true" MaxLength="70" />
+          <Property Type="Int32" Name="IsEditable" Nullable="false" />
+          <Property Type="String" Name="Financiador" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="TipoCarta" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="colorEstado" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="TipoAnestesia" Nullable="true" MaxLength="70" />
+          <Property Type="Boolean" Name="ValidaTiempo" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PreQuirurgicoxCartaOiqx_Result">
+          <Property Type="Int32" Name="IdCita" Nullable="false" />
+          <Property Type="DateTime" Name="Fecha" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="14" />
+          <Property Type="String" Name="Observaciones" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SuministrosxOIQuirurgica_Result">
+          <Property Type="String" Name="CODIGO" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="true" MaxLength="80" />
+          <Property Type="Int32" Name="cantidad" Nullable="true" />
+          <Property Type="String" Name="Observ" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CARTASERVICIO_Result">
+          <Property Type="Int32" Name="cCAR_CorrelativoInterno" Nullable="false" />
+          <Property Type="String" Name="cCAR_idSol_CarGarantia" Nullable="false" MaxLength="12" />
+        </ComplexType>
+        <ComplexType Name="CodIdOIQx_Result">
+          <Property Type="Int32" Name="IDORDEN" Nullable="true" />
+          <Property Type="String" Name="NRORDEN" Nullable="true" MaxLength="12" />
+        </ComplexType>
+        <ComplexType Name="idNroFAT_Result">
+          <Property Type="Int32" Name="IdFat" Nullable="true" />
+          <Property Type="String" Name="NroAtencion" Nullable="true" MaxLength="12" />
+        </ComplexType>
+        <ComplexType Name="Listar_GuiasDespacho_Result">
+          <Property Type="String" Name="Nro_Guia" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="fecha_Ate" Nullable="true" />
+          <Property Type="String" Name="usuario" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SEST_NROGUIA_ATEN_FAR" Nullable="true" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="ListarCartas_Result">
+          <Property Type="Int32" Name="idSolicitud" Nullable="false" />
+          <Property Type="String" Name="NroSolicitud" Nullable="true" MaxLength="12" />
+          <Property Type="DateTime" Name="FecRegistro" Nullable="true" Precision="23" />
+          <Property Type="String" Name="paciente" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="Procedimiento" Nullable="true" />
+          <Property Type="String" Name="TipoSolicitud" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="colorEstado" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="EstaDO" Nullable="true" MaxLength="70" />
+        </ComplexType>
+        <ComplexType Name="ListarCartasAuditor_Result">
+          <Property Type="Int32" Name="idSolicitud" Nullable="false" />
+          <Property Type="String" Name="NroSolicitud" Nullable="true" MaxLength="12" />
+          <Property Type="DateTime" Name="FecRegistro" Nullable="true" Precision="23" />
+          <Property Type="String" Name="paciente" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="colorEstado" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Estado" Nullable="false" MaxLength="17" />
+          <Property Type="String" Name="TaTenc" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NroContrato" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Titular" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="Departamento" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="ListarCartasOIQx_Result">
+          <Property Type="Int32" Name="IdMovCarta" Nullable="false" />
+          <Property Type="String" Name="NroCarta" Nullable="true" MaxLength="12" />
+          <Property Type="DateTime" Name="FechaCitaProgram" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Especialidad" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="TipoCirugiaa" Nullable="false" MaxLength="24" />
+          <Property Type="String" Name="colorEstadoCG" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="EstadoCG" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="HistoriaClinicaPas" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="NombrePac" Nullable="true" MaxLength="80" />
+          <Property Type="Int32" Name="EdadPac" Nullable="true" />
+          <Property Type="String" Name="CelularPac" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="idArchivo" Nullable="true" />
+          <Property Type="String" Name="DocPac" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EstadoPreQx" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="colorEstadoPreQx" Nullable="true" MaxLength="25" />
+          <Property Type="Boolean" Name="isEditablePreQx" Nullable="true" />
+          <Property Type="String" Name="ObservacionPreQx" Nullable="true" />
+          <Property Type="String" Name="CriterioEstadoPreQx" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="Financiador" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="NombreMedico" Nullable="true" MaxLength="82" />
+          <Property Type="DateTime" Name="FechaHoraCirugi_Tentativa" Nullable="true" Precision="23" />
+          <Property Type="String" Name="HoraCirugia" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="FechaCitaPreqx" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Departamento" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="Alergias" Nullable="true" />
+          <Property Type="String" Name="MORBILIDADES" Nullable="true" />
+          <Property Type="String" Name="TipoAnestesia" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="TipoCirugia" Nullable="false" MaxLength="29" />
+        </ComplexType>
+        <ComplexType Name="ListarCartasOIQxProgramador_Result">
+          <Property Type="Int32" Name="IdMovCarta" Nullable="false" />
+          <Property Type="String" Name="NroCarta" Nullable="true" MaxLength="12" />
+          <Property Type="DateTime" Name="FechaCirugia_Medico" Nullable="true" Precision="23" />
+          <Property Type="String" Name="HoraCirugia" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Solicitante" Nullable="true" MaxLength="82" />
+          <Property Type="String" Name="Especialidad" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="NombrePac" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="TipoSolicitud" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="colorEstadoCG" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="EstadoCG" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="EstadoPreQx" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="colorEstadoPreQx" Nullable="true" MaxLength="25" />
+          <Property Type="Int32" Name="QxProgramado" Nullable="false" />
+          <Property Type="Int32" Name="AlertaProgramacion" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ListarCartasServicios_Result">
+          <Property Type="Int32" Name="idSolicitud" Nullable="false" />
+          <Property Type="String" Name="NroSolicitud" Nullable="false" MaxLength="12" />
+          <Property Type="DateTime" Name="FecRegistro" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Paciente" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="colorEstado" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Estado" Nullable="false" MaxLength="17" />
+          <Property Type="String" Name="TaTenc" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NroContrato" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Titular" Nullable="true" MaxLength="80" />
+        </ComplexType>
+        <ComplexType Name="ListarFAT_Result">
+          <Property Type="Int32" Name="IdAtencion" Nullable="false" />
+          <Property Type="String" Name="NroAtencion" Nullable="false" MaxLength="12" />
+          <Property Type="DateTime" Name="FecRegistro" Nullable="true" />
+          <Property Type="String" Name="HorRegistro" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="NroDocumento" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Paciente" Nullable="true" MaxLength="175" />
+          <Property Type="String" Name="Seguro" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="9" />
+        </ComplexType>
+        <ComplexType Name="ListarFAT_Farmacia_Result">
+          <Property Type="String" Name="SFAT_NRO_ATENCION" Nullable="false" MaxLength="12" />
+          <Property Type="String" Name="SFAT_OAA" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Paciente" Nullable="true" MaxLength="175" />
+          <Property Type="String" Name="Estado_RP" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Seguro" Nullable="true" MaxLength="70" />
+          <Property Type="DateTime" Name="Fecha" Nullable="true" />
+          <Property Type="String" Name="sMED_NombreEspecialidad" Nullable="true" MaxLength="80" />
+          <Property Type="Int32" Name="CFAT_ID_ATENCION" Nullable="false" />
+          <Property Type="String" Name="SFAT_CELULAR_PAC" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="SFAT_EMAIL_PAC" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="SFAT_TELEFONO_PAC" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="PDFRECETA" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ListarOIQx_Result">
+          <Property Type="Int32" Name="IdOrden" Nullable="false" />
+          <Property Type="String" Name="NroOrden" Nullable="true" MaxLength="12" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="23" />
+          <Property Type="String" Name="DocPac" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NombrePac" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Especialidad" Nullable="true" MaxLength="70" />
+          <Property Type="DateTime" Name="FecTentativa" Nullable="true" />
+          <Property Type="String" Name="HorTentativa" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Financiador" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="colorEstado" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="CConfirmada" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="SALA" Nullable="true" MaxLength="70" />
+          <Property Type="DateTime" Name="FecProgramada" Nullable="true" Precision="23" />
+          <Property Type="String" Name="EstadoPreQx" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="colorEstadoPreQx" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="ObsPreQx" Nullable="true" />
+          <Property Type="String" Name="TipoAnestesia" Nullable="true" MaxLength="70" />
+        </ComplexType>
+        <ComplexType Name="PacienteFAT_Result">
+          <Property Type="String" Name="dhclcrp" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="Ap_Paterno" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="Ap_Materno" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="Nombres" Nullable="true" MaxLength="60" />
+          <Property Type="DateTime" Name="Ultimaatencion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="SEXO" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="dhcltdc" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="dhcldoc" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="EDAD" Nullable="true" />
+          <Property Type="String" Name="dnrocel" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="dmailto" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="dtelfij" Nullable="true" MaxLength="7" />
+        </ComplexType>
+        <ComplexType Name="PRGUR_GetFAT_VIDEOCONFERENCIA_Result">
+          <Property Type="Int32" Name="CFAT_VIDEO_CONFERENCIA" Nullable="false" />
+          <Property Type="Int32" Name="CFAT_ID_ATENCION" Nullable="false" />
+          <Property Type="Guid" Name="UFAT_GUID" Nullable="false" />
+          <Property Type="String" Name="SFAT_VIDEO_TOKEN" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="SFAT_URL_VIDEO" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="DFAT_FEC_REGISTRO" Nullable="false" />
+          <Property Type="Int32" Name="CFAT_ESTADO" Nullable="false" />
+          <Property Type="DateTime" Name="DFAT_FEC_CREACION" Nullable="false" />
+          <Property Type="String" Name="SFAT_USR_CREACION" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="PRGUR_GetFAT_VIDEOCONFERENCIA_GUID_Result">
+          <Property Type="Int32" Name="CFAT_VIDEO_CONFERENCIA" Nullable="false" />
+          <Property Type="Int32" Name="CFAT_ID_ATENCION" Nullable="false" />
+          <Property Type="Guid" Name="UFAT_GUID" Nullable="false" />
+          <Property Type="String" Name="SFAT_VIDEO_TOKEN" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="SFAT_URL_VIDEO" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="DFAT_FEC_REGISTRO" Nullable="false" />
+          <Property Type="Int32" Name="CFAT_ESTADO" Nullable="false" />
+          <Property Type="DateTime" Name="DFAT_FEC_CREACION" Nullable="false" />
+          <Property Type="String" Name="SFAT_USR_CREACION" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="getRNE_Result" >
+          <Property Type="String" Name="sfat_rne" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="ServiciosFAT_Result">
+          <Property Type="String" Name="SFAT_NRO_ATENCION" Nullable="false" MaxLength="12" />
+          <Property Type="Int32" Name="CFAT_ID_ATENCION" Nullable="false" />
+          <Property Type="DateTime" Name="DFAT_FECHA_CITA" Nullable="true" />
+          <Property Type="String" Name="SFAT_HORA_CITA" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Paciente" Nullable="true" MaxLength="152" />
+          <Property Type="String" Name="SFAT_NUM_DOCUMENTO" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Seguro" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="SFAT_OAA" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SFAT_CELULAR_PAC" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="SFAT_EMAIL_PAC" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="SFAT_TELEFONO_PAC" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="ListarFAT_GS_Result">
+          <Property Type="String" Name="SFAT_NRO_ATENCION" Nullable="false" MaxLength="12" />
+          <Property Type="Int32" Name="CFAT_ID_ATENCION" Nullable="false" />
+          <Property Type="DateTime" Name="fecha" Nullable="true" Precision="23" />
+          <Property Type="String" Name="SFAT_HORA_CITA" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Paciente" Nullable="true" MaxLength="175" />
+          <Property Type="String" Name="SFAT_NUM_DOCUMENTO" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="Seguro" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="sMED_NombresMedico" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="sMED_NombreEspecialidad" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="SFAT_USUARIO_OAA" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="DFAT_FECHA_OAA" Nullable="true" Precision="23" />
+          <Property Type="String" Name="SFAT_OAA" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="PDFRECETA" Nullable="false" />
+          <Property Type="Int32" Name="PDFRX_ATE" Nullable="false" />
+          <Property Type="Int32" Name="PDFLB_ATE" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="FAT_Reporte_Result">
+          <Property Type="String" Name="NroAtencion" Nullable="false" MaxLength="12" />
+          <Property Type="DateTime" Name="FecRegistro" Nullable="false" Precision="23" />
+          <Property Type="String" Name="RNE" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="OAA" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="sMED_CodMedico" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="sMED_NombresMedico" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="sMED_NombreEspecialidad" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="DocumentoPac" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NombreYapellidosPac" Nullable="true" MaxLength="152" />
+          <Property Type="String" Name="HistoriaClinica" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="Edad" Nullable="true" />
+          <Property Type="String" Name="Sexo" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="CodigoFinanciador" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Financiador" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="Anamnesis" Nullable="true" />
+          <Property Type="String" Name="Motivo" Nullable="true" />
+          <Property Type="String" Name="Tratamiento" Nullable="true" />
+          <Property Type="String" Name="Receta" Nullable="true" />
+          <Property Type="DateTime" Name="FechaCierre" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CodigoCentroTrabajo" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="DescripcionCentroTrabajo" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="NumeroRegistro" Nullable="true" MaxLength="7" />
+          <Property Type="Binary" Name="firma" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="FAT_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NroAtencion" Nullable="false" MaxLength="12" />
+          <Property Type="DateTime" Name="Feccita" Nullable="true" />
+          <Property Type="String" Name="MODALIDAD" Nullable="false" MaxLength="13" />
+          <Property Type="String" Name="DocumentoPac" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NombrePac" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApePaternoPac" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApeMaternoPac" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="HistoriaClinica" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="Edad" Nullable="true" />
+          <Property Type="String" Name="Sexo" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="Financiador" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="TipoAtencion" Nullable="true" MaxLength="16" />
+          <Property Type="DateTime" Name="FecUltimaAtencion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Anamnesis" Nullable="true" />
+          <Property Type="String" Name="Motivo" Nullable="true" />
+          <Property Type="String" Name="Tratamiento" Nullable="true" />
+          <Property Type="String" Name="Receta" Nullable="true" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="RNE" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="IsEditable" Nullable="true" />
+          <Property Type="String" Name="emailPac" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="celularPac" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="telefonoPac" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="oaa" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="medio" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="horacita" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SFAT_CMP" Nullable="true" MaxLength="7" />
+          <Property Type="String" Name="sMED_NombresMedico" Nullable="true" MaxLength="80" />
+          <Property Type="Binary" Name="firma" Nullable="true" />
+          <Property Type="String" Name="SFAT_DESCRIP_CENTRAB" Nullable="true" MaxLength="60" />
+          <Property Type="Int32" Name="isVideo" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BD_CRPCGModelStoreContainer" CdmEntityContainer="BD_CRPCGEntities" >
+          <FunctionImportMapping FunctionImportName="PRCGA_ELIMINA_BENEFICIO_PS" FunctionName="BD_CRPCGModel.Store.PRCGA_ELIMINA_BENEFICIO_PS" />
+          <FunctionImportMapping FunctionImportName="PRGUR_ELIMINA_ARCHIVOS" FunctionName="BD_CRPCGModel.Store.PRGUR_ELIMINA_ARCHIVOS" />
+          <FunctionImportMapping FunctionImportName="PRGUR_EliminaProcedimientos_PS" FunctionName="BD_CRPCGModel.Store.PRGUR_EliminaProcedimientos_PS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.PRGUR_EliminaProcedimientos_PS_Result">
+                <ScalarProperty Name="cPROC_Correlativo" ColumnName="cPROC_Correlativo" />
+                <ScalarProperty Name="cCAR_idSol_CarGarantia" ColumnName="cCAR_idSol_CarGarantia" />
+                <ScalarProperty Name="cCAR_CorrelativoInterno" ColumnName="cCAR_CorrelativoInterno" />
+                <ScalarProperty Name="AUD_INS_FechaHora" ColumnName="AUD_INS_FechaHora" />
+                <ScalarProperty Name="AUD_INS_Usuario" ColumnName="AUD_INS_Usuario" />
+                <ScalarProperty Name="AUD_INS_Equipo" ColumnName="AUD_INS_Equipo" />
+                <ScalarProperty Name="sPROC_codigo" ColumnName="sPROC_codigo" />
+                <ScalarProperty Name="fPROC_EstadoRegistro" ColumnName="fPROC_EstadoRegistro" />
+                <ScalarProperty Name="sPROC_OrigenDocumento" ColumnName="sPROC_OrigenDocumento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_Eliminar_OIQUIRURGICA" FunctionName="BD_CRPCGModel.Store.PRGUR_Eliminar_OIQUIRURGICA" />
+          <FunctionImportMapping FunctionImportName="PRGUR_EliminarCDESOIQx" FunctionName="BD_CRPCGModel.Store.PRGUR_EliminarCDESOIQx" />
+          <FunctionImportMapping FunctionImportName="PRGUR_FAT_EliminarDetalles_Receta" FunctionName="BD_CRPCGModel.Store.PRGUR_FAT_EliminarDetalles_Receta" />
+          <FunctionImportMapping FunctionImportName="PRGUR_Filtros" FunctionName="BD_CRPCGModel.Store.PRGUR_Filtros">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.Filtros_Result">
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_FiltrosAutocompletar" FunctionName="BD_CRPCGModel.Store.PRGUR_FiltrosAutocompletar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.SelectAutocomplete_Result">
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_getArchivosXCarta" FunctionName="BD_CRPCGModel.Store.PRGUR_getArchivosXCarta">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.ArchivosXCodCarta_Result">
+                <ScalarProperty Name="IdArchivo" ColumnName="IdArchivo" />
+                <ScalarProperty Name="codSolicitud" ColumnName="codSolicitud" />
+                <ScalarProperty Name="NombreArchivo" ColumnName="NombreArchivo" />
+                <ScalarProperty Name="TipoArchivo" ColumnName="TipoArchivo" />
+                <ScalarProperty Name="Archivo" ColumnName="Archivo" />
+                <ScalarProperty Name="Origen" ColumnName="Origen" />
+                <ScalarProperty Name="verWeb" ColumnName="verWeb" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_getBenefYProcedxSolicitud" FunctionName="BD_CRPCGModel.Store.PRGUR_getBenefYProcedxSolicitud">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.BeneficiosProdecimientos_Result">
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="COPAGOFIJO" ColumnName="COPAGOFIJO" />
+                <ScalarProperty Name="COPAGOVARIABLE" ColumnName="COPAGOVARIABLE" />
+                <ScalarProperty Name="SELECCION" ColumnName="SELECCION" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_getCarta" FunctionName="BD_CRPCGModel.Store.PRGUR_getCarta">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.CartaGarantia_Result">
+                <ScalarProperty Name="CODSOLICITUD" ColumnName="CODSOLICITUD" />
+                <ScalarProperty Name="nrosolicitud" ColumnName="nrosolicitud" />
+                <ScalarProperty Name="FVencimiento" ColumnName="FVencimiento" />
+                <ScalarProperty Name="nombrepaciente" ColumnName="nombrepaciente" />
+                <ScalarProperty Name="Procedimiento" ColumnName="Procedimiento" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="Financiador" ColumnName="Financiador" />
+                <ScalarProperty Name="TipoCarta" ColumnName="TipoCarta" />
+                <ScalarProperty Name="colorEstado" ColumnName="colorEstado" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="NoCubierto" ColumnName="NoCubierto" />
+                <ScalarProperty Name="ObsNocubierto" ColumnName="ObsNocubierto" />
+                <ScalarProperty Name="Coaseguro" ColumnName="Coaseguro" />
+                <ScalarProperty Name="deducible" ColumnName="deducible" />
+                <ScalarProperty Name="Agente" ColumnName="Agente" />
+                <ScalarProperty Name="ObsFinanciador" ColumnName="ObsFinanciador" />
+                <ScalarProperty Name="motivoDemora" ColumnName="motivoDemora" />
+                <ScalarProperty Name="obsrechazado" ColumnName="obsrechazado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_getCartaOIQx" FunctionName="BD_CRPCGModel.Store.PRGUR_getCartaOIQx">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.CartaOIQx_Result">
+                <ScalarProperty Name="IdMovCarta" ColumnName="IdMovCarta" />
+                <ScalarProperty Name="IdCGOrden" ColumnName="IdCGOrden" />
+                <ScalarProperty Name="NroCGOrden" ColumnName="NroCGOrden" />
+                <ScalarProperty Name="FRegistro" ColumnName="FRegistro" />
+                <ScalarProperty Name="NombrePac" ColumnName="NombrePac" />
+                <ScalarProperty Name="HCPac" ColumnName="HCPac" />
+                <ScalarProperty Name="DocPac" ColumnName="DocPac" />
+                <ScalarProperty Name="EdadPac" ColumnName="EdadPac" />
+                <ScalarProperty Name="CelularPac" ColumnName="CelularPac" />
+                <ScalarProperty Name="CorreoPac" ColumnName="CorreoPac" />
+                <ScalarProperty Name="SOLICITANTE" ColumnName="SOLICITANTE" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Financiador" ColumnName="Financiador" />
+                <ScalarProperty Name="Especialidad" ColumnName="Especialidad" />
+                <ScalarProperty Name="colorEstado" ColumnName="colorEstado" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="ReqPreqx" ColumnName="ReqPreqx" />
+                <ScalarProperty Name="PacienteAdmitido" ColumnName="PacienteAdmitido" />
+                <ScalarProperty Name="PreqxRealizado" ColumnName="PreqxRealizado" />
+                <ScalarProperty Name="EstadoPreQx" ColumnName="EstadoPreQx" />
+                <ScalarProperty Name="colorEstadoPreQx" ColumnName="colorEstadoPreQx" />
+                <ScalarProperty Name="CriterioEstadoPreQ" ColumnName="CriterioEstadoPreQ" />
+                <ScalarProperty Name="ObservacionPreQx" ColumnName="ObservacionPreQx" />
+                <ScalarProperty Name="FechaHoraPrevistaCirugia" ColumnName="FechaHoraPrevistaCirugia" />
+                <ScalarProperty Name="ObservacionFidelizacion" ColumnName="ObservacionFidelizacion" />
+                <ScalarProperty Name="IdArchivo" ColumnName="IdArchivo" />
+                <ScalarProperty Name="SALA" ColumnName="SALA" />
+                <ScalarProperty Name="IsEditable" ColumnName="IsEditable" />
+                <ScalarProperty Name="Alergias" ColumnName="Alergias" />
+                <ScalarProperty Name="MORBILIDADES" ColumnName="MORBILIDADES" />
+                <ScalarProperty Name="ObsProgramador" ColumnName="ObsProgramador" />
+                <ScalarProperty Name="TipoAnestesia" ColumnName="TipoAnestesia" />
+                <ScalarProperty Name="HoraCirugia" ColumnName="HoraCirugia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_getCartaPS" FunctionName="BD_CRPCGModel.Store.PRGUR_getCartaPS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.CartaGarantiaPS_Result">
+                <ScalarProperty Name="IdCarta" ColumnName="IdCarta" />
+                <ScalarProperty Name="nrosolicitud" ColumnName="nrosolicitud" />
+                <ScalarProperty Name="FVencimiento" ColumnName="FVencimiento" />
+                <ScalarProperty Name="docpaciente" ColumnName="docpaciente" />
+                <ScalarProperty Name="historiaclinica" ColumnName="historiaclinica" />
+                <ScalarProperty Name="nrotelefono" ColumnName="nrotelefono" />
+                <ScalarProperty Name="nombrepaciente" ColumnName="nombrepaciente" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="celular" ColumnName="celular" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="Especialidad" ColumnName="Especialidad" />
+                <ScalarProperty Name="colorEstado" ColumnName="colorEstado" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="MotivoEstado" ColumnName="MotivoEstado" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="ImportePresup" ColumnName="ImportePresup" />
+                <ScalarProperty Name="NoCubierto" ColumnName="NoCubierto" />
+                <ScalarProperty Name="ObsNocubierto" ColumnName="ObsNocubierto" />
+                <ScalarProperty Name="Diagnostico" ColumnName="Diagnostico" />
+                <ScalarProperty Name="MedicoTratante" ColumnName="MedicoTratante" />
+                <ScalarProperty Name="TiempoAnio" ColumnName="TiempoAnio" />
+                <ScalarProperty Name="TiempoMes" ColumnName="TiempoMes" />
+                <ScalarProperty Name="TiempoDia" ColumnName="TiempoDia" />
+                <ScalarProperty Name="ObservMedicTrat" ColumnName="ObservMedicTrat" />
+                <ScalarProperty Name="TipoAtencion" ColumnName="TipoAtencion" />
+                <ScalarProperty Name="DiasHospital" ColumnName="DiasHospital" />
+                <ScalarProperty Name="Contratante" ColumnName="Contratante" />
+                <ScalarProperty Name="Titular" ColumnName="Titular" />
+                <ScalarProperty Name="Parentesco" ColumnName="Parentesco" />
+                <ScalarProperty Name="NroContratoPS" ColumnName="NroContratoPS" />
+                <ScalarProperty Name="EstadoContratoPS" ColumnName="EstadoContratoPS" />
+                <ScalarProperty Name="PSPlan" ColumnName="PSPlan" />
+                <ScalarProperty Name="PSProducto" ColumnName="PSProducto" />
+                <ScalarProperty Name="PSFechaContrato" ColumnName="PSFechaContrato" />
+                <ScalarProperty Name="PSFechaAfiliacion" ColumnName="PSFechaAfiliacion" />
+                <ScalarProperty Name="PSFechAVigencia" ColumnName="PSFechAVigencia" />
+                <ScalarProperty Name="ObservMedica" ColumnName="ObservMedica" />
+                <ScalarProperty Name="ObservInterna" ColumnName="ObservInterna" />
+                <ScalarProperty Name="ObservGenerales" ColumnName="ObservGenerales" />
+                <ScalarProperty Name="CodAfiliado" ColumnName="CodAfiliado" />
+                <ScalarProperty Name="FecNacPaciente" ColumnName="FecNacPaciente" />
+                <ScalarProperty Name="TipoDocto" ColumnName="TipoDocto" />
+                <ScalarProperty Name="Procedimiento" ColumnName="Procedimiento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_getCDESxOIQuirurgica" FunctionName="BD_CRPCGModel.Store.PRGUR_getCDESxOIQuirurgica">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.CDESxOIQx_Result">
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_GetFAT_DxLAbRx" FunctionName="BD_CRPCGModel.Store.PRGUR_GetFAT_DxLAbRx">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.DxLabRx_Result">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_GetFAT_Medicamentos" FunctionName="BD_CRPCGModel.Store.PRGUR_GetFAT_Medicamentos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.FATMedicamentos_Result">
+                <ScalarProperty Name="SFAT_CODIGO" ColumnName="SFAT_CODIGO" />
+                <ScalarProperty Name="SFAT_NOMBRE" ColumnName="SFAT_NOMBRE" />
+                <ScalarProperty Name="SFAT_DESCRIPCION_PA" ColumnName="SFAT_DESCRIPCION_PA" />
+                <ScalarProperty Name="SFAT_DOSIS" ColumnName="SFAT_DOSIS" />
+                <ScalarProperty Name="SFAT_CANTIDAD" ColumnName="SFAT_CANTIDAD" />
+                <ScalarProperty Name="SFAT_INTERVALO" ColumnName="SFAT_INTERVALO" />
+                <ScalarProperty Name="SFAT_VIA_APLICACION" ColumnName="SFAT_VIA_APLICACION" />
+                <ScalarProperty Name="SFAT_TIEMPO_APLICACION" ColumnName="SFAT_TIEMPO_APLICACION" />
+                <ScalarProperty Name="SFAT_TIPO" ColumnName="SFAT_TIPO" />
+                <ScalarProperty Name="SFAT_OTROS" ColumnName="SFAT_OTROS" />
+                <ScalarProperty Name="SFAT_FORMA" ColumnName="SFAT_FORMA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_getOIQx" FunctionName="BD_CRPCGModel.Store.PRGUR_getOIQx">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.OIQirurgica_Result">
+                <ScalarProperty Name="IdOrden" ColumnName="IdOrden" />
+                <ScalarProperty Name="NroOrden" ColumnName="NroOrden" />
+                <ScalarProperty Name="FRegistro" ColumnName="FRegistro" />
+                <ScalarProperty Name="NombrePac" ColumnName="NombrePac" />
+                <ScalarProperty Name="HCPac" ColumnName="HCPac" />
+                <ScalarProperty Name="DocPac" ColumnName="DocPac" />
+                <ScalarProperty Name="EdadPac" ColumnName="EdadPac" />
+                <ScalarProperty Name="CelularPac" ColumnName="CelularPac" />
+                <ScalarProperty Name="CorreoPac" ColumnName="CorreoPac" />
+                <ScalarProperty Name="ReqConsentimiento" ColumnName="ReqConsentimiento" />
+                <ScalarProperty Name="ReqExamenes" ColumnName="ReqExamenes" />
+                <ScalarProperty Name="ReqImagenes" ColumnName="ReqImagenes" />
+                <ScalarProperty Name="ReqRiesgoCar" ColumnName="ReqRiesgoCar" />
+                <ScalarProperty Name="ReqRiesgoNeu" ColumnName="ReqRiesgoNeu" />
+                <ScalarProperty Name="ReqDSangre" ColumnName="ReqDSangre" />
+                <ScalarProperty Name="ReqEvaPre" ColumnName="ReqEvaPre" />
+                <ScalarProperty Name="ReqOtros" ColumnName="ReqOtros" />
+                <ScalarProperty Name="Justificacion" ColumnName="Justificacion" />
+                <ScalarProperty Name="Alergias" ColumnName="Alergias" />
+                <ScalarProperty Name="Morbilidades" ColumnName="Morbilidades" />
+                <ScalarProperty Name="TEstimado" ColumnName="TEstimado" />
+                <ScalarProperty Name="FecCirugia" ColumnName="FecCirugia" />
+                <ScalarProperty Name="HorCirugia" ColumnName="HorCirugia" />
+                <ScalarProperty Name="FecHospit" ColumnName="FecHospit" />
+                <ScalarProperty Name="HorHospit" ColumnName="HorHospit" />
+                <ScalarProperty Name="Profilaxis" ColumnName="Profilaxis" />
+                <ScalarProperty Name="TenfAnios" ColumnName="TenfAnios" />
+                <ScalarProperty Name="TenfMes" ColumnName="TenfMes" />
+                <ScalarProperty Name="TenfDia" ColumnName="TenfDia" />
+                <ScalarProperty Name="DuracionHorQx" ColumnName="DuracionHorQx" />
+                <ScalarProperty Name="Especialidad" ColumnName="Especialidad" />
+                <ScalarProperty Name="IsEditable" ColumnName="IsEditable" />
+                <ScalarProperty Name="Financiador" ColumnName="Financiador" />
+                <ScalarProperty Name="TipoCarta" ColumnName="TipoCarta" />
+                <ScalarProperty Name="colorEstado" ColumnName="colorEstado" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="TipoAnestesia" ColumnName="TipoAnestesia" />
+                <ScalarProperty Name="ValidaTiempo" ColumnName="ValidaTiempo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_getPreQuirurgicoxCartaOiqx" FunctionName="BD_CRPCGModel.Store.PRGUR_getPreQuirurgicoxCartaOiqx">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.PreQuirurgicoxCartaOiqx_Result">
+                <ScalarProperty Name="IdCita" ColumnName="IdCita" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_getSuministrosxOIQuirurgica" FunctionName="BD_CRPCGModel.Store.PRGUR_getSuministrosxOIQuirurgica">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.SuministrosxOIQuirurgica_Result">
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="Observ" ColumnName="Observ" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_Guarda_ArchivoFAT" FunctionName="BD_CRPCGModel.Store.PRGUR_Guarda_ArchivoFAT" />
+          <FunctionImportMapping FunctionImportName="PRGUR_GUARDA_ARCHIVOS" FunctionName="BD_CRPCGModel.Store.PRGUR_GUARDA_ARCHIVOS" />
+          <FunctionImportMapping FunctionImportName="PRGUR_GUARDA_CartaOrdenIQx" FunctionName="BD_CRPCGModel.Store.PRGUR_GUARDA_CartaOrdenIQx" />
+          <FunctionImportMapping FunctionImportName="PRGUR_GUARDAR_CARTASERVICIO" FunctionName="BD_CRPCGModel.Store.PRGUR_GUARDAR_CARTASERVICIO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.CARTASERVICIO_Result">
+                <ScalarProperty Name="cCAR_CorrelativoInterno" ColumnName="cCAR_CorrelativoInterno" />
+                <ScalarProperty Name="cCAR_idSol_CarGarantia" ColumnName="cCAR_idSol_CarGarantia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_GUARDAR_OIQUIRURGICA" FunctionName="BD_CRPCGModel.Store.PRGUR_GUARDAR_OIQUIRURGICA">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.CodIdOIQx_Result">
+                <ScalarProperty Name="IDORDEN" ColumnName="IDORDEN" />
+                <ScalarProperty Name="NRORDEN" ColumnName="NRORDEN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_GuardarBenefYProced_PS" FunctionName="BD_CRPCGModel.Store.PRGUR_GuardarBenefYProced_PS" />
+          <FunctionImportMapping FunctionImportName="PRGUR_guardarCDESxOIQuirurgica" FunctionName="BD_CRPCGModel.Store.PRGUR_guardarCDESxOIQuirurgica" />
+          <FunctionImportMapping FunctionImportName="PRGUR_GuardarFAT" FunctionName="BD_CRPCGModel.Store.PRGUR_GuardarFAT">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.idNroFAT_Result">
+                <ScalarProperty Name="IdFat" ColumnName="IdFat" />
+                <ScalarProperty Name="NroAtencion" ColumnName="NroAtencion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_GuardarFAT_DxLABRx" FunctionName="BD_CRPCGModel.Store.PRGUR_GuardarFAT_DxLABRx" />
+          <FunctionImportMapping FunctionImportName="PRGUR_GuardarFAT_Medicamentos" FunctionName="BD_CRPCGModel.Store.PRGUR_GuardarFAT_Medicamentos" />
+          <FunctionImportMapping FunctionImportName="PRGUR_guardarSuministroxOIQuirurgica" FunctionName="BD_CRPCGModel.Store.PRGUR_guardarSuministroxOIQuirurgica" />
+          <FunctionImportMapping FunctionImportName="PRGUR_Listar_GuiasDespacho" FunctionName="BD_CRPCGModel.Store.PRGUR_Listar_GuiasDespacho">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.Listar_GuiasDespacho_Result">
+                <ScalarProperty Name="Nro_Guia" ColumnName="Nro_Guia" />
+                <ScalarProperty Name="fecha_Ate" ColumnName="fecha_Ate" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="SEST_NROGUIA_ATEN_FAR" ColumnName="SEST_NROGUIA_ATEN_FAR" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_ListarCartas" FunctionName="BD_CRPCGModel.Store.PRGUR_ListarCartas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.ListarCartas_Result">
+                <ScalarProperty Name="idSolicitud" ColumnName="idSolicitud" />
+                <ScalarProperty Name="NroSolicitud" ColumnName="NroSolicitud" />
+                <ScalarProperty Name="FecRegistro" ColumnName="FecRegistro" />
+                <ScalarProperty Name="paciente" ColumnName="paciente" />
+                <ScalarProperty Name="Procedimiento" ColumnName="Procedimiento" />
+                <ScalarProperty Name="TipoSolicitud" ColumnName="TipoSolicitud" />
+                <ScalarProperty Name="colorEstado" ColumnName="colorEstado" />
+                <ScalarProperty Name="EstaDO" ColumnName="EstaDO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_ListarCartasAuditor" FunctionName="BD_CRPCGModel.Store.PRGUR_ListarCartasAuditor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.ListarCartasAuditor_Result">
+                <ScalarProperty Name="idSolicitud" ColumnName="idSolicitud" />
+                <ScalarProperty Name="NroSolicitud" ColumnName="NroSolicitud" />
+                <ScalarProperty Name="FecRegistro" ColumnName="FecRegistro" />
+                <ScalarProperty Name="paciente" ColumnName="paciente" />
+                <ScalarProperty Name="colorEstado" ColumnName="colorEstado" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="TaTenc" ColumnName="TaTenc" />
+                <ScalarProperty Name="NroContrato" ColumnName="NroContrato" />
+                <ScalarProperty Name="Titular" ColumnName="Titular" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_ListarCartasOIQx" FunctionName="BD_CRPCGModel.Store.PRGUR_ListarCartasOIQx">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.ListarCartasOIQx_Result">
+                <ScalarProperty Name="IdMovCarta" ColumnName="IdMovCarta" />
+                <ScalarProperty Name="NroCarta" ColumnName="NroCarta" />
+                <ScalarProperty Name="FechaCitaProgram" ColumnName="FechaCitaProgram" />
+                <ScalarProperty Name="Especialidad" ColumnName="Especialidad" />
+                <ScalarProperty Name="TipoCirugiaa" ColumnName="TipoCirugiaa" />
+                <ScalarProperty Name="colorEstadoCG" ColumnName="colorEstadoCG" />
+                <ScalarProperty Name="EstadoCG" ColumnName="EstadoCG" />
+                <ScalarProperty Name="HistoriaClinicaPas" ColumnName="HistoriaClinicaPas" />
+                <ScalarProperty Name="NombrePac" ColumnName="NombrePac" />
+                <ScalarProperty Name="EdadPac" ColumnName="EdadPac" />
+                <ScalarProperty Name="CelularPac" ColumnName="CelularPac" />
+                <ScalarProperty Name="idArchivo" ColumnName="idArchivo" />
+                <ScalarProperty Name="DocPac" ColumnName="DocPac" />
+                <ScalarProperty Name="EstadoPreQx" ColumnName="EstadoPreQx" />
+                <ScalarProperty Name="colorEstadoPreQx" ColumnName="colorEstadoPreQx" />
+                <ScalarProperty Name="isEditablePreQx" ColumnName="isEditablePreQx" />
+                <ScalarProperty Name="ObservacionPreQx" ColumnName="ObservacionPreQx" />
+                <ScalarProperty Name="CriterioEstadoPreQx" ColumnName="CriterioEstadoPreQx" />
+                <ScalarProperty Name="Financiador" ColumnName="Financiador" />
+                <ScalarProperty Name="NombreMedico" ColumnName="NombreMedico" />
+                <ScalarProperty Name="FechaHoraCirugi_Tentativa" ColumnName="FechaHoraCirugi_Tentativa" />
+                <ScalarProperty Name="HoraCirugia" ColumnName="HoraCirugia" />
+                <ScalarProperty Name="FechaCitaPreqx" ColumnName="FechaCitaPreqx" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Alergias" ColumnName="Alergias" />
+                <ScalarProperty Name="MORBILIDADES" ColumnName="MORBILIDADES" />
+                <ScalarProperty Name="TipoAnestesia" ColumnName="TipoAnestesia" />
+                <ScalarProperty Name="TipoCirugia" ColumnName="TipoCirugia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_ListarCartasOIQxProgramador" FunctionName="BD_CRPCGModel.Store.PRGUR_ListarCartasOIQxProgramador">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.ListarCartasOIQxProgramador_Result">
+                <ScalarProperty Name="IdMovCarta" ColumnName="IdMovCarta" />
+                <ScalarProperty Name="NroCarta" ColumnName="NroCarta" />
+                <ScalarProperty Name="FechaCirugia_Medico" ColumnName="FechaCirugia_Medico" />
+                <ScalarProperty Name="HoraCirugia" ColumnName="HoraCirugia" />
+                <ScalarProperty Name="Solicitante" ColumnName="Solicitante" />
+                <ScalarProperty Name="Especialidad" ColumnName="Especialidad" />
+                <ScalarProperty Name="NombrePac" ColumnName="NombrePac" />
+                <ScalarProperty Name="TipoSolicitud" ColumnName="TipoSolicitud" />
+                <ScalarProperty Name="colorEstadoCG" ColumnName="colorEstadoCG" />
+                <ScalarProperty Name="EstadoCG" ColumnName="EstadoCG" />
+                <ScalarProperty Name="EstadoPreQx" ColumnName="EstadoPreQx" />
+                <ScalarProperty Name="colorEstadoPreQx" ColumnName="colorEstadoPreQx" />
+                <ScalarProperty Name="QxProgramado" ColumnName="QxProgramado" />
+                <ScalarProperty Name="AlertaProgramacion" ColumnName="AlertaProgramacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_ListarCartasServicios" FunctionName="BD_CRPCGModel.Store.PRGUR_ListarCartasServicios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.ListarCartasServicios_Result">
+                <ScalarProperty Name="idSolicitud" ColumnName="idSolicitud" />
+                <ScalarProperty Name="NroSolicitud" ColumnName="NroSolicitud" />
+                <ScalarProperty Name="FecRegistro" ColumnName="FecRegistro" />
+                <ScalarProperty Name="Paciente" ColumnName="Paciente" />
+                <ScalarProperty Name="colorEstado" ColumnName="colorEstado" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="TaTenc" ColumnName="TaTenc" />
+                <ScalarProperty Name="NroContrato" ColumnName="NroContrato" />
+                <ScalarProperty Name="Titular" ColumnName="Titular" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_ListarEstadosFarmacia" FunctionName="BD_CRPCGModel.Store.PRGUR_ListarEstadosFarmacia" />
+          <FunctionImportMapping FunctionImportName="PRGUR_ListarFAT" FunctionName="BD_CRPCGModel.Store.PRGUR_ListarFAT">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.ListarFAT_Result">
+                <ScalarProperty Name="IdAtencion" ColumnName="IdAtencion" />
+                <ScalarProperty Name="NroAtencion" ColumnName="NroAtencion" />
+                <ScalarProperty Name="FecRegistro" ColumnName="FecRegistro" />
+                <ScalarProperty Name="HorRegistro" ColumnName="HorRegistro" />
+                <ScalarProperty Name="NroDocumento" ColumnName="NroDocumento" />
+                <ScalarProperty Name="Paciente" ColumnName="Paciente" />
+                <ScalarProperty Name="Seguro" ColumnName="Seguro" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_ListarFAT_Farmacia" FunctionName="BD_CRPCGModel.Store.PRGUR_ListarFAT_Farmacia">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.ListarFAT_Farmacia_Result">
+                <ScalarProperty Name="SFAT_NRO_ATENCION" ColumnName="SFAT_NRO_ATENCION" />
+                <ScalarProperty Name="SFAT_OAA" ColumnName="SFAT_OAA" />
+                <ScalarProperty Name="Paciente" ColumnName="Paciente" />
+                <ScalarProperty Name="Estado_RP" ColumnName="Estado_RP" />
+                <ScalarProperty Name="Seguro" ColumnName="Seguro" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="sMED_NombreEspecialidad" ColumnName="sMED_NombreEspecialidad" />
+                <ScalarProperty Name="CFAT_ID_ATENCION" ColumnName="CFAT_ID_ATENCION" />
+                <ScalarProperty Name="SFAT_CELULAR_PAC" ColumnName="SFAT_CELULAR_PAC" />
+                <ScalarProperty Name="SFAT_EMAIL_PAC" ColumnName="SFAT_EMAIL_PAC" />
+                <ScalarProperty Name="SFAT_TELEFONO_PAC" ColumnName="SFAT_TELEFONO_PAC" />
+                <ScalarProperty Name="PDFRECETA" ColumnName="PDFRECETA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_ListarOIQx" FunctionName="BD_CRPCGModel.Store.PRGUR_ListarOIQx">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.ListarOIQx_Result">
+                <ScalarProperty Name="IdOrden" ColumnName="IdOrden" />
+                <ScalarProperty Name="NroOrden" ColumnName="NroOrden" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="DocPac" ColumnName="DocPac" />
+                <ScalarProperty Name="NombrePac" ColumnName="NombrePac" />
+                <ScalarProperty Name="Especialidad" ColumnName="Especialidad" />
+                <ScalarProperty Name="FecTentativa" ColumnName="FecTentativa" />
+                <ScalarProperty Name="HorTentativa" ColumnName="HorTentativa" />
+                <ScalarProperty Name="Financiador" ColumnName="Financiador" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="colorEstado" ColumnName="colorEstado" />
+                <ScalarProperty Name="CConfirmada" ColumnName="CConfirmada" />
+                <ScalarProperty Name="SALA" ColumnName="SALA" />
+                <ScalarProperty Name="FecProgramada" ColumnName="FecProgramada" />
+                <ScalarProperty Name="EstadoPreQx" ColumnName="EstadoPreQx" />
+                <ScalarProperty Name="colorEstadoPreQx" ColumnName="colorEstadoPreQx" />
+                <ScalarProperty Name="ObsPreQx" ColumnName="ObsPreQx" />
+                <ScalarProperty Name="TipoAnestesia" ColumnName="TipoAnestesia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_LOG_DEBUG" FunctionName="BD_CRPCGModel.Store.PRGUR_LOG_DEBUG" />
+          <FunctionImportMapping FunctionImportName="PRGUR_UPD_AUDITORIA_CARTA" FunctionName="BD_CRPCGModel.Store.PRGUR_UPD_AUDITORIA_CARTA" />
+          <FunctionImportMapping FunctionImportName="PRFAT_BUSCAR_HC_DOC" FunctionName="BD_CRPCGModel.Store.PRFAT_BUSCAR_HC_DOC">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.PacienteFAT_Result">
+                <ScalarProperty Name="dhclcrp" ColumnName="dhclcrp" />
+                <ScalarProperty Name="Ap_Paterno" ColumnName="Ap_Paterno" />
+                <ScalarProperty Name="Ap_Materno" ColumnName="Ap_Materno" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Ultimaatencion" ColumnName="Ultimaatencion" />
+                <ScalarProperty Name="SEXO" ColumnName="SEXO" />
+                <ScalarProperty Name="dhcltdc" ColumnName="dhcltdc" />
+                <ScalarProperty Name="dhcldoc" ColumnName="dhcldoc" />
+                <ScalarProperty Name="EDAD" ColumnName="EDAD" />
+                <ScalarProperty Name="dnrocel" ColumnName="dnrocel" />
+                <ScalarProperty Name="dmailto" ColumnName="dmailto" />
+                <ScalarProperty Name="dtelfij" ColumnName="dtelfij" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_ELIMINA_VIDEOCONFERENCIA" FunctionName="BD_CRPCGModel.Store.PRGUR_ELIMINA_VIDEOCONFERENCIA" />
+          <FunctionImportMapping FunctionImportName="PRGUR_GetFAT_VIDEOCONFERENCIA" FunctionName="BD_CRPCGModel.Store.PRGUR_GetFAT_VIDEOCONFERENCIA">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.PRGUR_GetFAT_VIDEOCONFERENCIA_Result">
+                <ScalarProperty Name="CFAT_VIDEO_CONFERENCIA" ColumnName="CFAT_VIDEO_CONFERENCIA" />
+                <ScalarProperty Name="CFAT_ID_ATENCION" ColumnName="CFAT_ID_ATENCION" />
+                <ScalarProperty Name="UFAT_GUID" ColumnName="UFAT_GUID" />
+                <ScalarProperty Name="SFAT_VIDEO_TOKEN" ColumnName="SFAT_VIDEO_TOKEN" />
+                <ScalarProperty Name="SFAT_URL_VIDEO" ColumnName="SFAT_URL_VIDEO" />
+                <ScalarProperty Name="DFAT_FEC_REGISTRO" ColumnName="DFAT_FEC_REGISTRO" />
+                <ScalarProperty Name="CFAT_ESTADO" ColumnName="CFAT_ESTADO" />
+                <ScalarProperty Name="DFAT_FEC_CREACION" ColumnName="DFAT_FEC_CREACION" />
+                <ScalarProperty Name="SFAT_USR_CREACION" ColumnName="SFAT_USR_CREACION" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_GetFAT_VIDEOCONFERENCIA_GUID" FunctionName="BD_CRPCGModel.Store.PRGUR_GetFAT_VIDEOCONFERENCIA_GUID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.PRGUR_GetFAT_VIDEOCONFERENCIA_GUID_Result">
+                <ScalarProperty Name="CFAT_VIDEO_CONFERENCIA" ColumnName="CFAT_VIDEO_CONFERENCIA" />
+                <ScalarProperty Name="CFAT_ID_ATENCION" ColumnName="CFAT_ID_ATENCION" />
+                <ScalarProperty Name="UFAT_GUID" ColumnName="UFAT_GUID" />
+                <ScalarProperty Name="SFAT_VIDEO_TOKEN" ColumnName="SFAT_VIDEO_TOKEN" />
+                <ScalarProperty Name="SFAT_URL_VIDEO" ColumnName="SFAT_URL_VIDEO" />
+                <ScalarProperty Name="DFAT_FEC_REGISTRO" ColumnName="DFAT_FEC_REGISTRO" />
+                <ScalarProperty Name="CFAT_ESTADO" ColumnName="CFAT_ESTADO" />
+                <ScalarProperty Name="DFAT_FEC_CREACION" ColumnName="DFAT_FEC_CREACION" />
+                <ScalarProperty Name="SFAT_USR_CREACION" ColumnName="SFAT_USR_CREACION" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_GUARDA_VIDEOCONFERENCIA" FunctionName="BD_CRPCGModel.Store.PRGUR_GUARDA_VIDEOCONFERENCIA" />
+          <FunctionImportMapping FunctionImportName="PRGUR_Buscar_RNE" FunctionName="BD_CRPCGModel.Store.PRGUR_Buscar_RNE" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.getRNE_Result">
+                <ScalarProperty Name="sfat_rne" ColumnName="sfat_rne" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_ListarFAT_Servicios" FunctionName="BD_CRPCGModel.Store.PRGUR_ListarFAT_Servicios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.ServiciosFAT_Result">
+                <ScalarProperty Name="SFAT_NRO_ATENCION" ColumnName="SFAT_NRO_ATENCION" />
+                <ScalarProperty Name="CFAT_ID_ATENCION" ColumnName="CFAT_ID_ATENCION" />
+                <ScalarProperty Name="DFAT_FECHA_CITA" ColumnName="DFAT_FECHA_CITA" />
+                <ScalarProperty Name="SFAT_HORA_CITA" ColumnName="SFAT_HORA_CITA" />
+                <ScalarProperty Name="Paciente" ColumnName="Paciente" />
+                <ScalarProperty Name="SFAT_NUM_DOCUMENTO" ColumnName="SFAT_NUM_DOCUMENTO" />
+                <ScalarProperty Name="Seguro" ColumnName="Seguro" />
+                <ScalarProperty Name="SFAT_OAA" ColumnName="SFAT_OAA" />
+                <ScalarProperty Name="SFAT_CELULAR_PAC" ColumnName="SFAT_CELULAR_PAC" />
+                <ScalarProperty Name="SFAT_EMAIL_PAC" ColumnName="SFAT_EMAIL_PAC" />
+                <ScalarProperty Name="SFAT_TELEFONO_PAC" ColumnName="SFAT_TELEFONO_PAC" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_ListarFAT_GS" FunctionName="BD_CRPCGModel.Store.PRGUR_ListarFAT_GS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.ListarFAT_GS_Result">
+                <ScalarProperty Name="SFAT_NRO_ATENCION" ColumnName="SFAT_NRO_ATENCION" />
+                <ScalarProperty Name="CFAT_ID_ATENCION" ColumnName="CFAT_ID_ATENCION" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="SFAT_HORA_CITA" ColumnName="SFAT_HORA_CITA" />
+                <ScalarProperty Name="Paciente" ColumnName="Paciente" />
+                <ScalarProperty Name="SFAT_NUM_DOCUMENTO" ColumnName="SFAT_NUM_DOCUMENTO" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Seguro" ColumnName="Seguro" />
+                <ScalarProperty Name="sMED_NombresMedico" ColumnName="sMED_NombresMedico" />
+                <ScalarProperty Name="sMED_NombreEspecialidad" ColumnName="sMED_NombreEspecialidad" />
+                <ScalarProperty Name="SFAT_USUARIO_OAA" ColumnName="SFAT_USUARIO_OAA" />
+                <ScalarProperty Name="DFAT_FECHA_OAA" ColumnName="DFAT_FECHA_OAA" />
+                <ScalarProperty Name="SFAT_OAA" ColumnName="SFAT_OAA" />
+                <ScalarProperty Name="PDFRECETA" ColumnName="PDFRECETA" />
+                <ScalarProperty Name="PDFRX_ATE" ColumnName="PDFRX_ATE" />
+                <ScalarProperty Name="PDFLB_ATE" ColumnName="PDFLB_ATE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_getFAT_Reporte" FunctionName="BD_CRPCGModel.Store.PRGUR_getFAT_Reporte">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.FAT_Reporte_Result">
+                <ScalarProperty Name="NroAtencion" ColumnName="NroAtencion" />
+                <ScalarProperty Name="FecRegistro" ColumnName="FecRegistro" />
+                <ScalarProperty Name="RNE" ColumnName="RNE" />
+                <ScalarProperty Name="OAA" ColumnName="OAA" />
+                <ScalarProperty Name="sMED_CodMedico" ColumnName="sMED_CodMedico" />
+                <ScalarProperty Name="sMED_NombresMedico" ColumnName="sMED_NombresMedico" />
+                <ScalarProperty Name="sMED_NombreEspecialidad" ColumnName="sMED_NombreEspecialidad" />
+                <ScalarProperty Name="DocumentoPac" ColumnName="DocumentoPac" />
+                <ScalarProperty Name="NombreYapellidosPac" ColumnName="NombreYapellidosPac" />
+                <ScalarProperty Name="HistoriaClinica" ColumnName="HistoriaClinica" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="CodigoFinanciador" ColumnName="CodigoFinanciador" />
+                <ScalarProperty Name="Financiador" ColumnName="Financiador" />
+                <ScalarProperty Name="Anamnesis" ColumnName="Anamnesis" />
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="Tratamiento" ColumnName="Tratamiento" />
+                <ScalarProperty Name="Receta" ColumnName="Receta" />
+                <ScalarProperty Name="FechaCierre" ColumnName="FechaCierre" />
+                <ScalarProperty Name="CodigoCentroTrabajo" ColumnName="CodigoCentroTrabajo" />
+                <ScalarProperty Name="DescripcionCentroTrabajo" ColumnName="DescripcionCentroTrabajo" />
+                <ScalarProperty Name="NumeroRegistro" ColumnName="NumeroRegistro" />
+                <ScalarProperty Name="firma" ColumnName="firma" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_GetFAT" FunctionName="BD_CRPCGModel.Store.PRGUR_GetFAT">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_CRPCGModel.FAT_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NroAtencion" ColumnName="NroAtencion" />
+                <ScalarProperty Name="Feccita" ColumnName="Feccita" />
+                <ScalarProperty Name="MODALIDAD" ColumnName="MODALIDAD" />
+                <ScalarProperty Name="DocumentoPac" ColumnName="DocumentoPac" />
+                <ScalarProperty Name="NombrePac" ColumnName="NombrePac" />
+                <ScalarProperty Name="ApePaternoPac" ColumnName="ApePaternoPac" />
+                <ScalarProperty Name="ApeMaternoPac" ColumnName="ApeMaternoPac" />
+                <ScalarProperty Name="HistoriaClinica" ColumnName="HistoriaClinica" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Financiador" ColumnName="Financiador" />
+                <ScalarProperty Name="TipoAtencion" ColumnName="TipoAtencion" />
+                <ScalarProperty Name="FecUltimaAtencion" ColumnName="FecUltimaAtencion" />
+                <ScalarProperty Name="Anamnesis" ColumnName="Anamnesis" />
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="Tratamiento" ColumnName="Tratamiento" />
+                <ScalarProperty Name="Receta" ColumnName="Receta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="RNE" ColumnName="RNE" />
+                <ScalarProperty Name="IsEditable" ColumnName="IsEditable" />
+                <ScalarProperty Name="emailPac" ColumnName="emailPac" />
+                <ScalarProperty Name="celularPac" ColumnName="celularPac" />
+                <ScalarProperty Name="telefonoPac" ColumnName="telefonoPac" />
+                <ScalarProperty Name="oaa" ColumnName="oaa" />
+                <ScalarProperty Name="medio" ColumnName="medio" />
+                <ScalarProperty Name="horacita" ColumnName="horacita" />
+                <ScalarProperty Name="SFAT_CMP" ColumnName="SFAT_CMP" />
+                <ScalarProperty Name="sMED_NombresMedico" ColumnName="sMED_NombresMedico" />
+                <ScalarProperty Name="firma" ColumnName="firma" />
+                <ScalarProperty Name="SFAT_DESCRIP_CENTRAB" ColumnName="SFAT_DESCRIP_CENTRAB" />
+                <ScalarProperty Name="isVideo" ColumnName="isVideo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

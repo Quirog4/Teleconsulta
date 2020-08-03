@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+  <div style="padding-bottom:1px">
+    <div class="subtitle">
+      Atenci&oacute;n del Telemonitoreo
+    </div>
+    <div>
+      <div class="w20 content-top letter-space">
+        <label style="padding-left: 15px;">Motivo :</label>
+      </div>
+      <div class="w80 content">
+        {{cMotivo}}
+      </div>
+      <div class="w20 content-top letter-space">
+        <label style="padding-left: 15px;">Anamnesis :</label>
+      </div>
+      <div class="w80 content">
+        {{cAnamnesis}}
+      </div>
+      <div class="w20 content-top letter-space" style="padding-bottom:15px">
+        <label style="padding-left: 15px;">Diagn&oacute;stico :</label>
+      </div>
+      <div class="w80 mayusculas">
+        {{lstDiagnostico}}
+      </div>
+      <div class="w20 content-top letter-space" style="padding-bottom:15px">
+        <label style="padding-left: 15px;">Laboratorio :</label>
+      </div>
+      <div class="w80">
+        {{lstLaboratorio}}
+      </div>
+      <div class="w20 content-top letter-space" style="padding-bottom:15px">
+        <label style="padding-left: 15px;">Radiolog&iacute;a :</label>
+      </div>
+      <div class="w80 mayusculas">
+        {{lstRadiologia}}
+      </div>
+    </div>
+
+    {{cfirma}}
+
+  </div>
+</body>
+</html>
+<style>
+ .subtitle {
+   background-color: #ddd;
+   padding: 5px 7px;
+   font-weight: bold;
+   font-size: 14px;
+   margin: 5px 0px 7px 0px;
+ }
+
+ .content {
+   padding-left: 15px;
+   background-color: #f9f9f9;
+   padding-top: 7px;
+   padding-bottom: 7px;
+   padding-right: 4px;
+   min-height: 45px;
+   margin-bottom: 10px;
+ }
+
+ label {
+   font-weight: bold;
+ }
+
+ .border-bottom {
+   border-bottom: 1px solid grey;
+ }
+
+ div {
+   font-size: 12px;
+ }
+
+ .w20 {
+   width: 20%;
+   display: inline-block;
+ }
+
+ .w80 {
+   width: 75%;
+   display: inline-block;
+ }
+
+ .content-top {
+   vertical-align: top;
+ }
+
+ .mayusculas, .content {
+   text-transform: uppercase;
+ }
+
+ th, td {
+   border: 1px solid #1e282c;
+   padding: 8px;
+ }
+
+ th {
+   background-color: #f9f9f9;
+ }
+
+ table {
+   text-transform: uppercase;
+   width: 100%;
+   border-collapse: collapse;
+   margin-bottom: 10px;
+   font-size: 11px;
+ }
+
+ body {
+   font-family: Arial, Helvetica, sans-serif;
+   letter-spacing: 1pt;
+ }
+
+ .letter-space {
+   letter-spacing: 2pt !important;
+ }
+</style>

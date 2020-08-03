@@ -1,0 +1,33 @@
+﻿
+@Html.Partial("Modals")
+<footer class="main-footer" style="padding:8px 15px">
+  <span class="pull-right hidden-xs">
+    <b>Version</b> 1.1
+  </span>
+  <strong>@*Copyright &copy; 2014-2018*@ 
+  <a href="http://www.crp.com.pe/">Clinica Ricardo Palma</a>.</strong> Todos los derechos reservados.
+</footer>
+
+<script>
+  function outSession() {
+    mostrarModal("#modal-error", "Termino su tiempo de sesion",
+      "Sera redireccionado a la pagina de inicio para volver a ingresar a la aplicación."
+      , "hide")
+    setTimeout(function cerrar() {
+
+      window.location.href ="@Url.Action("Index", "Home")";
+    }, 3000)
+    return false;
+  }
+  $(document).ready(function () {
+
+    $("a.nav-item").click(function () {
+      $("a.nav-item").each(function () {
+        $(this).removeClass("active");
+      })
+      $(this).addClass("active")
+    })
+
+
+  });
+</script>

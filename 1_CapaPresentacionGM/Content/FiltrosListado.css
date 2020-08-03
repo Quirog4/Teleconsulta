@@ -1,0 +1,14 @@
+﻿
+ label {
+   margin-bottom: 0px;
+  
+ }
+
+ .box-body div[class^='col-'] {
+   padding: 0 5px;
+   text-align: right;
+ }
+
+ .bootstrap-datetimepicker-widget {
+   height: 200px;
+ }

@@ -1,0 +1,12 @@
+﻿@model _1_CapaPresentacionGM.Models.TeleconsultaViewModel
+<select class="UnidadPrescripcion">
+    @if (Model.unidadPrescripcion.Count != 1)
+    {
+        <option value="">Unidad</option>
+    }
+    @foreach (var v in Model.unidadPrescripcion)
+    {
+        <option value="@v.codigo">@v.descripcion</option>
+    }
+</select>
+

@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" href="~/Img/icon-36x36.png" type="image/png">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+  <title>@ViewBag.Title - Cl&iacute;nica Ricardo Palma</title>
+  @Styles.Render("~/Content/base")
+  @RenderSection("Styles", required: false)
+  @Styles.Render("~/Content/adminlte")
+
+
+</head>
+<body class="hold-transition skin-crp sidebar-mini">
+
+  <div class="wrapper" style="overflow:hidden">
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/adminlte")
+
+    @Html.Partial("_PartialHeader")
+
+    @Html.Partial("_PartialSideBar")
+
+    @RenderBody()
+
+    @Html.Partial("_PartialFooter")
+  </div>
+
+  @RenderSection("scripts", required: false)
+
+  <script>
+    $(document).ready(function () {
+      var height = $(window).height();
+      $('.wrapper').height(height);
+      $('.content-wrapper').css("max-height", parseInt(height - 87) + "px");
+      $(window).resize(function () {
+        var height = $(window).height();
+        $('.wrapper').height(height);
+        $('.content-wrapper').css("max-height", parseInt(height - 87) + "px");
+
+      })
+    });
+  </script>
+</body>
+</html>

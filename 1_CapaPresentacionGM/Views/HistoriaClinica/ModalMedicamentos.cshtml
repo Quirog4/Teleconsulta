@@ -1,0 +1,57 @@
+﻿@model List<_1_CapaPresentacionGM.Models.MedicinasModel>
+
+    <div class="modal-header">
+      <h4 class="modal-title" id="myModalLabel">Medicamentos</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+     x</button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-4 col-7"><label>F. ATENCI&Oacute;N: </label> <span class="fechaat" style="padding-left:2px"></span>  </div>
+        <div class="col-md-2 col-5"><label>H.C.U: </label>  <span class="hcu"></span>  </div>
+        <div class="col-md-6 col-12"><label>PACIENTE: </label> <span class="paciente" style="text-transform:capitalize;"></span>   </div>
+        </div>
+      <div class="table-responsive col-md-12 col-12">
+        <table id="medica" class="header_fijo table-bordered">
+          <thead class="bg-secondary">
+            <tr>
+              <th width="100">C&oacute;digo</th>
+              <th width="310">Medicamento</th>
+              <th width="310">Descripci&oacute;n</th>
+              <th width="100">Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                  <td width="100" align="center">@m.ProductoChavin</td>
+                  <td  width="310">@m.PrincipioActivo</td>
+                  <td  width="310">@m.DescripcionProducto</td>
+                  <td  width="100"  align="center">@m.Cantidad</td>
+                </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-6 col-6"></div>
+            <div class="col-md-6 text-right col-6">
+              <button type="button" class="btn bg-dark btn-sm" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+      </div>
+    
+
+
+  <style>
+   #medica th {
+     padding: 5px;
+     text-align:center;
+   }
+  .modal-title{
+        margin-left: 15px;
+  }
+  </style>

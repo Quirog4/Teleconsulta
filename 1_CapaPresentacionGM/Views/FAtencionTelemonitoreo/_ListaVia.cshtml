@@ -1,0 +1,8 @@
+﻿@model _1_CapaPresentacionGM.Models.TeleconsultaViewModel
+<select class="Via">
+    <option value="">Vía</option>
+    @foreach (var v in Model.vias)
+    {
+        <option value="@v.codigo">@v.descripcion</option>
+    }
+</select>

@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" href="@ViewBag.BaseURL/Img/icon-36x36.png" type="image/png">
+  <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body style="font-family:Arial, Helvetica, sans-serif;letter-spacing:1pt">
+  
+    <div style="padding-top:-15px;padding-bottom:1px">
+
+        <!--Diagnostico-->
+        <div class="subtitle">
+            Diagn&oacute;stico
+        </div>
+        <div style="margin-top:25px">
+            {{lstDiagnostico}}
+        </div>
+        <!--Radiologia-->
+        <div class="subtitle">
+            Exámenes
+        </div>
+        <div class="content">
+            {{cExamen}}
+        </div>
+        {{cfirma}}
+
+    </div>
+</body>
+</html>
+<style>
+ .subtitle {
+   background-color: #ddd;
+   padding: 5px 7px;
+   font-weight: bold;
+   font-size: 14px;
+   margin: 15px 0px 7px 0px;
+ }
+
+ .content {
+   padding-left: 15px;
+   background-color: #f9f9f9;
+   padding-top: 7px;
+   padding-bottom: 7px;
+   padding-right: 4px;
+   min-height: 45px;
+   text-transform:uppercase;
+ }
+ div {
+   font-size: 12px;
+ }
+  .letter-space{
+  letter-spacing:2pt!important
+ }
+  label{
+    font-weight:bold;
+  }
+   .mayusculas {
+  text-transform:uppercase
+  }
+    th,td{
+   border:1px solid #1e282c;
+   padding: 8px;
+ }
+ th{background-color: #f9f9f9;}
+ table{
+  text-transform:uppercase;
+  width:100%;
+   border-collapse: collapse;
+   margin-bottom:10px;
+ }
+</style>

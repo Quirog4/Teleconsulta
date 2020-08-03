@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="operacionesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="PRGUR_DIAGNOSTICOSxINF" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_nCodInforme" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PRGUR_INFORMEPICR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_sHC" Type="varchar" Mode="In" />
+          <Parameter Name="I_dFechaIngreso" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="operacionesModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="operacionesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="operacionesEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="PRGUR_DIAGNOSTICOSxINF" ReturnType="Collection(operacionesModel.T_EPI_DIAGNOSTICO)">
+            <Parameter Name="I_nCodInforme" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PRGUR_INFORMEPICR" ReturnType="Collection(operacionesModel.PRGUR_INFORMEPICR_Result)">
+            <Parameter Name="I_sHC" Mode="In" Type="String" />
+            <Parameter Name="I_dFechaIngreso" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="T_EPI_DIAGNOSTICO">
+          <Property Type="String" Name="C_DIAG_COD_DIAGSELEC" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="C_DIAG_DESCRIPCION" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="C_DIAG_TIPO_DIAG" Nullable="false" MaxLength="2" />
+        </ComplexType>
+        <ComplexType Name="PRGUR_INFORMEPICR_Result">
+          <Property Type="Int32" Name="CODINF" Nullable="false" />
+          <Property Type="String" Name="cmp" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="Nombres" Nullable="true" MaxLength="152" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Cama" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="FecIng" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="HorIng" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="resumen" Nullable="false" MaxLength="8000" />
+          <Property Type="String" Name="evolucion" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="Tratamient" Nullable="true" MaxLength="1500" />
+          <Property Type="String" Name="ExAuxil" Nullable="true" MaxLength="8000" />
+          <Property Type="String" Name="TEstancia" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FecEgres" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="HorEgres" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proced" Nullable="true" MaxLength="1500" />
+          <Property Type="String" Name="complicaciones" Nullable="true" MaxLength="1500" />
+          <Property Type="String" Name="CondEgres" Nullable="true" MaxLength="1527" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="operacionesModelStoreContainer" CdmEntityContainer="operacionesEntities">
+          <FunctionImportMapping FunctionImportName="PRGUR_DIAGNOSTICOSxINF" FunctionName="operacionesModel.Store.PRGUR_DIAGNOSTICOSxINF">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="operacionesModel.T_EPI_DIAGNOSTICO">
+                <ScalarProperty Name="C_DIAG_COD_DIAGSELEC" ColumnName="C_DIAG_COD_DIAGSELEC" />
+                <ScalarProperty Name="C_DIAG_DESCRIPCION" ColumnName="C_DIAG_DESCRIPCION" />
+                <ScalarProperty Name="C_DIAG_TIPO_DIAG" ColumnName="C_DIAG_TIPO_DIAG" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRGUR_INFORMEPICR" FunctionName="operacionesModel.Store.PRGUR_INFORMEPICR">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="operacionesModel.PRGUR_INFORMEPICR_Result">
+                <ScalarProperty Name="CODINF" ColumnName="CODINF" />
+                <ScalarProperty Name="cmp" ColumnName="cmp" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Cama" ColumnName="Cama" />
+                <ScalarProperty Name="FecIng" ColumnName="FecIng" />
+                <ScalarProperty Name="HorIng" ColumnName="HorIng" />
+                <ScalarProperty Name="resumen" ColumnName="resumen" />
+                <ScalarProperty Name="evolucion" ColumnName="evolucion" />
+                <ScalarProperty Name="Tratamient" ColumnName="Tratamient" />
+                <ScalarProperty Name="ExAuxil" ColumnName="ExAuxil" />
+                <ScalarProperty Name="TEstancia" ColumnName="TEstancia" />
+                <ScalarProperty Name="FecEgres" ColumnName="FecEgres" />
+                <ScalarProperty Name="HorEgres" ColumnName="HorEgres" />
+                <ScalarProperty Name="Proced" ColumnName="Proced" />
+                <ScalarProperty Name="complicaciones" ColumnName="complicaciones" />
+                <ScalarProperty Name="CondEgres" ColumnName="CondEgres" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="icon" href="http://sirkak/CRPHCDigital/Img/icon-36x36.png" type="image/png">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+  <title>Dashboard General - Cl&iacute;nica Ricardo Palma</title>
+  <link href="./Content/bootstrap.min.css" rel="stylesheet" />
+  <link href="./Content/General.css" rel="stylesheet" />
+  <link href="./Content/admin-lte/css/AdminLTE.min.css" rel="stylesheet" />
+  <link href="./Content/bootstrap/navbar.less" rel="stylesheet" />
+  <link href="./Content/skin-crp.min.css" rel="stylesheet" />
+  <link href="./Content/Forms.css" rel="stylesheet" />
+  <script src="./Scripts/jquery-3.4.1.js"></script>
+  <script src="./Scripts/bootstrap.js"></script>
+  <script src="./Scripts/respond.js"></script>
+  <script src="./Scripts/adminlte/adminlte.min.js"></script>
+
+</head>
+
+<body class="hold-transition skin-crp sidebar-mini">
+  <div class="wrapper">
+    <header class="main-header">
+      <span id="baseURL" class="hide">http://sirkak/CRPHCDigital</span>
+      <!-- Logo -->
+      <a href="/CRPHCDigital/Home/Index" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><img src="http://sirkak/CRPHCDigital/Img/GURUicon.png" class="guru"></span>
+        <span class="logo-lg">
+          <img src="http://sirkak/CRPHCDigital/Img/GURUicon.png" class="guru">
+          <b>GurÚ</b>
+
+        </span>
+      </a>
+      <nav class="navbar navbar-static-top">
+        <a href="#" class="togle-bar" data-toggle="push-menu" role="button">
+          <i class="fas fa-bars"></i>
+        </a>
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <li class="dropdown user user-menu" onclick="openDrop()" id="dropdownMenuButton">
+              <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
+                <img src="http://sirkak/CRPHCDigital/Img/user-icon-2098873_960_720.png" class="user-image">
+                <span class="xs">72483170 </span> <i id="drop-icon" class="fas fa-caret-down"></i>
+              </a>
+              <ul id="user-menu" class="dropdown-menu" style="padding:0px;margin-top:5px">
+                <li class="user-body">
+                  VANESSA QUIROGA TANTACHUCO
+                </li>
+                <li class="user-footer">
+                  <a class="dropdown-item" onclick="changePass(0,'/CRPHCDigital/Usuario/ChangePass')">Cambiar
+                    contraseña</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/CRPHCDigital/Login/OutSession" class="btn">
+                <i class="" data-fa-i2svg="">
+                  <svg class="svg-inline--fa fa-sign-out-alt fa-w-16" aria-hidden="true" focusable="false"
+                    data-prefix="fas" data-icon="sign-out-alt" role="img" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512" data-fa-i2svg="">
+                    <path fill="currentColor"
+                      d="M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z">
+                    </path>
+                  </svg></i></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <style>
+      .togle-bar {
+        float: left;
+        padding: 15px 15px;
+        color: #fff;
+      }
+
+      .togle-bar:focus,
+      .togle-bar:active {
+        color: #868686;
+      }
+    </style>
+    <script>
+      function openDrop() {
+        var li = document.getElementById("dropdownMenuButton");
+        if (li.className == 'dropdown user user-menu') {
+          document.getElementById("drop-icon").className = 'fas fa-caret-up'
+          document.getElementById("user-menu").style.display = 'block'
+          console.log("USUARIO" + document.getElementById("user-menu"))
+        }
+        else {
+          document.getElementById("drop-icon").className = 'fas fa-caret-down'
+          document.getElementById("user-menu").style.display = 'none'
+        }
+      }
+
+      function changePass(tipouser, url) {
+        if (tipouser == 1) {
+          mostrarModal("#modal-informativo", "Importante", "Debe cambiar su contraseña de windows o comunicarse con mesa de ayuda", "")
+        } else {
+          window.location.href = url;
+        }
+      }
+    </script>
+    <aside class="main-sidebar">
+      <section class="sidebar">
+        <ul class="sidebar-menu" data-widget="tree">
+          <li class="header">Pacientes</li>
+          <li class="">
+            <a href="/CRPHCDigital/HistoriaClinica/DetallePaciente">
+              <i class="fas fa-file-medical"></i> <span>Consultar atenciones</span>
+            </a>
+          </li>
+          <li class="header">Carta de Garant&iacute;a</li>
+          <li class="">
+            <a href="/CRPHCDigital/CartaGarantia/Listado">
+              <i class="fas fa-envelope-open-text"></i> <span>Ver carta garant&iacute;a</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+      <!-- /.sidebar -->
+    </aside>
+    <!--Empezar desde aqui-->
+    <div class="content-wrapper">
+      <section class="content">
+        <div class="box box-default">
+          <div class="box-header">
+            <h4 style="padding-left: 7px;">Carta de Garant&iacute;a</h4>
+          </div>
+          <div class="box-body">
+            <h5 class="subtitle">Datos Solicitud</h5>
+            <div class="row">
+              <div class="col-md-2 text-right"><label>N&deg; Solic.:</b></div>
+              <div class="col-md-2"><input type="text" readonly /></div>
+              <div class="col-md-2 text-right"><label>Financiador:</label></div>
+              <div class="col-md-2"><input type="text" name="dni" readonly /></div>
+              <div class="col-md-2 text-right"><label>F. Registro.:</label></div>
+              <div class="col-md-2"><input type="text" value="05/08/2019" readonly></div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 text-right"><label>DNI:</label></div>
+              <div class="col-md-2"><input type="text" readonly /></div>
+              <div class="col-md-2 text-right"><label>H.C.:</label></div>
+              <div class="col-md-2"><input type="text" readonly /></div>
+              <div class="col-md-2 text-right"><label>Especialidad:</label></div>
+              <div class="col-md-2"><select>
+                  <option>Alergia e inmunologia</option>
+                </select></div>
+
+
+            </div>
+            <div class="row">
+              <div class="col-md-2 text-right"><label>Paciente:</label></div>
+              <div class="col-md-6"><input type="text" readonly /></div>
+              <div class="col-md-2 text-right"><label>Edad.:</label></div>
+              <div class="col-md-2"><input type="text" readonly /></div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 text-right"><label>Correo:</label></div>
+              <div class="col-md-6"><input type="text" readonly></div>
+              <div class="col-md-2 text-right"><label>Celular:</label></div>
+              <div class="col-md-2"><input type="text" readonly /></div>
+            </div>
+
+            <h5 class="subtitle">Datos del Seguro</h5>
+            <div class="row">
+              <div class="col-md-2 text-right"><label>N&deg; Contrato:</label></div>
+              <div class="col-md-2"><input type="text" readonly /></div>
+              <div class="col-md-2 text-right"><label>F. Afiliaci&oacute;n:</label></div>
+              <div class="col-md-2"><input type="text" readonly></div>
+              <div class="col-md-2 text-right"><label>F. Contrato.:</label></div>
+              <div class="col-md-2"><input type="text" readonly /></div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 text-right"><label>Estado Contrato:</label></div>
+              <div class="col-md-2"><input type="text" readonly /></div>
+              <div class="col-md-2 text-right"><label>Plan:</label></div>
+              <div class="col-md-2"><input type="text" readonly></div>
+              <div class="col-md-2 text-right"><label>Inicio Vigencia:</label></div>
+              <div class="col-md-2"><input type="text" readonly /></div>
+            </div>
+
+            <h5 class="subtitle">Diagnostico Principal</h5>
+            <div class="row">
+              <div class="col-md-2 col-sm-2 text-right">
+                <label>Diagnostico:</label>
+              </div>
+              <div class="col-md-2 col-sm-4">
+                <input type="text" name="busqueda" value="" />
+              </div>
+              <div class="col-md-2 col-sm-2 text-right">
+                <label>Medico Trantante:</label>
+              </div>
+              <div class="col-md-2 col-sm-4">
+                <input type="text" name="busqueda" value="" />
+              </div>
+              <div class="col-md-2 col-sm-3 text-right">
+                <label>Tiempo Enfer.: </label></div>
+              <div class="col-md-2 col-sm-3">
+                <input type="text" name="busqueda" value="" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 col-sm-3 text-right">
+                <label> Observaci&oacute;n M&eacute;dico Trantate: </label></div>
+
+              <div class="col-md-10 col-sm-3">
+                <textarea name="" rows="2"></textarea>
+              </div>
+            </div>
+            <h5 class="subtitle">Procedimiento</h5>
+            <div class="row">
+              <div class="col-md-2 text-right">
+                <label> Descripci&oacute;n: </label></div>
+              <div class="col-md-9">
+                <input type="text" name="busqueda" value="" />
+              </div>
+              <div class="col-md-1">
+                <button id="add-proced" class="btn btn-sm btn-success"><i class="fas fa-plus-circle"></i></button>
+              </div>
+            </div>
+            <div id="procedimiento" class="col-md-10 col-md-offset-1">
+              <table style="width: 100%;margin: 5px 8%;">
+                <thead style="background-color: teal; color:#f9f9f9;text-transform: uppercase;">
+                  <tr>
+                    <th class="text-center" width="130">C&oacute;digo</th>
+                    <th colspan="2">Procedimiento</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+
+            <h5 class="subtitle">Importe</h5>
+            <div class="row">
+              <div class="col-md-2 col-sm-3 text-right">
+                <label> Imp. Presupuesto: </label></div>
+              <div class="col-md-2 col-sm-3">
+                <input type="text" disabled name="busqueda" value="" />
+              </div>
+            </div>
+
+            <h5 class="subtitle">Beneficio Alternativa Copago</h5>
+            <div class="row">
+              <div class="col-md-2 col-sm-2 text-right">
+                <label>Tipo Atenci&oacute;n:</label>
+              </div>
+              <div class="col-md-2 col-sm-4">
+                <input type="text" name="busqueda" value="" />
+              </div>
+              <div class="col-md-7 col-sm-3 text-right">
+                <label>N° D&iacute;as Hospitalizaci&oacute;n: </label></div>
+              <div class="col-md-1 col-sm-3">
+                <input type="number" name="busqueda" value="" />
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="box-footer row">
+            <div class="col-md-5 col-sm-6">
+              <button class="btn btn-danger">Regresar</button>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5 col-sm-6 text-right">
+              <button class="btn btn-primary">Guardar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    </section>
+  </div>
+
+  <div id="modal-preexistencias" class="modal " tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog " role="document" style="max-width: 1000px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Pre Existencias</h4>
+        </div>
+        <div class="modal-body">
+          <h5 class="subtitle">Datos del Contrato - Afiliado</h5>
+          <div class="row">
+            <div class="col-md-1 col-sm-2 text-right">
+              <label>Contrato:</label>
+            </div>
+            <div class="col-md-2 col-sm-4">
+              --
+            </div>
+            <div class="col-md-1 col-sm-2 text-right">
+              <label>Estado:</label>
+            </div>
+            <div class="col-md-2 col-sm-4">
+
+            </div>
+            <div class="col-md-1 col-sm-3 text-right">
+              <label>Paciente: </label></div>
+            <div class="col-md-3 col-sm-3">
+
+            </div>
+            <div class="col-md-1 col-sm-3 text-right">
+              <label>F. Nac.: </label></div>
+            <div class="col-md-1 col-sm-3">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-1 col-sm-2 text-right">
+              <label>Plan:</label>
+            </div>
+            <div class="col-md-2 col-sm-4">
+
+            </div>
+            <div class="col-md-1 col-sm-2 text-right">
+              <label>Vigencia:</label>
+            </div>
+            <div class="col-md-2 col-sm-4">
+
+            </div>
+            <div class="col-md-1 col-sm-3 text-right">
+              <label>DNI: </label></div>
+            <div class="col-md-3 col-sm-3">
+
+            </div>
+            <div class="col-md-1 col-sm-3 text-right">
+              <label>Edad: </label></div>
+            <div class="col-md-1 col-sm-3">
+            </div>
+          </div>
+
+          <h5 class="subtitle">Pre Existencias</h5>
+          <div class="table-response" style="margin:7px 15px">
+            <table style="width: 100%;">
+              <thead style="background-color: teal;color: #f9f9f9;text-align: center;">
+                <tr>
+                  <th>C&oacute;digo</th>
+                  <th>Descripci&oacute;n</th>
+                  <th>Comentario</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <h5 class="subtitle">Declaraci&oacute;n Jurada</h5>
+          <div class="row">
+            <div class=""></div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-default btn-sm" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script type="text/javascript" src="./Scripts/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="./Scripts/dataTables.bootstrap.min.js"></script>
+  <link rel="stylesheet" href="./Content/dataTable.css" />
+  <link rel="stylesheet" href="./Content/dataTables.bootstrap.min.css" />
+  <script>
+    $("#add-proced").click(function (event) {
+      event.preventDefault();
+      var padre = $(this).parent();
+      $("#procedimiento table")
+        .append("<tr><td class=\"text-center\">12345678</td>" +
+          "<td>Resonancia</td>" +
+          "<td class=\"text-right\"><button class=\"remove-row btn btn-default\"><i class=\"fas fa-trash\"></i></button></td>"
+        );
+      $(".remove-row").click(function () {
+        console.log($(this))
+        $(this).parent().parent().remove();
+      });
+    });
+
+  </script>
+  <style>
+    .box-body .row {
+      width: 100%;
+      padding-bottom: 15px;
+      padding-right: 15px;
+    }
+
+    label {
+      margin-bottom: 0;
+      margin-top: 5px;
+    }
+
+    .remove-row {
+      background-color: #ccc;
+
+    }
+
+    .box-body div[class^='col-'] {
+      padding: 0 5px;
+    }
+
+    .modal-body div[class^='col-'] {
+      padding: 0 5px;
+    }
+  </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div id="modal-realizado" class="modal modal-alerts" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content  modal-succes">
+        <div class="modal-header">
+          <div class="icon-box" style="color: #82ce34;">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <h4 class="modal-title">Excelente!</h4>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <a href="http://sirkak/CRPHCDigital/" class="btn btn-success">De acuerdo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-error" class="modal modal-alerts" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content  modal-dange">
+        <div class="modal-header">
+          <div class="icon-box" style="color: #f15e5e;">
+            <i class="fas fa-times-circle"></i>
+          </div>
+          <h4 class="modal-title">Algo salio mal!</h4>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+          <a href="http://sirkak/CRPHCDigital/" class="btn btn-danger">De acuerdo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="modal-confirmar" class="modal modal-alerts" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content  modal-confir">
+        <div class="modal-header">
+          <div class="icon-box" style="color: #f0ad4e;">
+            <i class="fas fa-exclamation-circle"></i>
+          </div>
+          <h4 class="modal-title">¿Esta seguro?</h4>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-yellow">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="modal-informativo" class="modal modal-alerts" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    data-url="http://sirkak/CRPHCDigital/HistoriaClinica/getInformeEpi">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="icon-box" style="color: #00c0ef;">
+            <i class="fas fa-info-circle"></i>
+          </div>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">De acuerdo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" data-auto-replace-svg="nest"></script>
+
+  <style>
+    .modal-backdrop {
+      display: none;
+    }
+
+    .modal-alerts .modal-header {
+      padding: 0;
+    }
+
+    .modal-alerts .modal-succes,
+    .modal-alerts .modal-dange,
+    .modal-alerts .modal-confir,
+    .modal-alerts .modal-dialog {
+      max-width: 400px;
+      border-radius: 7px;
+    }
+
+    .modal-alerts .modal-header {
+      border-bottom-color: #fff !important;
+      display: block !important;
+    }
+
+    .modal-alerts .modal-succes h4 {
+      text-align: center;
+      font-size: 26px;
+    }
+
+    .modal-alerts .modal-title {
+      color: #777;
+    }
+
+    .modal-alerts .modal-body {
+      position: relative;
+      padding: 15px;
+      color: #908f8f;
+    }
+
+    .modal-alerts .modal-content {
+      text-align: center !important;
+    }
+
+    .modal-alerts .modal-footer {
+      border: none;
+      border-radius: 5px;
+      font-size: 13px;
+      padding: 10px 15px 25px;
+      display: block !important;
+    }
+
+    .modal-alerts .modal-succes {
+      padding: 20px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    /*------------------------ICONO*/
+    .icon-box {
+      z-index: 9;
+      padding: 15px;
+      text-align: center;
+      display: block;
+      font-size: 80px;
+      width: 100%;
+    }
+
+    /*----------------------*/
+
+    .modal-dange .btn-danger {
+      background: #f15e5e;
+      border-color: #f15e5e;
+    }
+
+    .modal-confir .btn-yellow {
+      background: #f0ad4e;
+      border-color: #f0ad4e;
+      color: #f9f9f9;
+    }
+
+    .modal-confir .btn-default {
+      background: #c1c1c1;
+      border-color: #c1c1c1;
+      color: #fff;
+    }
+
+    .modal-succes .btn-success {
+      background: #82ce34;
+      border-color: #82ce34;
+    }
+
+    #modal-informativo .btn-info {
+      background-color: #02bbe8;
+      border-color: #02bbe8;
+      color: #fff;
+    }
+
+    .modal-dange .btn-danger:hover,
+    .modal-dange .btn-danger:focus {
+      background: #ee3535;
+      border-color: #ee3535;
+    }
+  </style>
+  <script>
+
+
+    function mostrarModal(idModal, titulo, contenido, url) {
+      var modalAlerts = $(idModal);
+      modalAlerts.hide()
+      if (titulo != "")
+        modalAlerts.find("h4").text(titulo);
+      if (contenido != "")
+        modalAlerts.find(".modal-body").text(contenido);
+      if (url != "") {
+        var buton = modalAlerts.find(".modal-footer a")
+        buton.attr("href", buton.attr("href") + url)
+        modalAlerts.show()
+      }
+      modalAlerts.modal({ backdrop: 'static', keyboard: false })
+      modalAlerts.modal('show')
+    }
+  </script>
+  <footer class="main-footer">
+    <span class="pull-right hidden-xs">
+      <b>Version</b> 1.0.0
+    </span>
+    <strong>Copyright &copy; 2014-2018 <a href="http://www.crp.com.pe/">Clinica Ricardo Palma</a>.</strong> Todos los
+    derechos resevados.
+  </footer>
+
+
+  </div>
+
+</body>
+
+</html>

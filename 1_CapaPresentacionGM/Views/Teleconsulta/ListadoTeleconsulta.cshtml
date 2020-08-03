@@ -1,0 +1,168 @@
+﻿@model List<_1_CapaPresentacionGM.Models.Modelos.TeleconsultaModel>
+
+@{
+    ViewBag.Title = "Lista FAT";
+}
+
+
+<div class="content-wrapper">
+
+    <section class="content">
+
+        <div class="box box-default">
+            <div class="box-header">
+                <div class="row">
+                    <div class="col-md-10 title col-12">
+                        Lista de Atenciones
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <form id="form-atenciones">
+                    <div class="row">
+                        <div class="col-md-1 text-right col-1">
+                            <label>Desde:</label>
+                        </div>
+                        <div class="col-md-2 col-12">
+                            <div class="input-group input-group-sm">
+                                <input id="fec-ini" name="fechaIncio" data-column="3" type='text' class="dateTime form-control" placeholder="dd/mm/yyyy" value="@ViewBag.fecinicio" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-input btn-flat btn-sm btn-date" data-input="fec-ini"><i class="fas fa-calendar-alt"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-1 text-right col-1"><label>Hasta</label></div>
+                        <div class="col-md-2 col-12">
+                            <div class="input-group input-group-sm">
+                                <input id="fec-final" name="fechaFin" data-column="3" type='text' class="dateTime form-control" placeholder="dd/mm/yyyy" value="@ViewBag.fecfin" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-input btn-flat btn-sm btn-date" data-input="fec-final"><i class="fas fa-calendar-alt"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <button id="btn-submit" type="button" class="btn bg-info btn-sm">
+                                <i class="fas fa-search"></i> Buscar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="loader"></div>
+            </div>
+            <div id="tabla" class="col-md-12 table-responsive" style="display:none;">
+                <table id="table" style="width:100%" class="row-border table table-hover">
+                    <thead class="bg-secondary">
+                        <tr>
+                            <th width="100">N&deg; Atenci&oacute;n</th>
+                            <th width="140">Fecha Cita</th>
+                            <th width="140">Hora Cita</th>
+                            <th width="350">Paciente</th>
+                            <th>Seguro</th>
+                            <th width="100">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var t in Model)
+                        {
+                        <tr>
+                            <td>@t.IdAtencion</td>
+                            <td>@t.FechaCita</td>
+                            <td>@t.HoraCita</td>
+                            <td>@t.Paciente.Nombres</td>
+                            <td>@t.Seguro</td>
+                            @if (t.Estado == "ADMITIDO")
+                            {
+                                <td><label class="label label-success">@t.Estado</label></td> }
+                            else
+                            {
+                                <td><label class="label label-info">@t.Estado</label></td>}
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+@Html.Partial("~/Views/Utils/DateTimePicker.cshtml")
+@Html.Partial("~/Views/Utils/DataTable.cshtml")
+
+<style>
+    tbody {
+        text-transform: uppercase;
+    }
+</style>
+<script>
+  $(document).ready(function () {
+    setTimeout(function () {
+      $('.loader').css("display", "none")
+      $('#tabla').css("display", "block")
+    }, 1500);
+
+    var table = $('#table').DataTable({
+      autoWidth: false,
+      info: true,
+      lengthChange: false,
+      ordering: false,
+      paging: true,
+      searching: false,
+      language: { // Se configura la DataTable para mostrar los textos en español
+        info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+        lengthMenu: "Mostrar _MENU_ registros",
+        paginate: {
+          first: "Primero",
+          last: "Último",
+          next: "Siguiente",
+          previous: "Anterior"
+        },
+        zeroRecords: "No se encontraron resultados",
+        },
+        'columnDefs': [{
+            'targets': [2], // column index (start from 0)
+            'visible': false, // set orderable false for selected columns
+            "searchable": false,
+        }],
+      rowCallback: function (row, data) {
+          $($(row).find("td")[1]).text(data[1] + " "+data[2]);
+      }
+    });
+
+    $("#btn-submit").click(function () {
+      $('#tabla').attr("style", "display:none");
+      $(".loader").removeAttr("style");
+      table.rows().remove().draw();
+      $.get('@Url.Action("BuscarTeleconsulta", "Teleconsulta")',
+        $("#form-atenciones").serialize(), function (data) {
+          if (data.outsession) {
+            return outSession();
+          }
+          $(".loader").attr("style", "display:none")
+          var l = data.list
+          if (data.list == null) {
+            mostrarModal("#modal-error", "", "Hubo un error en la busqueda, por favor comuniquese con el área de sistemas", "")
+          } else {
+            $('#tabla').removeAttr("style");
+            for (var i = 0; i < l.length; i++) {
+              table.row.add([
+                  l[i].IdAtencion,
+                  l[i].FechaCita,
+                  l[i].HoraCita,
+                    l[i].Paciente.Nombres,
+                    l[i].Seguro,
+                  l[i].Estado
+              ]);
+              table.draw();
+            }
+          }
+        })
+    })
+    $('#table tbody').on('click', 'td', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row(tr);
+      if ($(this).find("a").length == 0) {
+        window.location = "@Url.Action("Formulario", "Teleconsulta")/" + row.data()[0]
+      }
+    });
+  })
+
+</script>

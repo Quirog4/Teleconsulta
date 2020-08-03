@@ -1,0 +1,224 @@
+@model _1_CapaPresentacionGM.Models.SelectViewModel
+@{
+    ViewBag.Title = "Listado";
+}
+<div class="content-wrapper">
+  <section class="content">
+    <div class="box box-default">
+      <div class="box-header">
+        <div class="row">
+
+          <div class="col-md-8 title">Listado Cartas de Garant&iacute;a</div>
+          <div class="col-md-4 text-right">
+            @if (ViewBag.menuServicios == 2)
+            {
+            <a id="submit-form" class="btn bg-primary btn-sm" href="@Url.Action("FormServicio","Servicio")">
+              <i class="fas fa-edit"></i> Nueva Solicitud
+            </a>}
+          </div>
+        </div>
+
+      </div>
+      <div class="box-body">
+        <form id="form-cartas" action="@Url.Action("BuscarCG","Servicio")">
+          <div class="row">
+            <div class="col-md-1 text-right">
+              <label>Paciente:</label>
+            </div>
+            <div class="col-md-4">
+              <input type="text" name="busqueda" value="" placeholder="DNI/Paciente/N° Solicitud" style="width:370px" />
+            </div>
+            <div class="col-md-2 text-right">
+              <label>Tipo Atenci&oacute;n: </label>
+            </div>
+            <div class="col-md-2" style="padding-left: 0px;">
+              <select name="tipoAten">
+                <option value="">Todo</option>
+                <option value="AMBULATORIO">AMBULATORIO</option>
+                <option value="HOSPITALARIO">HOSPITALARIO</option>
+                <option value="EMERGENCIA">EMERGENCIA</option>
+              </select>
+            </div>
+            <div class="col-md-1 text-right">
+              <label>Estado: </label>
+            </div>
+            <div class="col-md-2 col-sm-3">
+              <select name="codestado">
+                <option value="">Todo</option>
+                @foreach (var e in Model.lstEstadoAuditor)
+                {
+                    <option value="@e.codigo">@e.descripcion</option>
+                }
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-1 text-right">
+              <label>Fecha Solicitud:</label>
+            </div>
+            <div class="col-md-2">
+              <div class="input-group input-group-sm">
+                <input id='fec-inicio' name="fecinicio" data-column="3" type='text' class="dateTime form-control" placeholder="dd/mm/yyyy" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-input btn-flat btn-sm btn-date" data-input="fec-inicio"><i class="fas fa-calendar-alt"></i></button>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-1" style="max-width:30px"><b>al</b></div>
+            <div class="col-md-2">
+              <div class="input-group input-group-sm">
+                <input id='fec-fin' name="fecfin" data-column="3" type='text' class="dateTime form-control" placeholder="dd/mm/yyyy" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-input btn-flat btn-sm btn-date" data-input="fec-fin"><i class="fas fa-calendar-alt"></i></button>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-6 text-right">
+              <button id="submit" type="button" class="btn bg-info btn-sm">
+                <i class="fas fa-search"></i> Buscar
+              </button>
+            </div>
+
+          </div>
+        </form>
+       
+      </div>
+      <div class="box-footer">
+        <div class="loader" style="display:none"></div>
+        <div id="tabla" class="col-md-12" style="display:none">
+          <table id="table" data-page-length="8">
+            <thead class="bg-secondary">
+              <tr>
+                <th>N&deg; Solicitud</th>
+                <th>Fecha Sol.</th>
+                <th>N&deg; Contrato</th>
+                <th>Paciente</th>
+                <th>Titular</th>
+                <th>Tipo atenci&oacute;n</th>
+                <th>Estado
+                <script src="@ViewBag.BaseUrl/Scripts/Funciones/dataTable.js"></script></th>
+                @*<th>Carta PS</th>*@
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+  </section>
+</div>
+<link rel="stylesheet" href="~/Content/dataTable.css" />
+<link rel="stylesheet" href="~/Content/Forms.css" />
+<link rel="stylesheet" href="~/Content/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.min.css" />
+
+<script type="text/javascript" src="~/Scripts/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="~/Scripts/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="~/Scripts/moment-with-locales.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#tabla').hide();
+    var loader = $('.loader');
+    $('.dateTime').datetimepicker({
+      format: 'DD/MM/YYYY',
+      locale: 'es',
+      icons: {
+        up: "fas fa-arrow-up",
+        down: "fas fa-chevron-down",
+        left: "fas fa-chevron-left",
+        right: "fas fa-chevron-right"
+      }
+    });
+    $('#fec-fin').datetimepicker({
+      useCurrent: false //Important! See issue #1075
+    });
+    $(".dateTime#fec-inicio").on("dp.change", function (e) {
+      $('#fec-fin').data("DateTimePicker").minDate(e.date);
+    });
+    $(".dateTime#fec-fin").on("dp.change", function (e) {
+      $('#fec-inicio').data("DateTimePicker").maxDate(e.date);
+    });
+
+    $(".btn-date").click(function () {
+      var input = $(this).attr("data-input");
+      $('.dateTime#' + input).data("DateTimePicker").show("dp.show")
+    })
+
+
+    var table = $('#table').DataTable({
+      "order": [[1, "desc"]],
+      autoWidth: false,
+      info: true,
+      lengthChange: false,
+      language: { // Se configura la DataTable para mostrar los textos en español
+        info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+        lengthMenu: "Mostrar _MENU_ registros",
+        paginate: {
+          first: "Primero",
+          last: "Último",
+          next: "Siguiente",
+          previous: "Anterior"
+        },
+        //search: "Buscar:",
+        zeroRecords: "No se encontraron resultados",
+      },
+      rowCallback: function (row, data) {
+        $($(row).find("td")[3]).addClass("text-left");
+        $($(row).find("td")[4]).addClass("text-left");
+        $($(row).find("td")[0]).html("<a href=\"" + baseUrl + "/Servicio/FormServicio?codsolicitud=" + data[8] + "\">" + data[0] + "</a>");
+        if (data[7] == "success" || data[6] == "Rechazado") {
+          $($(row).find("td")[6]).html("<a data-placement=\"top\" title=\"Presione para ver la carta de Plan Salud\" data-toggle=\"tooltip\" class=\"btn btn-" + data[7] + " btn-sm\"  target=\"_blank\" href=\"" + baseUrl + "/GestionReporteCG/CartaGarantiaAuditada?codsolicitud=" + data[0] + "\" style=\"text-transform:uppercase;font-size:10px;padding:2px\"><b>" + data[6] + "</b></a>");
+        } else {
+          var label = $("<label>").addClass("text-center label label-" + data[7]).text(data[6])
+          $($(row).find("td")[6]).html(label);
+        }
+
+        var f1 = data[1].split("/");
+        var fecha = f1[2] + "-" + f1[1] + "-" + f1[0];
+        $($(row).find("td")[1]).html("<span class=\"hide\">" + fecha + "</span>" + data[1]);
+
+      },
+      ordering: true,
+      paging: true,
+      searching: false,
+      'columnDefs': [{
+        'targets': [6], // column index (start from 0)
+     //   'visible': false, // set orderable false for selected columns
+        //"searchable": false,
+        'orderable':false
+      }]
+    });
+    var form = $("#form-cartas")
+    $("#submit").click(function () {
+      $('#tabla').attr("style","display:none");
+      $(".loader").removeAttr("style");
+      table.rows().remove().draw();
+      $.get(form.attr("action"), form.serialize(), function (data) {
+        $(".loader").attr("style", "display:none")
+        var l = data.list
+        if (data.list == null) {
+          mostrarModal("#modal-error", "", "Hubo un error en la busqueda, por favor comuniquese con el área de sistemas", "")
+        } else {
+          $('#tabla').removeAttr("style");
+          for (var i = 0; i < l.length; i++) {
+            table.row.add([
+              l[i].nrosolicitud,
+              l[i].fechaRegistro,
+              l[i].nroContrato,
+              l[i].nompaciente,
+              l[i].titular,
+              l[i].tipoAtencion,
+              l[i].estado,
+              l[i].colorEstado,
+              l[i].id
+            ]);
+            table.draw();
+          }
+        }
+      })
+    })
+
+  });
+</script>

@@ -1,0 +1,399 @@
+﻿@model _1_CapaPresentacionGM.Models.TelefarmaciaViewModel
+@{
+    ViewBag.Title = "Receta Virtual";
+}
+
+
+<div class="content-wrapper">
+
+  <section class="content">
+
+    <div class="box box-default">
+      <div class="box-header">
+        <div class="row">
+          <div class="col-md-10 title">
+            Receta Virtual
+          </div>
+          <div class="col-md-2 text-right">
+          </div>
+        </div>
+      </div>
+      <div class="box-body">
+        <form id="form-atenciones">
+          <div class="row">
+            <div class="col-md-1 text-right col-3">
+              <label>B&uacute;squeda</label>
+            </div>
+            <div class="col-md-5 text-right col-9">
+              <input type="text" name="busqueda" value="" placeholder="Documento/paciente/oaa" />
+            </div>
+            <div class="col-md-2 text-right col-3">
+              <label>Estado</label>
+            </div>
+            <div class="col-md-2 text-right col-9">
+              <select id="estado" name="estado">
+                <option value="">Todo</option>
+                @foreach (var e in Model.estadosRp)
+                {
+                  if (string.IsNullOrEmpty(e)) { continue; }
+                    <option value="@e">@e</option>
+                }
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-1 text-right col-3">
+              <label>Desde</label>
+            </div>
+            <div class="col-md-2 col-9">
+              <div class="input-group input-group-sm">
+                <input id='fec-ini' name="fecinicio"  data-column="3" type='text' class="dateTime form-control" placeholder="dd/mm/yyyy" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-input btn-flat btn-sm btn-date" data-input="fec-ini"><i class="fas fa-calendar-alt"></i></button>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-1 text-right col-3"><label>Hasta</label></div>
+            <div class="col-md-2 col-9">
+              <div class="input-group input-group-sm">
+                <input id='fec-final' name="fecfin" data-column="3" type='text' class="dateTime form-control" placeholder="dd/mm/yyyy" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-input btn-flat btn-sm btn-date" data-input="fec-final"><i class="fas fa-calendar-alt"></i></button>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-2 text-right col-3">
+              <label>Servicio</label>
+            </div>
+            <div class="col-md-2 text-right col-9">
+              <select name="espec">
+                <option value="">Todo</option>
+                @foreach (var e in Model.especialidades)
+                {
+                <option value="@e.codigo">@e.descripcion</option> 
+                }
+              </select>
+            </div>
+            <div class="col-md-2 text-right">
+              <button id="btn-submit" type="button" class="btn bg-info btn-sm">
+                <i class="fas fa-search"></i> Buscar
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="loader"></div>
+      </div>
+      <div id="tabla" class="col-md-12 table-hover" style="display:none">
+        <table id="table" data-page-length="8" style="width:100%" class="table">
+          <thead class="bg-secondary">
+            <tr>
+              <th></th>
+              <th>N&deg; Atenci&oacute;n</th>
+              <th>OAA</th>
+              <th width="120">F. Creaci&oacute;n</th>
+              <th>Paciente</th>
+              <th>Celular</th>
+              <th>Tel&eacute;fono</th>
+              <th>Email</th>
+              <th>Seguro</th>
+              <th>Estado Rp</th>
+              <th>Rp</th>
+              <th>GV</th>
+              <th>FAR</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var l in Model.listaAtencion)
+            {
+                <tr>
+                  <td>@l.DocumentoPaciente</td>
+                  <td>@l.NroAtencion</td>
+                  <td>@l.oaa</td>
+                  <td>@l.FecAtencion</td>
+                  <td>@l.NombrePaciente</td>
+                  <td>@l.celularpac</td>
+                  <td>@l.telfonopac</td>
+                  <td>@l.emailpac</td>
+                  <td>@l.Seguro</td>
+                  <td>@l.Estado</td>
+                  <td>@l.idAtencion</td>
+                  <td>@l.isguia</td>
+                  <td>@l.oaa</td>
+                </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal" id="ModalGuias" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Relaci&oacute;n de gu&iacute;as de despacho</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <div class="loader"></div>
+          <div class="table-responsive col-md-12 col-12">
+            <table data-page-length="5" class="table-bordered" id="tabla-atenciones">
+              <thead class="bg-secondary">
+                <tr>
+                  <th>Fecha atenci&oacute;n</th>
+                  <th width="100">N&deg; Gu&iacute;a</th>
+                  <th width="150">Usuario</th>
+                  <th width="100">Estado</th>
+                </tr>
+              </thead>
+              <tbody id="guias"></tbody>
+
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-md-6 col-xs-6">
+              <button type="button" class="btn bg-dark btn-sm" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <div class="modal" id="ModalIntermedioTelefarmacia" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Historial Farmacia Telefarmacia</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="loader"></div>
+                    <div class="table-responsive col-md-12 col-12">
+                        <table data-page-length="5" class="table-bordered" id="tabla-intermediotelefarmacia">
+                            <thead class="bg-secondary">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Usuario</th>
+                                    <th>Motivo / Estado</th>
+                                    <th>Observación</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listaIntermedioTelefarmacia"></tbody>
+
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <button type="button" class="btn bg-dark btn-sm" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+@*<!------------SECTION TABLE>>------->*@
+<link rel="stylesheet" href="~/Content/dataTable.css" />
+<link rel="stylesheet" href="~/Content/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="~/Scripts/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="~/Scripts/dataTables.bootstrap.min.js"></script>
+@*<!------------SECTION DATETIME>>------->*@
+<link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.min.css" />
+<script type="text/javascript" src="~/Scripts/moment-with-locales.js"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/Funciones/Fechas.js"></script>
+<style>
+ tbody {
+   text-transform: uppercase;
+ }
+
+ .btn-circle {
+   border-radius: 15px;
+ }
+</style>
+<script>
+  $(document).ready(function () {
+    $('#estado').val("PENDIENTE");
+
+    setTimeout(function () {
+      $('.loader').css("display", "none")
+      $('#tabla').css("display", "block")
+    }, 1500);
+
+
+    var table = $('#table').DataTable({
+      //"order": [[11, "desc"]],
+      autoWidth: false,
+      info: true,
+      lengthChange: false,
+      ordering: false,
+      paging: true,
+      searching: false,
+      language: { // Se configura la DataTable para mostrar los textos en español
+        info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+        lengthMenu: "Mostrar _MENU_ registros",
+        paginate: {
+          first: "Primero",
+          last: "Último",
+          next: "Siguiente",
+          previous: "Anterior"
+        },
+        //search: "Buscar:",
+        zeroRecords: "No se encontraron resultados",
+      },
+      'columnDefs': [{
+        'targets': [5,6,7], // column index (start from 0)
+        'visible': false, // set orderable false for selected columns
+        "searchable": false,
+      }],
+      rowCallback: function (row, data) {
+        $($(row).find("td")[0]).html('<button class="contacto btn btn-info btn-sm"><i class="fas fa-address-card"></i></button>')
+        $($(row).find("td")[7]).html("<a class=\"text-primary\" href=\"@Url.Action("FAT", "Reporte")\~" + data[10] + "/"+data[1]+"~R\" target=\"_blank\"><h4><i class=\"fas fa-file-pdf\"></i></h4></a>");
+        //JSON.parse(data[7]),$.parseJSON()
+        if (data[11] == "1") {
+          console.log((data[11] == "1"))
+          $($(row).find("td")[8]).
+            html('<button class="btn btn-sm text-primary guia text-center" data-id="' + data[10] + '" type="btn-link"><h4><i class="fas fa-file-invoice" style="margin-right:0px"></h4></i></button>');
+
+        } else {
+          $($(row).find("td")[8]).html('')
+        }
+
+        $($(row).find("td")[9]).html('<button class="intermediotelefarmacia btn btn-info btn-sm" data-id="' + data[2] + '"><i class="fas fa-history"></i></button>')
+      }
+    });
+
+   
+
+    function format(d) {
+      // `d` is the original data object for the row
+      var detail = '<table class="table">';
+      
+      detail += '<tr><td colspan="2"><b><u>Datos adicionales del paciente</u></b></td></tr><tr>' +
+            '<td width=\"100\" class=\"text-left\"><b>Celular:</b></td>' +
+            '<td class=\"text-left\">' + d[5] + '</td></tr><tr>' +
+            '<td width=\"100\" class=\"text-left\"><b>Teléfono:</b></td>' +
+            '<td class=\"text-left\">' + d[6] + '</td></tr><tr>' +
+            '<td width=\"100\" class=\"text-left\"><b>Email:</b></td>' +
+            '<td class=\"text-left\">' + d[7] + '</td>' +
+        '</tr>';
+
+      detail += '</table>';
+      return detail;
+    }
+
+    $('#table tbody').on('click', 'td', function () {
+      var td = $(this).find("button.contacto")
+      var tg = $(this).find("button.guia")
+      var ti = $(this).find("button.intermediotelefarmacia")
+
+      if (td.length != 0) {
+        var tr = td.closest('tr');
+        var row = table.row(tr);
+          if (row.child.isShown()) {
+            // This row is already open - close it
+            td.removeClass("btn-light")
+            td.addClass("btn-info")
+            row.child.hide();
+            tr.removeClass('shown');
+          }
+          else {
+            // Open this row
+            td.removeClass("btn-info")
+            td.addClass("btn-light")
+            row.child(format(row.data())).show();
+            tr.addClass('shown');
+          }
+      }
+
+      if (tg.length != 0) {
+        $("#ModalGuias").modal('show')
+        $("#guias").html("")
+        $.get('@Url.Action("GetGuias", "FATReceta")',
+        {
+          id: tg.attr("data-id")
+        }, function (data) {
+          if (data.outsession) { return outSession(); }
+          var l = data.list;
+          var filas = ""
+          console.log(l.length);
+          for (var i = 0; i < l.length; i++) {
+            filas += '<tr><td>' + l[i].fecha + '</td><td>' + l[i].Codigo + '</td><td>' + l[i].usuario + '</td><td>' + l[i].estado + '</td></tr>';
+          }
+          $("#guias").append(filas)
+        })
+      }
+
+    if (ti.length != 0) {
+        $("#ModalIntermedioTelefarmacia").modal('show')
+        $("#listaIntermedioTelefarmacia").html("")
+        $.get('@Url.Action("GetIntermedioTelefarmacia", "FATReceta")',
+        {
+            numeroAdmision: ti.attr("data-id")
+        }, function (data) {
+            if (data.outsession) { return outSession(); }
+            var l = data.list;
+            var filas = ""
+            for (var i = 0; i < l.length; i++) {
+                filas += '<tr><td width=\"100\">' + l[i].FechaRegistro
+                    + '</td><td width=\"90\" >' + l[i].HoraRegistro
+                    + '</td><td style=\"white-space: pre-line; width=120\" >' + l[i].CodigoUsuario
+                    + '</td><td width=\"120\">' + l[i].RespuestaNoAtencionPaciente
+                    + '</td><td style=\"white-space: pre-line; width=800\">' + l[i].Observacion + '</td></tr>';
+            }
+            $("#listaIntermedioTelefarmacia").append(filas)
+        })
+    }
+
+
+    });
+
+    $("#btn-submit").click(function () {
+      $('#tabla').attr("style", "display:none");
+      $(".loader").removeAttr("style");
+      table.rows().remove().draw();
+      $.get('@Url.Action("BuscarReceta", "FATReceta")',
+        $("#form-atenciones").serialize(), function (data) {
+          if (data.outsession) {
+            return outSession();
+          }
+            $(".loader").attr("style", "display:none")
+            var l = data.list
+            if (data.list == null) {
+              mostrarModal("#modal-error", "", "Hubo un error en la busqueda, por favor comuniquese con el área de sistemas", "")
+            } else {
+              $('#tabla').removeAttr("style");
+              for (var i = 0; i < l.length; i++) {
+                table.row.add([
+                  l[i].DocumentoPaciente,
+                      l[i].NroAtencion,
+                      l[i].oaa,
+                      l[i].FecAtencion,
+                      l[i].NombrePaciente,
+                      l[i].celularpac,
+                      l[i].telfonopac,
+                      l[i].emailpac,
+                      l[i].Seguro,
+                      l[i].Estado,
+                      l[i].idAtencion,
+                      l[i].isguia,
+                      l[i].oaa,
+
+                ]);
+                table.draw();
+              }
+            }
+          })
+      })
+    })
+
+</script>

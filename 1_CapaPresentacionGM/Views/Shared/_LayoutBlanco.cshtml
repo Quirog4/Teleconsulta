@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="icon" href="~/Img/icon-36x36.png" type="image/png">
+  <!-- Tell the browser to be responsive to screen width -->
+
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+  <title>GurU - Cl&iacute;nica Ricardo Palma</title>
+  @Styles.Render("~/Content/css")
+
+  <!-- recaptcha -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <script src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" data-auto-replace-svg="nest"></script>
+  @RenderSection("Styles", required: false)
+  @Styles.Render("~/Content/forms")
+</head>
+
+<body class="hold-transition"
+      style="font-family:'Lato',sans-serif;background-image:linear-gradient(to bottom left,#b3e7e6, #f5ffa2);">
+  <div id="background"></div>
+  @RenderBody()
+
+
+  @Scripts.Render("~/bundles/jquery")
+  @Scripts.Render("~/Scripts/jquery.validate.min.js")
+  @Scripts.Render("~/bundles/bootstrap")
+
+  @RenderSection("scripts", required: false)
+
+
+  <style>
+   body {
+     background-size: cover !important;
+     height: auto;
+   }
+  </style>
+</body>
+</html>

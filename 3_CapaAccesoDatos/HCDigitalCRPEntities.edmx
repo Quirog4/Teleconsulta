@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HCDigitalCRPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TGUR_LOGDEBUG">
+          <Key>
+            <PropertyRef Name="CGUR_PK" />
+          </Key>
+          <Property Name="CGUR_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SGUR_RUTA" Type="varchar" MaxLength="150" />
+          <Property Name="SGUR_TIPO" Type="varchar" MaxLength="10" />
+          <Property Name="SGUR_PARAMETROS" Type="text" />
+          <Property Name="SGUR_MENSAJE" Type="varchar" MaxLength="300" />
+          <Property Name="SGUR_DETALLE" Type="varchar" MaxLength="500" />
+          <Property Name="DGUR_FECHACREACION" Type="datetime" />
+          <Property Name="SGUR_USER" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Function Name="PRFAT_BUSCAR_HC_DOC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IS_HC_DOCUMENTO" Type="varchar" Mode="In" />
+          <Parameter Name="IS_tipoBusqueda" Type="char" Mode="In" />
+        </Function>
+        <Function Name="PRHCD_ATENCIONES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_sHC" Type="char" Mode="In" />
+          <Parameter Name="I_sIP" Type="varchar" Mode="In" />
+          <Parameter Name="I_sUser" Type="varchar" Mode="In" />
+          <Parameter Name="I_sPaciente" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRHCD_DETSERVAUX" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nroAtencion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRHCD_MEDICINAxAte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NroAtencion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRHCD_SELMEDICO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="PRHCD_SELPACIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="FLG_BUSACAR" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="HCDigitalCRPModelStoreContainer">
+          <EntitySet Name="TGUR_LOGDEBUG" EntityType="Self.TGUR_LOGDEBUG" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HCDigitalCRPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HCDigitalCRPEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="PRHCD_MEDICINAxAte" ReturnType="Collection(HCDigitalCRPModel.ListMedicinasXAte_Result)">
+          <Parameter Name="NroAtencion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRHCD_SELMEDICO" ReturnType="Collection(HCDigitalCRPModel.SelMedicos_Result)" />
+          <FunctionImport Name="PRHCD_DETSERVAUX" ReturnType="Collection(HCDigitalCRPModel.ListDetServAux_Result)">
+          <Parameter Name="nroAtencion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRHCD_SELPACIENTE" ReturnType="Collection(HCDigitalCRPModel.ListadoPacientes_Result)">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="FLG_BUSACAR" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PRHCD_ATENCIONES" ReturnType="Collection(HCDigitalCRPModel.DetalleAtenciones_Result)">
+            <Parameter Name="I_sHC" Mode="In" Type="String" />
+            <Parameter Name="I_sIP" Mode="In" Type="String" />
+            <Parameter Name="I_sUser" Mode="In" Type="String" />
+            <Parameter Name="I_sPaciente" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PRFAT_BUSCAR_HC_DOC" ReturnType="Collection(HCDigitalCRPModel.PacienteFAT_Result)">
+            <Parameter Name="IS_HC_DOCUMENTO" Mode="In" Type="String" />
+            <Parameter Name="IS_tipoBusqueda" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="TGUR_LOGDEBUG" EntityType="HCDigitalCRPModel.TGUR_LOGDEBUG" />
+        </EntityContainer>
+        <ComplexType Name="ListMedicinasXAte_Result">
+          <Property Type="String" Name="TIPO" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="FechaAt" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="CodMedicina" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="57" />
+          <Property Type="String" Name="DescMedicina" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="cantidad" Nullable="true" MaxLength="4" />
+          <Property Type="String" Name="NroAtencion" Nullable="false" MaxLength="9" />
+        </ComplexType>
+        <ComplexType Name="SelMedicos_Result">
+          <Property Type="String" Name="CMP" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="NOMBRE" Nullable="true" MaxLength="204" />
+          <Property Type="String" Name="ESPECIALIDAD" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="ListDetServAux_Result">
+          <Property Type="String" Name="Servicio" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="NroServicio" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="ResultIn" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="ResultOut" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="UnidadMedida" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Rango" Nullable="true" MaxLength="40" />
+        </ComplexType>
+        <ComplexType Name="ListadoPacientes_Result">
+          <Property Type="String" Name="COD_HISTIRIA_CLINICA" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="DES_PACIENTE" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="DES_SEXO" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="FEC_NACIMIENTO" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DES_DOMICILIO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TELEFONO" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="CELULAR" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DES_ESTADO_CIVIL" Nullable="false" MaxLength="13" />
+          <Property Type="String" Name="CORREO" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EDAD" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="DNI" Nullable="true" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="DetalleAtenciones_Result">
+          <Property Type="String" Name="NroAtencion" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="CodAdmision" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="FechaAt" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Sistema" Nullable="true" MaxLength="24" />
+          <Property Type="String" Name="fechaalta" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Medico" Nullable="true" MaxLength="152" />
+          <Property Type="String" Name="EspecMedica" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="CodDiag1" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="DescripDiag1" Nullable="true" MaxLength="234" />
+          <Property Type="String" Name="CodDiag2" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="DescripDiag2" Nullable="true" MaxLength="120" />
+          <Property Type="String" Name="DiagAlta" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="DiagAltaDes" Nullable="true" MaxLength="234" />
+          <Property Type="Int32" Name="IsMed" Nullable="true" />
+          <Property Type="Int32" Name="IsServ" Nullable="true" />
+          <Property Type="Int32" Name="IsEpi" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PacienteFAT_Result">
+          <Property Type="String" Name="dhclcrp" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="Ap_Paterno" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="Ap_Materno" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="Nombres" Nullable="true" MaxLength="60" />
+          <Property Type="DateTime" Name="Ultimaatencion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="SEXO" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="dhcltdc" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="dhcldoc" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="EDAD" Nullable="true" />
+          <Property Type="String" Name="dnrocel" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="dmailto" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="dtelfij" Nullable="true" MaxLength="7" />
+        </ComplexType>
+        <EntityType Name="TGUR_LOGDEBUG">
+          <Key>
+            <PropertyRef Name="CGUR_PK" />
+          </Key>
+          <Property Name="CGUR_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SGUR_RUTA" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="SGUR_TIPO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SGUR_PARAMETROS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SGUR_MENSAJE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="SGUR_DETALLE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DGUR_FECHACREACION" Type="DateTime" Precision="3" />
+          <Property Name="SGUR_USER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HCDigitalCRPModelStoreContainer" CdmEntityContainer="HCDigitalCRPEntities" >
+          <FunctionImportMapping FunctionImportName="PRHCD_MEDICINAxAte" FunctionName="HCDigitalCRPModel.Store.PRHCD_MEDICINAxAte">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HCDigitalCRPModel.ListMedicinasXAte_Result">
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
+                <ScalarProperty Name="FechaAt" ColumnName="FechaAt" />
+                <ScalarProperty Name="CodMedicina" ColumnName="CodMedicina" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="DescMedicina" ColumnName="DescMedicina" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="NroAtencion" ColumnName="NroAtencion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRHCD_SELMEDICO" FunctionName="HCDigitalCRPModel.Store.PRHCD_SELMEDICO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HCDigitalCRPModel.SelMedicos_Result">
+                <ScalarProperty Name="CMP" ColumnName="CMP" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ESPECIALIDAD" ColumnName="ESPECIALIDAD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRHCD_DETSERVAUX" FunctionName="HCDigitalCRPModel.Store.PRHCD_DETSERVAUX">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HCDigitalCRPModel.ListDetServAux_Result">
+                <ScalarProperty Name="Servicio" ColumnName="Servicio" />
+                <ScalarProperty Name="NroServicio" ColumnName="NroServicio" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="ResultIn" ColumnName="ResultIn" />
+                <ScalarProperty Name="ResultOut" ColumnName="ResultOut" />
+                <ScalarProperty Name="UnidadMedida" ColumnName="UnidadMedida" />
+                <ScalarProperty Name="Rango" ColumnName="Rango" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRHCD_SELPACIENTE" FunctionName="HCDigitalCRPModel.Store.PRHCD_SELPACIENTE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HCDigitalCRPModel.ListadoPacientes_Result">
+                <ScalarProperty Name="COD_HISTIRIA_CLINICA" ColumnName="COD_HISTIRIA_CLINICA" />
+                <ScalarProperty Name="DES_PACIENTE" ColumnName="DES_PACIENTE" />
+                <ScalarProperty Name="DES_SEXO" ColumnName="DES_SEXO" />
+                <ScalarProperty Name="FEC_NACIMIENTO" ColumnName="FEC_NACIMIENTO" />
+                <ScalarProperty Name="DES_DOMICILIO" ColumnName="DES_DOMICILIO" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="CELULAR" ColumnName="CELULAR" />
+                <ScalarProperty Name="DES_ESTADO_CIVIL" ColumnName="DES_ESTADO_CIVIL" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="EDAD" ColumnName="EDAD" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRHCD_ATENCIONES" FunctionName="HCDigitalCRPModel.Store.PRHCD_ATENCIONES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HCDigitalCRPModel.DetalleAtenciones_Result">
+                <ScalarProperty Name="NroAtencion" ColumnName="NroAtencion" />
+                <ScalarProperty Name="CodAdmision" ColumnName="CodAdmision" />
+                <ScalarProperty Name="FechaAt" ColumnName="FechaAt" />
+                <ScalarProperty Name="Sistema" ColumnName="Sistema" />
+                <ScalarProperty Name="fechaalta" ColumnName="fechaalta" />
+                <ScalarProperty Name="Medico" ColumnName="Medico" />
+                <ScalarProperty Name="EspecMedica" ColumnName="EspecMedica" />
+                <ScalarProperty Name="CodDiag1" ColumnName="CodDiag1" />
+                <ScalarProperty Name="DescripDiag1" ColumnName="DescripDiag1" />
+                <ScalarProperty Name="CodDiag2" ColumnName="CodDiag2" />
+                <ScalarProperty Name="DescripDiag2" ColumnName="DescripDiag2" />
+                <ScalarProperty Name="DiagAlta" ColumnName="DiagAlta" />
+                <ScalarProperty Name="DiagAltaDes" ColumnName="DiagAltaDes" />
+                <ScalarProperty Name="IsMed" ColumnName="IsMed" />
+                <ScalarProperty Name="IsServ" ColumnName="IsServ" />
+                <ScalarProperty Name="IsEpi" ColumnName="IsEpi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PRFAT_BUSCAR_HC_DOC" FunctionName="HCDigitalCRPModel.Store.PRFAT_BUSCAR_HC_DOC">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HCDigitalCRPModel.PacienteFAT_Result">
+                <ScalarProperty Name="dhclcrp" ColumnName="dhclcrp" />
+                <ScalarProperty Name="Ap_Paterno" ColumnName="Ap_Paterno" />
+                <ScalarProperty Name="Ap_Materno" ColumnName="Ap_Materno" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Ultimaatencion" ColumnName="Ultimaatencion" />
+                <ScalarProperty Name="SEXO" ColumnName="SEXO" />
+                <ScalarProperty Name="dhcltdc" ColumnName="dhcltdc" />
+                <ScalarProperty Name="dhcldoc" ColumnName="dhcldoc" />
+                <ScalarProperty Name="EDAD" ColumnName="EDAD" />
+                <ScalarProperty Name="dnrocel" ColumnName="dnrocel" />
+                <ScalarProperty Name="dmailto" ColumnName="dmailto" />
+                <ScalarProperty Name="dtelfij" ColumnName="dtelfij" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="TGUR_LOGDEBUG">
+            <EntityTypeMapping TypeName="HCDigitalCRPModel.TGUR_LOGDEBUG">
+              <MappingFragment StoreEntitySet="TGUR_LOGDEBUG">
+                <ScalarProperty Name="SGUR_USER" ColumnName="SGUR_USER" />
+                <ScalarProperty Name="DGUR_FECHACREACION" ColumnName="DGUR_FECHACREACION" />
+                <ScalarProperty Name="SGUR_DETALLE" ColumnName="SGUR_DETALLE" />
+                <ScalarProperty Name="SGUR_MENSAJE" ColumnName="SGUR_MENSAJE" />
+                <ScalarProperty Name="SGUR_PARAMETROS" ColumnName="SGUR_PARAMETROS" />
+                <ScalarProperty Name="SGUR_TIPO" ColumnName="SGUR_TIPO" />
+                <ScalarProperty Name="SGUR_RUTA" ColumnName="SGUR_RUTA" />
+                <ScalarProperty Name="CGUR_PK" ColumnName="CGUR_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

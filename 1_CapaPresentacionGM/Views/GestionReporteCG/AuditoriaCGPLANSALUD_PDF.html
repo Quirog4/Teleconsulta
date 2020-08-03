@@ -1,0 +1,143 @@
+﻿
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <link rel="icon" href="@ViewBag.BaseURL/Img/icon-36x36.png" type="image/png">
+  <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body style="font-family:Arial, Helvetica, sans-serif;letter-spacing:1pt">
+  <div>
+    <div style="width:50%; display:inline-block">
+      <img src="{{imagen}}" style="width:210px;height:70px" />
+    </div>
+    <div style="width:45%; display:inline-block">
+      <div style="margin-bottom:10px; font-size:21px;">
+        <b>Estado : {{estadoCG}}</b><br>
+      </div>
+
+      <div>
+        <b>Motivo :</b>
+        {{motivoestado}}
+      </div>
+    </div>
+
+  </div>
+  <div>
+    <h3>Referencia de Carta de Garantía Nro.: {{nrosolicitud}}</h3>
+    <p style="text-align:right;">
+      San Isidro,
+      <span style="text-transform:capitalize">{{diaRegistro}}</span> de
+      <span style="text-transform:capitalize">{{mesRegistro}}</span> del
+      {{anioRegistro}}
+    </p>
+  </div>
+  <div>
+    Señores <br>
+    ADMINISTRADORA CLINICA RICARDO PALMA S.A <br />
+    LIMA
+  </div><br />
+  <div>
+    <div style="width:35%;display:inline-block">
+      <span style="border-top:1px solid black;">REF.</span>  <label style="padding-left:15px">Contrato (PLAN SALUD) Nro.</label><br />
+      <label style="padding-left:50px">Cliente Contratante</label><br />
+      <label style="padding-left:50px">Titular Asegurado</label><br />
+      <label style="padding-left:50px">Paciente</label><br />
+      <label style="padding-left:50px">Parentesco</label><br />
+      <label style="padding-left:50px">Código de afiliado</label><br />
+      <label style="padding-left:50px">Fecha Solicitud </label><br />
+      <label style="padding-left:50px">Fecha Registro </label><br />
+      <label style="padding-left:50px">Plan</label><br />
+      <label style="padding-left:50px">Fecha Inicio Contrato</label><br />
+    </div>
+    <div style="width:60%;display:inline-block">
+      :<span style="padding-left:15px">{{nrocontrato}}</span><br>
+      :<span style="padding-left:15px">{{contratante}}</span><br>
+      :<span style="padding-left:15px">{{titular}}</span><br>
+      :<span style="padding-left:15px">{{paciente}}</span><br>
+      :<span style="padding-left:15px">{{parentesco}}</span><br>
+      :<span style="padding-left:15px">{{codigo}} </span><br>
+      :<span style="padding-left:15px">{{fechaSolicitud}}</span><br>
+      :<span style="padding-left:15px">{{fechaRegistro}}</span><br>
+      :<span style="padding-left:15px">{{plan}}</span><br>
+      :<span style="padding-left:15px">{{fIniciovig}} {{fAfiliacion}} - {{estadoContrato}} </span><br>
+    </div>
+  </div>
+  <br />
+  <div>
+    Muy Señores nuestros:<br>
+    Por medio de la presente PLAN SALUD, otorga una carta de garantía en favor de {{paciente}};
+    bajo las siguientes condiciones:
+  </div><br />
+  <div>
+    <div style="width:35%;display:inline-block">
+      <label>IMPORTE GARANTIZADO </label><br />
+      <label>DEDUCIBLE </label><br />
+      <label>A CARGO DEL PACIENTE </label><br />
+    </div>
+    <div style="width:60%;display:inline-block">
+      :<span style="padding-left:15px">{{importe}}</span><br>
+      :<span style="padding-left:15px">{{deducible}}</span><br>
+      :<span style="padding-left:15px">{{cargopaciente}}</span><br>
+    </div>
+  </div>
+  <div style="display:table;width:100%">
+    <div style="width:35.5%;display:table-cell;">
+      <label>DIAGNOSTICO Y/O PROCEDIMIENTO </label>
+    </div>
+    :<div style="width:60%;display:table-cell;">
+      <p style="margin-left:-20px">
+      {{diagnostico}}</p>
+    </div>
+  </div>
+  <div style="display:table;width:100%">
+    <div style="width:35.5%;display:table-cell;">
+      <label>BENEFICIO </label>
+    </div>
+    :<div style="width:60%;display:table-cell">
+      <p style="margin-left:-20px">
+      {{cobertura}}</p>
+    </div>
+  </div>
+  <div style="display:table;width:100%">
+    <div style="width:35.5%;display:table-cell">
+      <label>PREEXISTENCIAS </label>
+    </div>
+    :<div style="width:60%;display:table-cell">
+      <p style="margin-left:-20px">{{preexistencias}} </p>
+    </div>
+  </div>
+  <div style="display:table;width:100%">
+    <div style="width:35.5%;display:table-cell">
+      <label>OBSERVACIONES DEL AUDITOR</label>
+    </div>:
+    <div style="width:60%;display:table-cell">
+      <p style="margin-left:-20px">{{obsmedicas}}</p>
+    </div>
+  </div>
+  <div style="text-align:justify">
+    <ul>
+      <li type="circle" style="padding-bottom:10px">
+        PLAN SALUD, evaluará los gastos generados de acuerdo a lo indicado líneas arriba.  <br>
+        Cualquier modificación deberá contar con la aceptación de nuestra Compañia,
+        caso contrario esta carta de garantía quedará sin efecto alguno.<br />
+      </li>
+      <li type="circle" style="padding-bottom:10px">La validez de la presente carta de garantía es de 30 días a partir de la fecha de emisión.<br /></li>
+      <li type="circle" style="padding-bottom:10px">
+        No se encuentran cubiertos  termómetros, papel higiénico, jabón, uso de teléfono, televisión,
+        gastos de acompañante y lo establecido según el contrato de prestación de servicios de
+        salud celebrado con su representada, salvo caso contrario expresado en esta carta de garantía.<br />
+      </li>
+      <li type="circle" style="padding-bottom:10px">La factura debe ser girada a nombre de PLAN SALUD</li>
+      <li type="circle" style="padding-bottom:10px;padding-top:7px">Sujeto a auditoría médica, concurrencias y normas de facturación.</li>
+    </ul>
+    <br />
+    <p>Cordialmente,</p>
+
+    <br /><br />
+  </div>
+  <div style="width:35%;text-align:center">
+    <span>{{nombreAuditor}}</span><br>
+    <span>Médico Auditor</span>
+  </div>
+</body>
+</html>

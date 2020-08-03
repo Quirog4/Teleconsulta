@@ -1,0 +1,85 @@
+﻿<header class="main-header">
+  <!-- Logo -->
+  <a href="@Url.Action("Index", "Home")" class="logo">
+    <!-- mini logo for sidebar mini 50x50 pixels -->
+    <span class="logo-mini">
+      <img src="~/Img/guru.png" class="guru">
+    </span>
+    <span class="logo-lg">
+     CRP ONLINE
+    </span>
+  </a>
+  <nav class="navbar navbar-static-top">
+    <a href="#" class="togle-bar" data-toggle="push-menu" role="button">
+      <i class="fas fa-bars"></i>
+    </a>
+    <div class="navbar-custom-menu" style="float:none;position:absolute;right:0">
+      <ul class="nav navbar-nav">
+        <li class="dropdown user user-menu" onclick="openDrop()" id="dropdownMenuButton">
+          <a href="#" class="btn dropdown-toggle " data-toggle="dropdown" style="color:#c2f5f4">
+            <i class="fas fa-user-circle " style="font-size:18px"></i>
+            <span class="user-hidden-xs ">@ViewBag.nombreUsuario </span>
+            <i id="drop-icon" class="fas fa-caret-down"></i>
+          </a>
+          <ul id="user-menu" class="dropdown-menu" style="max-width:220px">
+
+            <li><a href="@Url.Action("OutSession", "Login")">Cerrar Sesi&oacute;n</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<style>
+ .togle-bar {
+   float: left;
+   padding: 15px 15px;
+   color: #fff;
+ }
+
+   .togle-bar:focus, .togle-bar:active {
+     color: #868686;
+   }
+
+ ul#user-menu li {
+   border-bottom: 1px solid #eee;
+   padding: 10px;
+ }
+
+ ul#user-menu a {
+   color: #999 !important;
+ }
+ /*ul#user-menu a:hover{
+     background-color:
+   }*/
+</style>
+<script>
+
+  var width = $(window).width();
+  if(width<850){
+    $('.user-hidden-xs').hide();
+  }else{
+    $('.user-hidden-xs').show();
+  }
+
+  function openDrop() {
+    var li = document.getElementById("dropdownMenuButton");
+    if (li.className == 'dropdown user user-menu') {
+      document.getElementById("drop-icon").className = 'fas fa-caret-up'
+      document.getElementById("user-menu").style.display = 'block'
+      console.log("USUARIO"+document.getElementById("user-menu"))
+    }
+    else {
+      document.getElementById("drop-icon").className = 'fas fa-caret-down'
+      document.getElementById("user-menu").style.display = 'none'
+    }
+  }
+
+  function changePass(tipouser,url) {
+    if(tipouser==1){
+      mostrarModal("#modal-informativo", "Importante", "Debe cambiar su contraseña de windows o comunicarse con mesa de ayuda","")
+    }else{
+      window.location.href = url;
+    }
+  }
+</script>

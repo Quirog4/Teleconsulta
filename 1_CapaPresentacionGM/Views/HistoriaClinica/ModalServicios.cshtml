@@ -1,0 +1,99 @@
+﻿@model List<_1_CapaPresentacionGM.Models.DetalleSerAuxModel>
+
+
+    <div class="modal-header">
+      <h4 class="modal-title" id="myModalLabel">Servicios</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+      <div class=row>
+        <div class="col-md-4 col-7"><label>Fecha Atenci&oacute;n: </label><span class="fechaat"  style="padding-left:2px"></span></div>
+        <div class="col-md-2 col-5"><label>H.C.U: </label>  <span class="hcu"></span>  </div>
+        <div class="col-md-6 col-12"><label>Paciente: </label> <span class="paciente" style="text-transform:capitalize;"></span>   </div>
+      </div>
+      <nav style="padding-left: 13px;">
+        @{ var i = 1;}
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          @foreach (var a in Model.GroupBy(x => x.NroServicio, x => x.Tipo))
+          {
+            if (i == 0)
+            {
+                  <a class="nav-item nav-link active" data-toggle="tab" href="#tab-@a.Key" role="tab" aria-controls="nav-home" aria-selected="true">Examen N&deg;@i</a>
+            }
+            else
+            {
+                  <a class="nav-item nav-link" data-toggle="tab" href="#tab-@a.Key" role="tab" aria-controls="nav-home" aria-selected="true">Examen N&deg;@i</a>
+            }
+            i++;
+          }
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent" style="padding-top:15px">
+        @{ i = 0;
+            var active = "";}
+        @foreach (var a in Model.GroupBy(x => x.NroServicio, x => x.Tipo))
+        {
+          if (i == 0)
+          {
+            active = "active";
+          }
+          else { active = ""; }
+          i++;
+          <div class="tab-pane fade show col-md-12 @active" id="tab-@a.Key" role="tabpanel" aria-labelledby="nav-home-tab">
+            <table class="header_fijo table-bordered">
+              <thead>
+                <tr>
+                  <th width="250">An&aacute;lisis</th>
+                  <th  width="140">Dentro de rango</th>
+                  <th  width="130">Fuera de rango</th>
+                  <th  width="100">Unidad</th>
+                  <th  width="170">Rango referencial</th>
+                </tr>
+              </thead>
+
+              @foreach (var l in Model.Where(x => x.NroServicio == @a.Key))
+                {
+                  <tr>
+                    <td width="250">@l.Descripcion</td>
+                    <td width="140" align="center">@l.ResultIn</td>
+                    <td width="130">@l.FueraRango</td>
+                    <td width="100" align="center">@l.Unidad</td>
+                    <td width="170">@l.Referencia</td>
+                  </tr>
+              }
+            </table>
+          </div>
+        }
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-md-6"></div>
+          <div class="col-md-6 text-right">
+            <button type="button" class="btn bg-dark btn-sm" data-dismiss="modal">Cerrar</button>
+          </div>
+
+        </div>
+    </div>
+<style>
+  .tab-pane table th {
+    background-color: #004d79;
+    color: #f9f9f9;
+    padding: 3px 5px;
+    text-transform: uppercase;
+}
+</style>
+<script>
+
+  $("a.nav-item").click(function () {
+    var actual=$(this)
+    var href = actual.attr("href")
+    actual.addClass("active")
+    $("a.nav-item").each(function () {
+      if ($(this).attr("href") != href) {
+        $(this).removeClass("active")
+      }
+    })
+
+  })
+</script>

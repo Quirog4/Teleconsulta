@@ -1,0 +1,223 @@
+﻿@*--------------------------------------MODAL SUCCESS*@
+<div id="modal-realizado" class="modal modal-alerts" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content  modal-succes">
+      <div class="modal-header">
+        <div class="icon-box" style="color: #82ce34;">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h4 class="modal-title">Excelente!</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <a href="" class="btn btn-success">De acuerdo</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+@*---------------------------MODAL ERROR*@
+
+<div id="modal-error" class="modal modal-alerts" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content  modal-dange">
+      <div class="modal-header">
+        <div class="icon-box" style="color: #f15e5e;">
+          <i class="fas fa-times-circle"></i>
+        </div>
+        <h4 class="modal-title">Algo salio mal!</h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">De acuerdo</button>
+      </div>
+    </div>
+  </div>
+</div>
+@*---------------------------MODAL CONFIRMAR*@
+
+<div id="modal-confirmar" class="modal modal-alerts" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content  modal-confir">
+      <div class="modal-header">
+        <div class="icon-box" style="color: #f0ad4e;">
+          <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <h4 class="modal-title">¿Esta seguro?</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button id="closeModal" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="btnModal-confirmar" type="button" class="btn btn-yellow">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>
+@*-------------------------------------Modal INFORMAR*@
+
+<div id="modal-informativo" class="modal modal-alerts" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="icon-box" style="color: #00c0ef;">
+          <i class="fas fa-info-circle"></i>
+        </div>
+        <h4 class="modal-title">@*Excelente!*@</h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info"  data-dismiss="modal">De acuerdo</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" data-auto-replace-svg="nest"></script>
+
+<div id="modal-redirect" class="modal modal-alerts" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="icon-box" style="color: #007bff;">
+          <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <h4 class="modal-title">@*Excelente!*@</h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <a href="" class="btn bg-primary text-light">De acuerdo</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+ .modal-backdrop {
+   display: none;
+ }
+ .modal-alerts .modal-header {
+  padding:0;
+  }
+ .modal-alerts .modal-succes, .modal-alerts .modal-dange, .modal-alerts .modal-confir, .modal-alerts .modal-dialog {
+   max-width: 400px;
+   border-radius: 7px;
+ }
+
+ .modal-alerts .modal-header {
+   border-bottom-color: #fff !important;
+   display: block !important;
+ }
+
+ .modal-alerts .modal-succes h4 {
+   text-align: center;
+   font-size: 26px;
+ }
+
+ .modal-alerts .modal-title {
+   color: #777;
+ }
+
+ .modal-alerts .modal-body {
+   position: relative;
+   padding: 15px;
+   color: #908f8f;
+ }
+
+ .modal-alerts .modal-content {
+   text-align: center !important;
+ }
+
+ .modal-alerts .modal-footer {
+   border: none;
+   border-radius: 5px;
+   font-size: 13px;
+   padding: 10px 15px 25px;
+   display: block !important;
+ }
+
+ .modal-alerts .modal-succes {
+   padding: 20px;
+   border-radius: 5px;
+   border: none;
+ }
+ /*------------------------ICONO*/
+ .icon-box {
+   z-index: 9;
+   padding: 15px;
+   text-align: center;
+   display: block;
+   font-size: 80px;
+   width: 100%;
+ }
+
+ /*----------------------*/
+
+ .modal-dange .btn-danger {
+   background: #f15e5e;
+   border-color: #f15e5e;
+ }
+
+ .modal-confir .btn-yellow {
+   background: #f0ad4e;
+   border-color: #f0ad4e;
+   color: #f9f9f9;
+ }
+
+ .modal-confir .btn-default {
+   background: #c1c1c1;
+   border-color: #c1c1c1;
+   color: #fff;
+ }
+
+ .modal-succes .btn-success {
+   background: #82ce34;
+   border-color: #82ce34;
+ }
+
+ #modal-informativo .btn-info {
+   background-color: #02bbe8;
+   border-color: #02bbe8;
+   color: #fff;
+ }
+
+ .modal-dange .btn-danger:hover, .modal-dange .btn-danger:focus {
+   background: #ee3535;
+   border-color: #ee3535;
+ }
+</style>
+
+<script>
+  function mostrarModal(idModal, titulo, contenido, url) {
+    var modalAlerts = $(idModal);
+    modalAlerts.modal('hide')
+    if (titulo != "")
+      modalAlerts.find("h4").text(titulo);
+    if (contenido != "")
+      modalAlerts.find(".modal-body").text(contenido);
+    if (url != "") {
+      var buton = modalAlerts.find(".modal-footer a")
+      buton.attr("href",url)
+    }
+    if (url == "hide") {
+      var buton = modalAlerts.find(".modal-footer")
+      buton.hide();
+    }
+    
+    modalAlerts.modal({ backdrop: 'static', keyboard: false })
+    modalAlerts.modal('show')
+  }
+
+
+</script>

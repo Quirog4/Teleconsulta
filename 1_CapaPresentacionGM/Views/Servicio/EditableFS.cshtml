@@ -1,0 +1,704 @@
+﻿@model _1_CapaPresentacionGM.Models.CartaGarantiaServiciosViewModel
+@{
+    var carta = Model.cartaG;
+    var paciente = Model.cartaG.paciente;
+    var planSalud = Model.cartaG.paciente.planSalud;
+    var especialidades = Model.lstEspecialidades;
+    var diagnosticos = Model.lstDiagnosticoCIE;
+    var medicos = Model.lstMedico;
+    var tipoDocumento = Model.lstTipoDocumentos;
+}
+@using (Html.BeginForm("FormServicio", "Servicio", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-cgservicio" }))
+{
+    <div class="box-body accordion">
+      <div class="subtitle">
+        <a data-toggle="collapse" data-target="#accordeon-1" aria-expanded="true" aria-controls="collapseOne">
+          <h5>Datos de la Solicitud<i class="fas fa-caret-up"></i></h5>
+        </a>
+      </div>
+      <div id="accordeon-1" class="collapse">
+        <div class="row">
+          <div class="col-md-2 text-right">
+            <select id="tipoDocumento" name="paciente.tipoDocumento">
+              @foreach (var td in tipoDocumento)
+              {
+                if (td.codigo == "1")
+                {
+                      <option value="@td.codigo.Trim()" selected>@td.descripcion</option>
+                }
+                else
+                {
+                      <option value="@td.codigo.Trim()">@td.descripcion</option>
+                }
+              }
+            </select>
+          </div>
+          <div class="col-md-2" style="padding-right:2px">
+            <div class="input-group input-group-sm">
+              <input id="DNI" type="text" name="paciente.DNI" data-label="Número de documento" required="required" class="form-control" placeholder="N° Documento" />
+              <span class="input-group-btn">
+                <button id="search" type="button" class="btn btn-input btn-flat btn-sm"><i class="fas fa-search"></i></button>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-1 text-right"><label>HC:</label></div>
+          <div class="col-md-2">
+            <input type="text" name="paciente.NroHistoria" readonly />
+          </div>
+          <div class="col-md-1 text-right"><label>Edad:</label></div>
+          <div class="col-md-1">
+            <input type="text" readonly value="@paciente.Edad" name="paciente.Edad" />
+          </div>
+          <div class="col-md-1 text-right"><label>Celular:</label></div>
+          <div class="col-md-2">
+            <input type="text" name="paciente.celular" readonly />
+            <input type="hidden" name="paciente.FNacimiento" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 text-right"><label>Paciente:</label></div>
+          <div class="col-md-5">
+            <input type="hidden" name="paciente.Nombre" />
+            <input type="text" id="pacienteNombre" placeholder="Ingrese los apellidos del paciente" readonly />
+          </div>
+          <div class="col-md-1 text-right"><label>Correo:</label></div>
+          <div class="col-md-4">
+            <input type="email" name="paciente.eMail" readonly>
+          </div>
+        </div>
+
+        @*</div>
+          <div class="subtitle">
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#accordeon-2" aria-expanded="true" aria-controls="collapseOne">
+              <h5>  Datos  del Seguro</h5>
+            </button>
+          </div>
+          <div id="accordeon-2" class="collapse">*@
+        <div class="row">
+          <div class="col-md-2 text-right"><label>Plan:</label></div>
+          <div class="col-md-5">
+            <input type="text" readonly value="@planSalud.plan" name="plan.plan" style="width:45px" />
+            <input type="text" readonly value="@planSalud.producto" name="plan.producto" style="width:calc(100% - 50px);" />
+          </div>
+
+          <div class="col-md-1 text-right"><label>Estado:</label></div>
+          <div class="col-md-1 right-cero">
+            <label class="label estadoContrato">@planSalud.estadocontrato</label>
+            <input type="hidden" name="plan.estadocontrato" />
+          </div>
+          <div class="col-md-1 text-right right-cero"><label>N° Contrato:</label></div>
+          <div class="col-md-2">
+            <input type="text" readonly value="@planSalud.contratoCodigo" name="plan.contratoCodigo" />
+          </div>
+        </div>
+        <div class="row">
+          <input type="hidden" name="plan.Parentesco" />
+          <input type="hidden" name="plan.codafilicacion" />
+          <input type="hidden" name="plan.contratante" />
+          <input type="hidden" name="plan.TitularNombre" />
+
+          <div class="col-md-2 text-right"><label>Inicio de Vigencia:</label></div>
+          <div class="col-md-2">
+            <input type="text" name="plan.contratoIniVigencia" readonly />
+          </div>
+          <div class="col-md-2 text-right"><label>Fecha de Afiliaci&oacute;n:</label></div>
+          <div class="col-md-2">
+            <input type="text" name="plan.fafiliacion" readonly />
+          </div>
+          <div class="col-md-2 text-right "><label>Fecha de Contrato:</label></div>
+          <div class="col-md-2">
+            <input type="text" name="plan.fcontrato" readonly />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 text-right"><label>Especialidad:</label></div>
+          <div class="col-md-3">
+            <select name="carta.especialidad.codigo">
+              @foreach (var e in especialidades)
+              {
+                  <option value="@e.codigo">@e.descripcion</option>
+              }
+            </select>
+          </div>
+          <div id="preexistencias" class="col-md-7 text-right">
+            <button type="button" class="btn bg-info btn-sm" data-toggle="modal" data-target="#modal-preexistencias">
+              <i class="fas fa-info-circle"></i> Pre Existencias
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="subtitle">
+        <a data-toggle="collapse" data-target="#accordeon-3" aria-expanded="true" aria-controls="collapseOne">
+          <h5>
+            Informaci&oacute;n M&eacute;dica @*Diagnostico Principal y Procedimiento*@
+          </h5>
+        </a>
+      </div>
+      <div id="accordeon-3" class="collapse">
+        <div class="row">
+          <div class="col-md-2 col-sm-2 text-right">
+            <label>M&eacute;dico Tratante:</label>
+          </div>
+          <div class="col-md-4 col-sm-4">
+            <input id="autocomplete-medicos" type="text" required="required" data-label="Médico tratante" name="@carta.medicoTratante.codigo" placeholder="Ingrese el médico tratante" />
+            <input type="hidden" name="carta.medicoTratante.codigo" />
+          </div>
+          <div class="col-md-4 col-sm-3 text-right">
+            <label>Tiempo Enfermedad: </label>
+          </div>
+          <div class="col-md-2 col-sm-3">
+            <input type="text" name="carta.TenfAnio" maxlength="4" value="@carta.TenfAnio" style="width:37%" placeholder="AÑO" />
+            <input type="text" name="carta.TenfMes" maxlength="2" value="@carta.TenfMes" style="width:27%" placeholder="MES" /><text></text>
+            <input type="text" name="carta.TenfDia" maxlength="2" value="@carta.TenfDia" style="width:27%" placeholder="DIA" /><text></text>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 col-sm-3 text-right">
+            <label> Observaci&oacute;n M&eacute;dico Tratante: </label>
+          </div>
+          <div class="col-md-9 col-sm-3">
+            <textarea name="carta.obsMedTratante" rows="2"> @carta.obsMedTratante</textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 col-sm-2 text-right">
+            <label>Diagn&oacute;stico:</label>
+          </div>
+          <div class="col-md-9 col-sm-4">
+            <input type="text" id="autocomplete-diagnostico" name="diagnostico" required="required" data-label="Diágnostico" placeholder="Ingrese el diagnóstico" />
+            <input type="hidden" name="carta.diagnostico.codigo" />
+          </div>
+
+        </div>
+
+        @*</div>
+          <div class="subtitle">
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#accordeon-4" aria-expanded="true" aria-controls="collapseOne">
+              <h5>Procedimiento</h5>
+            </button>
+          </div>
+          <div id="accordeon-4" class="collapse">*@
+        <div class="row">
+          <div class="col-md-2 text-right">
+            <label>Procedimiento: </label>
+          </div>
+          <div class="col-md-9">
+            <div class="input-group input-group-sm">
+              <input id="autocomplete-procedimientos" type="text" data-codigo="" data-proced="" placeholder="Agregue un procedimiento" class="form-control" />
+              <span class="input-group-btn">
+                <button id="add-proced" type="button" class="btn btn-input btn-flat btn-sm"><i class="fas fa-plus"></i></button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div id="procedimiento" class="col-md-9 addRow">
+            <table class="header_fijo" style="width: 100%;margin-left: 0px;">
+              <thead>
+                <tr>
+                  <th class="text-center" width="130">C&oacute;digo</th>
+                  <th colspan="2">Procedimiento</th>
+                </tr>
+              </thead>
+              <tbody style="max-height:65px">
+
+                @if (carta.procedimientos != null)
+                {
+                  foreach (var p in carta.procedimientos)
+                  {
+                        <tr>
+                          <td width="130">@p.codigo</td>
+                          <td>@p.descripcion</td>
+                          <td></td>
+                        </tr>
+                  }
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="subtitle">
+        <a data-toggle="collapse" data-target="#accordeon-6" aria-expanded="true" aria-controls="collapseOne">
+          <h5> Beneficio Alternativa Copago<i class="fas fa-caret-up"></i></h5>
+        </a>
+      </div>
+      <div id="accordeon-6" class="collapse">
+        <div class="row">
+          <div class="col-md-2 col-sm-2 text-right">
+            <label>Tipo Atenci&oacute;n:</label>
+          </div>
+          <div class="col-md-2 col-sm-4">
+            <select name="carta.tipoAtencion">
+              <option value="AMBULATORIO">AMBULATORIO</option>
+              <option value="HOSPITALARIO">HOSPITALARIO</option>
+              <option value="EMERGENCIA">EMERGENCIA</option>
+            </select>
+          </div>
+          <div class="col-md-7 col-sm-3 text-right">
+            <label>N&deg; D&iacute;as Hospitalizaci&oacute;n: </label>
+          </div>
+          <div class="col-md-1 col-sm-3">
+            <input type="number" name="carta.nroDiasHosp" value="@carta.nroDiasHosp" min="0" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-10 addRow">
+            <table id="table-beneficio" style="width: 98%;" class="header_fijo">
+              <thead>
+                <tr>
+                  @if (carta.nrosolicitud == "")
+                  {
+                      <th width="50"></th>}
+                  <th class="text-center" width="200">C&oacute;digo</th>
+                  <th width="400">Cobertura</th>
+                  <th width="200">Copago Fijo</th>
+                  <th width="200">Copago Variable</th>
+                </tr>
+              </thead>
+              <tbody style="max-height:200px;min-height: 30px;"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="subtitle">
+        <a data-toggle="collapse" data-target="#accordeon-5" aria-expanded="true" aria-controls="collapseOne">
+          <h5>  Importe y Anexo<i class="fas fa-caret-up"></i></h5>
+        </a>
+      </div>
+      <div id="accordeon-5" class="collapse">
+        <div class="row">
+          <div class="col-md-2 text-right">
+            <label> Importe Base: </label>
+          </div>
+          <div class="col-md-2">
+            <input type="text" name="carta.importe" required="required" data-label="Importe " placeholder="Ingrese el importe" />
+          </div>
+          <div class="col-md-2 col-sm-3 text-right">
+            <label> Importe Total (inc IGV): </label>
+          </div>
+          <div class="col-md-2">
+            <input type="text" readonly id="importeCarta" />
+          </div>
+          <div class="col-md-1 text-right">
+            <label>Anexo: </label>
+          </div>
+          <div class="col-md-2">
+            <div class="invoiceBox">
+              <div for="file">
+                <div class="boxFile" data-text="Seleccionar archivo" data-input="file">
+                  Seleccionar archivo
+                </div>
+              </div>
+              <input id="file" name="file" type="file">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+}
+
+<div class="modal" id="ModalPaciente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="max-width:600px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Seleccione su paciente</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <label class="col-md-2 text-right" style="vertical-align:middle">Apellidos:</label>
+          <div class="col-md-4" style="padding-right:3px">
+            <input id="apellido1" type="text" name="apellido1" class="form-general" minlength="2" placeholder="Paterno" " />
+          </div>
+          <div class="col-md-4" style="padding-left:3px">
+            <input id="apellido2" type="text" name="apellido2" class="form-general" placeholder="Materno" />
+          </div>
+          <div class="col-md-2 right-cero left-cero">
+            <button id="btn-BuscarPaciente" type="button" class="btn btn-sm bg-info">
+              <i class="fas fa-search"></i>
+              Buscar
+            </button>
+          </div>
+        </div>
+        <div id="resulBusqueda" style="max-height:150px">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-6 col-xs-6">
+            <button type="button" class="btn bg-dark btn-sm" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function () {
+    var form = $("#form-cgservicio");
+
+    $(".collapse").collapse('show')
+
+    $('input[type="radio"]').iCheck({
+      checkboxClass: 'icheckbox_square-green',
+      radioClass: 'iradio_square-green',
+      increaseArea: '15%'
+    });
+
+    $("input[name='carta.importe']").keyup(function () {
+      var mbase = parseFloat($(this).val());
+      var igv = mbase * 0.18;
+      if (!isNaN(igv)) {
+        $("#importeCarta").val(mbase + igv);
+      } else {
+        $("#importeCarta").val(0);
+      }
+    })
+
+    $("#pacienteNombre").click(function () {
+      $("#apellido1").val("");
+      $("#apellido2").val("");
+      $("#resulBusqueda").html("");
+      $("#ModalPaciente").modal('show');
+    })
+    //resulBusqueda
+
+    $("#btn-BuscarPaciente").click(function (event) {
+      var btn = $(this);
+      btn.attr("disabled", "disabled");
+      $("#resulBusqueda").html("")
+      var primApe = $("#apellido1").val()
+      var segundApe = $("#apellido2").val()
+      if (primApe != "" && segundApe != "") {
+        var apellidos = primApe + " " + segundApe
+        btn.removeAttr("disabled");
+
+        $.get(baseUrl + "/Servicio/getAfiliadosPS",
+          { apellidos: apellidos }, function (data) {
+            var pacientes = data.paciente;
+            if (pacientes.length == 0) {
+              $("#resulBusqueda").append("<div class=\"alert\" role=\"alert\">No se encontraron resultados.</div>")
+            } else {
+              for (var i = 0; i < pacientes.length; i++) {
+                event.preventDefault()
+                var div = $("<div>").addClass("list-group");
+                var btn = $("<button>").addClass("list-group-item list-group-item-action selPaciente").attr("type", "button")
+                          .attr("data-tipoDoc", pacientes[i].tipoDocumento).attr("data-NroDoc", pacientes[i].DNI)
+                          .text(pacientes[i].mostrarNombre);
+                div.append(btn);
+                $("#resulBusqueda").append(div);
+              }
+              $(".selPaciente").click(function () {
+                var btn = $(this);
+                console.log(btn);
+                $("#DNI").val(btn.attr("data-NroDoc"))
+                $("select[name='paciente.tipoDocumento']").val(btn.attr("data-tipoDoc"))
+                $("#search").click()
+                $("#ModalPaciente").modal('hide');
+              })
+            }
+
+          });
+      } else {
+        btn.removeAttr("disabled");
+        $("#resulBusqueda").append("<div class=\"alert\" role=\"alert\" style=\"color:red;\">" +
+             "DEBE INGRESAR LOS APELLIDOS PATERNO Y MATERNO PARA REALIZAR LA BÚSQUEDA.</div>")
+
+      }
+    })
+
+
+    $("#search").click(function () {
+      var btn = $(this);
+      btn.attr("disabled", "disabled");
+      $("#procedimiento tbody").html("")
+      $("#table-beneficio tbody").html("")
+      var input
+
+      var dni = $("#DNI").val();
+      var tipoDoc = $("select[name='paciente.tipoDocumento'] option:selected").val()
+      if (dni != "") {
+        $.get(baseUrl + "/Servicio/getAfiliado", { documento: $("#DNI").val(), tipoDocumento: tipoDoc }, function (data) {
+          btn.removeAttr("disabled")
+          if (data.plan.estadocontrato[0] != 'V') {
+            mostrarModal("#modal-error", "No vigente", "El contrato se encuentra en estado " +
+              data.plan.estadocontrato + ", comunicarse con un agente de PlanSalud", "")
+          } else {
+            if (data.paciente.Nombre != "///") {
+              var pac = data.paciente;
+              var plan = data.plan
+              $("input[name='paciente.Nombre']").val(pac.Nombre)
+              $("input[id='pacienteNombre']").val(pac.mostrarNombre)
+              $("input[name='paciente.eMail']").val(pac.eMail)
+              $("input[name='paciente.Edad']").val(pac.Edad)
+              $("input[name='paciente.celular']").val(pac.celular)
+              $("input[name='plan.TitularNombre']").val(plan.TitularNombre)
+              $("input[name='plan.contratoCodigo']").val(plan.contratoCodigo)
+              $("input[name='plan.contratoIniVigencia']").val(plan.contratoIniVigencia)
+              $("input[name='plan.contratante']").val(plan.contratante)
+              $("input[name='plan.estadocontrato']").val(plan.estadocontrato)
+              $("input[name='paciente.NroHistoria']").val(pac.NroHistoria)
+              $("input[name='paciente.FNacimiento']").val(pac.FNacimiento)
+              $("input[name='plan.codafilicacion']").val(plan.codafilicacion)
+              $("input[name='plan.Parentesco']").val(plan.Parentesco)
+              $("label.estadoContrato").text(plan.estadocontrato)
+              if (plan.estadocontrato[0] == "V") {
+                $("label.estadoContrato").addClass("label-success")
+              } else if (plan.estadocontrato[0] == "R") {
+                $("label.estadoContrato").addClass("label-primary")
+              } else if (plan.estadocontrato[0] == "P") {
+                $("label.estadoContrato").addClass("label-warning")
+              } else {
+                $("label.estadoContrato").addClass("label-danger")
+              }
+              $("input[name='plan.plan']").val(plan.plan)
+              $("input[name='plan.producto']").val(plan.producto)
+              $("input[name='plan.fafiliacion']").val(plan.fafiliacion)
+              $("input[name='plan.fcontrato']").val(plan.fcontrato)
+              var beneficios = data.beneficios;
+              var preexistencia = data.preexistencia;
+              var declaracion = data.declaracionJur;
+              var tbody = $("#table-beneficio tbody")
+
+              if (beneficios != null) {
+                tbody.html("");
+                for (var e = 0; e < beneficios.length; e++) {
+                  var i = beneficios[e];
+                  var inpcheck = $("<input>").attr("type", "checkbox").css("width", "15px").attr("name", "plan.beneficios[" + e + "].seleccionado").addClass("beneficio").attr("data-idBeneficio", e)
+               
+                  var codigo = $("<input>").attr("type", "hidden").attr("name", "plan.beneficios[" + e + "].codigo").val(i.codigo)//.attr("data-index", e).attr("data-name", "copagofijo")
+                  var cobertura = $("<input>").attr("type", "hidden").attr("name", "plan.beneficios[" + e + "].cobertura").val(i.cobertura)//.attr("data-index", e).attr("data-name", "cobertura")
+                  var cpfijo = $("<input>").attr("type", "hidden").attr("name", "plan.beneficios[" + e + "].copagofijo").val(i.copagofijo)//.attr("data-index", e).attr("data-name", "copagofijo")
+                  var cpvariable = $("<input>").attr("type", "hidden").attr("name", "plan.beneficios[" + e + "].copagovariable").val(i.copagovariable)//.attr("data-index", e).attr("data-name", "copagovariable")
+                  var div = $("<div>").addClass("icheck-primary")
+                  div.append(inpcheck)
+                  div.append(cobertura)
+                  div.append(cpfijo)
+                  div.append(cpvariable)
+                  div.append(codigo)
+                  var col1 = $("<td>").attr("width", "50").addClass("text-center")
+                  col1.append(div);
+                  var tr = $("<tr>")
+                  tr.append(col1);
+                  tr.append($("<td width=\"200\">").addClass("text-center").text(i.codigo));
+                  tr.append($("<td width=\"400\">").text(i.cobertura));
+                  tr.append($("<td width=\"200\">").text(i.copagofijo));
+                  tr.append($("<td width=\"200\">").text(+i.copagovariable + "%"));
+                  //tr.append($("<td width=\"120\">"))
+                  tr.appendTo(tbody);
+                }
+              }
+              if (preexistencia != null) {
+                $(".contrato").text(plan.contratoCodigo)
+                $(".estadoContrato").text(plan.estadocontrato)
+                $(".paciente").text(pac.mostrarNombre)
+                $(".fnac").text(pac.FNacimiento)
+                $(".plan").text(plan.plan)
+                $(".producto").text(plan.producto)
+                $(".inicVigencia").text(plan.contratoIniVigencia)
+                $(".dni").text(pac.DNI)
+                $(".edad").text(pac.Edad)
+                var tbdy = $("#table-preexistencias tbody")
+                tbdy.html("")
+                for (var e = 0; e < preexistencia.length; e++) {
+                  var i = preexistencia[e];
+                  var tr = $("<tr>")
+                  tr.append($("<td>").addClass("text-center").text(i.codigo));
+                  tr.append($("<td>").text(i.descripcion));
+                  tr.append($("<td>").text(i.observaciones));
+                  tr.appendTo(tbdy);
+                }
+              }
+
+              if (declaracion != null) {
+                var dec = $("#declaracion")
+                dec.html("")
+                for (var e = 0; e < declaracion.length; e++) {
+                  var i = declaracion[e];
+                  var ul = $("<ul>").addClass("list-group list-group-flush")
+                  var rpta = $("<li>").addClass("list-group-item")
+                  if (i.dolencia.length == 0)
+                    rpta.append(i.texto + " : " + i.respuesta)
+                  else {
+                    rpta.append("<p>" + i.texto + " : " + i.respuesta + "</p>");
+                    var table = $("<table>").addClass("table-bordered").css("width", "70%")
+                    var thead = $("<thead>").addClass("text-dark").css("text-transform", "uppercase").css("background-color", "#f9f9f9")
+                    var tbody = $("<tbody>").css("text-transform", "capitalize")
+                    thead.append("<tr><th>Descripción</th><th>Situación actual</th><th>Detalle</th><tr>")
+                    for (var d = 0; d < i.dolencia.length; d++) {
+                      var dol = i.dolencia[d];
+                      var tr = $("<tr>")
+                      tr.append("<td>" + dol.descripcion + "</td><td>" + dol.situacionActual + "</td><td>" + dol.detalle + "</td>")
+                      tbody.append(tr)
+                    }
+                    table.append(thead);
+                    table.append(tbody);
+                    rpta.append(table);
+                  }
+
+                  ul.append(rpta)
+                  dec.append(ul);
+                }
+              }
+
+              $("input[type='checkbox']").on("click", function () {
+
+                var inp = $(this)
+                console.log(inp)
+                var n = $("input[type='checkbox']:checked").length;
+                $("input[type='checkbox']:checked").val("true");
+                if (n == 1) {
+                  $("input[type='checkbox']").each(function () {
+                    if ($(this).attr("data-idbeneficio") != inp.attr("data-idbeneficio"))
+                      $(this).attr("disabled", "disabled")
+                  })
+                } else {
+                  $("input[type='checkbox']").removeAttr("disabled").removeAttr("value");
+                }
+              });
+            } else {
+              mostrarModal("#modal-error", "Sin resultados", "Paciente no encontrado en el sistema.", "")
+            }
+          }
+        })
+      } else {
+        mostrarModal("#modal-informativo", "", "Debe ingresar un número de documento para iniciar la búsqueda", "")
+        btn.removeAttr("disabled")
+      }
+    });
+
+    $("#guardarCarta").click(function () {
+      var mensaje = ""
+      if ($("input[type='file']").val() == "") {
+        mensaje += "No se adjuntaron documentos a esta solicitud"
+      } else {
+        mensaje += "Ya no podra seguir editando esta solicitud.";
+      }
+      var ve = verificarInputs();
+      var n = $("input[type='checkbox']:checked").length;
+      console.log(n)
+      if (ve) {
+        return;
+      } else if (n == 0) {
+        mostrarModal("#modal-error", "Ningu un beneficio seleccionado", "Debe seleccionar un beneficio para poder realizar la solicitud.", "")
+      }
+      else {
+        mostrarModal("#modal-confirmar", "", mensaje, "")
+        $("#btnModal-confirmar").click(function () {
+          $(".modal-footer button").attr("disabled", "disabled")
+          var i = 0;
+          $("input[name*='proced[']").each(function () {
+            var input = $(this)
+            input.removeAttr("name");
+            input.attr("name", "proced[" + i + "]");
+            i++;
+          })
+          i = 0;
+          form.submit();
+        })
+      }
+
+    })
+
+    $("#autocomplete-diagnostico").autocomplete({
+      source: function (request, response) {
+        $.ajax({
+          url: baseUrl + "/Servicio/getDiagnostiocs",
+          dataType: "json",
+          data: {
+            term: request.term
+          },
+          success: function (data) {
+            var lista = []
+            $(data.list).each(function (i) {
+              var json = { "id": this.codigo, "value": this.descripcion }
+              lista.push(json)
+            });
+            response(lista);
+          }
+        });
+      },
+      minLength: 3,
+      select: function (event, ui) {
+        $("input[name='carta.diagnostico.codigo']").val(ui.item.id)
+      }
+    })
+
+    $("#autocomplete-medicos").autocomplete({
+      source: function (request, response) {
+        $.ajax({
+          url: baseUrl + "/Servicio/getMedicos",
+          dataType: "json",
+          data: {
+            term: request.term
+          },
+          success: function (data) {
+            var lista = []
+            $(data.list).each(function (i) {
+              var json = { "id": this.codigo, "value": this.descripcion }
+              lista.push(json)
+            });
+            response(lista);
+          }
+        });
+      },
+      minLength: 2,
+      select: function (event, ui) {
+        $("input[name='carta.medicoTratante.codigo']").val(ui.item.id)
+      }
+
+    })
+
+    $("#autocomplete-procedimientos").autocomplete({
+      source: function (request, response) {
+        $.ajax({
+          url: baseUrl + "/Servicio/getProcedimientos",
+          dataType: "json",
+          data: {
+            term: request.term
+          },
+          success: function (data) {
+            var lista = []
+            $(data.list).each(function (i) {
+              var json = { "id": this.codigo, "value": this.descripcion }
+              lista.push(json)
+            });
+            response(lista);
+          }
+        });
+      },
+      minLength: 3,
+      select: function (event, ui) {
+        $("input#autocomplete-procedimientos").attr("data-codigo", ui.item.id).attr("data-proced", ui.item.value)
+      }
+    });
+
+    var i = 0;
+    $("#add-proced").click(function (event) {
+      event.preventDefault();
+      var padre = $(this).parent();
+      var input = $("#autocomplete-procedimientos")
+      if (input.attr("data-codigo") != "") {
+        $("#procedimiento table")
+               .append("<tr><td class=\"text-center\" width=\"130\">" + input.attr("data-codigo") + ""
+               + "<input type=\"hidden\" name=\"proced[" + i + "]\" value=\"" + input.attr("data-codigo") + "\"/>" +
+               "</td>" +
+                 "<td width=\"550\">" + input.attr("data-proced") + "</td>" +
+                 "<td  class=\"text-right\"><button type=\"link\" class=\"remove-row btn btn-link\"><i class=\"fas fa-trash\"></i></button></td>"
+               );
+        i++;
+        $(".remove-row").click(function () {
+          $(this).parent().parent().remove();
+        });
+      }
+      input.attr("data-codigo", "").attr("data-proced", "").val("");
+    });
+  });
+</script>

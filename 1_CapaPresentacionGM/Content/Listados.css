@@ -1,0 +1,19 @@
+﻿.thead {
+    position: absolute;
+    width: calc(100% - 50px);
+    z-index: 300;
+    margin-left: -1px;
+}
+
+.thead div {
+    text-align: center;
+    background-color: #6e7477;
+    color: #fff;
+    border-bottom: 0,5px solid #f4f4f4;
+    padding: 4px;
+    border-radius: 3px;
+    font-weight: bold;
+    border-left: 1px solid #fff;
+    
+}
+

@@ -1,0 +1,911 @@
+﻿@model _1_CapaPresentacionGM.Models.TeleconsultaViewModel
+@{
+    ViewBag.Title = "FAT";
+    var fat = Model.atencionTM;
+    var Diagnosticos = Model.atencionTM.dx;
+    var radiologia = Model.atencionTM.radiologia;
+    var laboratorio = Model.atencionTM.laboratorio;
+    var daily = @"https://unpkg.com/@daily-co/daily-js";
+}
+
+<script crossorigin src="@daily"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<style>
+ #mydiv {
+   min-width: 350px;
+   position: absolute;
+   z-index: 10000 !important;
+   background-color: #f1f1f1;
+   border: 1px solid #d3d3d3;
+   text-align: center;
+ }
+
+ #mydivheader {
+   padding: 10px;
+   cursor: move;
+   z-index: 10;
+ }
+</style>
+
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<div>
+
+
+  @if (fat.VideoConferencia.VideoConferenciaURL != null)
+  {
+
+      <div id="mydiv" class="ui-widget-content" style="display:none">
+
+        <div id="mydivheader" class="row bg-primary">
+          <div class="col-8">
+
+            Clic aqui para arrastrar
+          </div>
+
+          <div class="col-4 right">
+            <button type="button" id="minimize"
+                    class="btn btn-outline-light btn-sm">
+              <i class="fa fa-minus" aria-hidden="true"></i>
+            </button>
+            <button type="button"
+                    onclick="mtgLeave()"
+                    class="btn btn-outline-light btn-sm">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+          </div>
+
+        </div>
+        <div id="container-daily" style="width:100%; height:500px; min-width:350px;">
+          <div id="iframeClienteDaily" style="width:100%; height:100%"></div>
+        </div>
+      </div>
+  }
+
+</div>
+
+<div class="content-wrapper">
+
+  <section class="content">
+    <div class="box box-default">
+      <div class="box-header">
+        <div class="row">
+          <div class="col">
+            <h3>
+              Formulario de Atenci&oacute;n de Telemonitoreo
+            </h3>
+          </div>
+        </div>
+      </div>
+      @using (Html.BeginForm("GuardarFormularioAtencion", "FAT", FormMethod.Post, new { id = "form-fat" }))
+      {
+          @Html.AntiForgeryToken();
+          <div class="box-body">
+            <h6 class="subtitle"><span>Datos de la atenci&oacute;n</span></h6>
+            <div class="row">
+              <div class="col-md-1 text-right col-4"><label>N&deg; Atenci&oacute;n</label></div>
+              <div class="col-md-1 col-8">
+                <input type="text" readonly="readonly" name="fat.NroAtencion" value="@fat.NroAtencion" style="min-width:100px" />
+                <input type="hidden" readonly="readonly" name="fat.idTipoAtencion" value="1" />
+                <input type="hidden" name="fat.idAtencion" value="@fat.idAtencion" />
+                <input type="hidden" name="fat.idModalidad" value="1" />
+              </div>
+              <div class="col-md-1 text-right col-4"><label>OAA</label></div>
+              <div class="col-md-1 mayusculas col-8">
+                <input type="text" readonly="readonly" value="@fat.nroOaa" name="fat.nroOaa" />
+              </div>
+              <div class="col-md-1 text-right col-4"><label>Modalidad</label></div>
+              <div class="col-md-1 mayusculas col-8"><input type="text" value="Teleconsulta" readonly="readonly" /></div>
+              <div class="col-md-1 text-right col-4"><label>Contacto</label></div>
+              <div class="col-md-2 col-8">
+                <input type="text" value="@fat.medioContacto" readonly="readonly" />
+              </div>
+              <div class="col-md-1 text-right col-4"><label>Fecha Cita</label></div>
+              @if (fat.idAtencion != 0)
+              {
+                  <div class="col-md-1 mayusculas col-5"><input type="text" value="@fat.FechaRegistro" readonly="readonly" /></div>
+                  <div class="col-md-1 col-3"><input type="text" value="@fat.HoraRegistro" readonly="readonly" /></div> }
+              else
+              {
+                  <div class="col-md-1 mayusculas col-5"><input type="text" value="@DateTime.Now.ToString("dd/MM/yyyy")" readonly="readonly" /></div>
+                  <div class="col-md-1 col-3"><input type="text" value="@DateTime.Now.ToString("hh:mm tt")" readonly="readonly" /></div>
+              }
+            </div>
+            <h6 class="subtitle"><span>Dato Profesional M&eacute;dico</span></h6>
+            <div class="row">
+              <div class="col-md-1 text-right col-4"><label>RNE</label></div>
+              <div class="col-md-1 col-8" style="min-width:100px">
+                @if (fat.RNE != "")
+                {
+                    <input type="text" name="fat.RNE" value="@fat.RNE" readonly="readonly" />}
+                else
+                {
+                    <input type="text" name="fat.RNE" required="required" />}
+
+              </div>
+            </div>
+            <h6 class="subtitle"><span>Datos del Paciente</span></h6>
+            <div class="row info-paciente">
+              <div class="col-md-1 text-right col-4">
+                <label>N&deg; Documento</label>
+              </div>
+              <div class="col-md-2 col-8">
+                <input type="text" class="form-control" value="@fat.paciente.DNI" name="fat.paciente.DNI" readonly="readonly">
+              </div>
+
+              <div class="col-md-1 text-right col-4"><label>HC</label></div>
+              <div class="col-md-2 input-group input-group-sm col-8">
+                <input type="text" value="@fat.paciente.NroHistoria" name="fat.paciente.NroHistoria" class="form-control" id="pacienteHC" readonly="readonly" placeholder="HC" />
+              </div>
+              <div class="col-md-1 col-4 text-right"><label>Celular</label></div>
+              <div class="col-md-1 col-8">
+                <input type="text" class="editor" name="fat.paciente.celular" value="@fat.paciente.celular" readonly="readonly" />
+              </div>
+              <div class="col-md-1 col-4 text-right">
+                <label>Edad</label>
+              </div>
+              <div class="col-md-1 col-8">
+                <input type="text" name="fat.paciente.Edad" class="editor" value="@fat.paciente.Edad" required="required" readonly="readonly" data-label="Edad" />
+                <input type="hidden" name="fat.DescripcionCentroTrabajo" class="editor" value="@fat.DescripcionCentroTrabajo" />
+              </div>
+              <div class="col-md-1 col-4 text-right">
+                <label>Sexo</label>
+              </div>
+              <div class="col-md-1 col-8 sexo">
+                <input type="text" value="@fat.paciente.Sexo" readonly="readonly" style="min-width:85px" name="fat.paciente.Sexo">
+                <div class="result" style="padding-top:7px"></div>
+              </div>
+              <div class="col-md-1 text-right col-4"><label>Nombres</label></div>
+              <div class="col-md-5 col-8 row">
+                <div class="col-md-4 col-6" style="padding-right:0px;padding-left:0px"><input class="editor" required="required" readonly="readonly" type="text" placeholder="Apellido Paterno" name="fat.paciente.ApellidoPaterno" value="@fat.paciente.ApellidoPaterno" /></div>
+                <div class="col-md-4 col-6" style="padding-right:0px"><input class="editor" readonly="readonly" type="text" placeholder="Apellido Materno" name="fat.paciente.ApellidoMaterno" value="@fat.paciente.ApellidoMaterno"></div>
+                <div class="col-md-4 col-12" style="padding-right:0px">
+                  <input class="editor" required="required" readonly="readonly" type="text" placeholder="Nombres" name="fat.paciente.Nombre" value="@fat.paciente.Nombre">
+                </div>
+              </div>
+              <div class="col-md-1 col-4 text-right"><label>T&eacute;lefono</label></div>
+              <div class="col-md-1 col-8">
+                <input type="text" name="fat.paciente.Telefono" class="editor" value="@fat.paciente.Telefono" readonly="readonly" />
+              </div>
+              <div class="col-md-1 col-4 text-right"><label>Atenci&oacute;n</label></div>
+              <div class="col-md-2 col-8">
+                <input type="text" readonly="readonly" value="Consulta Externa" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 col-4  text-right"><label>Correo</label></div>
+              <div class="col-md-5 col-8">
+                <input type="text" name="fat.paciente.eMail" value="@fat.paciente.eMail" readonly="readonly" class="editor" />
+              </div>
+              <div class="col-md-1 col-4 text-right"><label>Fec. Ult. Atenci&oacute;n</label></div>
+              <div class="col-md-1 col-8">
+                <input type="text" readonly="readonly" value="@fat.paciente.FUtimaAtencion" name="fat.paciente.FUtimaAtencion" />
+              </div>
+              <div class="col-md-1 text-right col-4"><label>Financiador</label></div>
+              <div class="col-md-2 col-8">
+                <input type="text" class="form-control" value="@fat.Financiador" readonly="readonly" name="fat.Financiador">
+              </div>
+
+            </div>
+            @Html.Partial("ModalMorbilidades")
+            <h6 class="subtitle"><span>Atenci&oacute;n del Telemonitoreo</span></h6>
+            <div class="row">
+              <div class="col-md-7" style="padding-left:15px">
+                <medium>Breve resumen cl&iacute;nico (Antecedentes de importancia, enfermedad actual, anamnesis, impresi&oacute;n diagnostica) </medium>
+              </div>
+
+              <div class="col-md-4 col-sm-12 text-right">
+                <button class="btn bg-info" type="button" data-modal="#ModalHistoria">
+                  <i class="fas fa-notes-medical"></i>Historia Cl&iacute;nica
+                </button>
+                @if (fat.Estado.Equals("ADMITIDO") && fat.iscontacto==1)
+                {
+                    <button class="btn bg-primary" onclick="mtgJoin()" type="button">
+                      <i class="fas fa-video"></i>
+                      Contactar
+                    </button>
+                }
+              </div>
+              <div class="row">
+                <div class="col-md-1 text-right col-4"><label>Motivo:</label></div>
+                <div class="col-md-10 col-8">
+                  <textarea rows="3" name="fat.Motivo">@fat.Motivo</textarea>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1 text-right col-sm-3 col-4"><label>Anamnesis:</label></div>
+                <div class="col-md-10 col-sm-9 col-8">
+                  <textarea rows="3" name="fat.Anamnesis" required="required">@fat.Anamnesis</textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 text-right col-4">
+                <label>Diagn&oacute;stico: </label>
+              </div>
+              <div class="col-md-10 col-8">
+                @if (fat.isEditable)
+                {
+                    <div class="input-group input-group-sm">
+                      <input type="text" class="form-control ui-autocomplete col-7 col-md-10" data-tipo="b"
+                             id="uiDiagnostico" data-name="dx" data-index="0" style="width:80%">
+                      <select id="uiDiagnosticoTipo" class="col-2 col-md-1" style="margin-left:5px">
+                        <option value="P">PRESUNTIVO</option>
+                        <option value="D">DEFINITIVO</option>
+                        <option value="R">REPETIDO</option>
+                      </select>
+                      <span class="input-group-btn col-2 col-md-1">
+                        <button type="button" class="btn btn-input btn-flat btn-sm input-AddRow" data-id="uiDiagnostico" data-tabla="tabla-diagnostico" data-index="0"><i class="fas fa-plus"></i></button>
+                      </span>
+                    </div>}
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+            <div class="row  justify-content-end">
+              <div class="col-md-10 addRow col-11 table-responsive">
+                <table class="header_fijo">
+                  <thead>
+                    <tr>
+                      <th width="15%" class="text-center">CIE - 10</th>
+                      <th width="65%">Descripci&oacute;n</th>
+                      <th width="400" colspan="2">Tipo</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-diagnostico">
+                    @foreach (var d in Diagnosticos)
+                    {
+                        <tr>
+                          <td width="15%" class="text-center">@d.Codigo</td>
+                          <td width="50%">@d.Detalle</td>
+                          @if (d.Tipo == "P")
+                          {
+                              <td width="400">PRESUNTIVO</td>}
+                          else if (d.Tipo == "D")
+                          {
+                              <td width="400">DEFINTIVO</td> }
+                          else
+                          {
+                              <td width="400">REPETIDO</td> }
+                        </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-1 text-right">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 text-right col-4">
+                <label>Laboratorio: </label>
+              </div>
+              @if (fat.isEditable)
+              {
+                  <div class="col-md-10 col-8">
+                    <div class="input-group input-group-sm">
+                      <input type="text" class="form-control ui-autocomplete" id="uiLaboratorio" data-name="laboratorio" data-index="0">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-input btn-flat btn-sm input-AddRow" data-id="uiLaboratorio" data-tabla="tabla-laboratorio" data-tipo="a"><i class="fas fa-plus"></i></button>
+                      </span>
+                    </div>
+                  </div>
+              }
+            </div>
+            <div class="row justify-content-end">
+              <div class="col-md-10 addRow col-11 table-responsive">
+                <table class="header_fijo">
+                  <thead>
+                    <tr>
+                      <th width="15%" class="text-center">C&oacute;d. Lab.</th>
+                      <th class="text-left" width="65%">Prueba de Laboratorio</th>
+                      <th width="400" colspan="2" align="left">Observaciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-laboratorio">
+                    @foreach (var d in laboratorio)
+                    {
+                        <tr>
+                          <td width="15%" class="text-center">@d.codigo</td>
+                          <td width="65%">@d.descripcion</td>
+                          <td width="400" colspan="2">@d.observaciones</td>
+                        </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-1 text-right">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-1 text-right col-4">
+                <label>Radiolog&iacute;a: </label>
+              </div>
+
+              @if (fat.isEditable)
+              {
+                  <div class="col-md-10 col-8">
+                    <div class="input-group input-group-sm">
+                      <input type="text" class="form-control ui-autocomplete" id="uiRadiologia" data-name="radiologia" data-index="0">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-input btn-flat btn-sm input-AddRow" data-id="uiRadiologia" data-tabla="tabla-radiologia" data-tipo="a"><i class="fas fa-plus"></i></button>
+                      </span>
+                    </div>
+                  </div>
+              }
+            </div>
+
+            <div class="row justify-content-end">
+              <div class="col-md-10 addRow col-11 table-responsive">
+                <table class="header_fijo">
+                  <thead>
+                    <tr>
+                      <th width="15%" class="text-center">C&oacute;d. Rad.</th>
+                      <th width="65%">Examen de Radiolog&iacute;a</th>
+                      <th width="400">Observaciones</th>
+                      <th class="ocultar"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-radiologia">
+                    @foreach (var d in radiologia)
+                    {
+                        <tr data-id="@d.codigo" data-tipo="RAD">
+                          <td width="15%" class="text-center">@d.codigo</td>
+                          <td width="65%">@d.descripcion</td>
+                          <td width="400" colspan="2">@d.observaciones</td>
+                        </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-1 text-right">
+              </div>
+            </div>
+            <h6 class="subtitle"><span>Rp/Medicaci&oacute;n e Indicaciones</span></h6>
+            <div class="row">
+              <div class="col-md-1 text-right col-4"><label>Rp./Medicaci&oacute;n:</label></div>
+              @if (fat.isEditable)
+              {
+                  <div class="col-md-11 col-8">
+                    <div class="input-group input-group-sm">
+                      <select id="tipoBusquedaMedicamento" onchange="asignarTipoBusquedaProducto(this);" class="col-6 col-md-2">
+                        <option value="2">Nombre Comercial</option>
+                        <option value="1">Principio Activo</option>
+                      </select>
+                      <input type="text" id="idTipoBusqueda" hidden="hidden">
+                      <input type="text" class="form-control ui-autocomplete col-6 col-md-4" data-tipo="b" id="uiMedicamento" data-index="0" style="margin-left:5px">
+                      <input type="text" class="Dosis col-6 col-md-1" style="margin-left:5px"
+                             data-toggle="tooltip" data-placement="top" title="La dosis debe estar entre 0 y 99"
+                             placeholder="Dosis" onkeypress="return isNumberKey(event,this)" maxlength="5">
+                      <div id="listaUnidadPrescripcion" style="padding: 0px 5px;" class="col-5 col-md-1"></div>
+                      <select class="Cada col-5 col-md-1" style="margin-left:5px">
+                        <option value="">Cada</option>
+                        @foreach (var t in Model.tiempo)
+                        {
+                            <option value="@t.codigo">@t.descripcion</option>
+                        }
+                      </select>
+                      <div id="listaVia" style="padding: 0px 5px;" class="col-md-1 col-5"></div>
+                      <input type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="Intervalo col-6 col-md-1" style="margin-right:5px;margin-left:5px" placeholder="DURACIÓN" maxlength="5">
+                      <select class="TipoDuracion col-5 col-md-1">
+                        <option>Días</option>
+                        <option>Semanas</option>
+                        <option>Meses</option>
+                        <option>Años</option>
+                      </select>
+                      <div data-toggle="tooltip" data-placement="top" title="La cantidad debe ser mayor o igual a 1" id="Cantidad">
+                        <input type="text" class="Cantidad col-6 col-md-1" placeholder="Cantidad"
+                               onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" maxlength="5" style="margin-left:5px;min-width:120px">
+                      </div>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-input btn-flat btn-sm addMedicinas" data-tabla="tabla-medicina" data-tipo="m"><i class="fas fa-plus"></i></button>
+                      </span>
+                    </div>
+                  </div>
+              }
+            </div>
+            <div class="row justify-content-end">
+              <div class="col-md-11 addRow col-12 table-responsive" style="max-height:140px">
+                <table id="tab-medicinas">
+                  <thead>
+                    <tr>
+                      <th width="15%">Principio Activo</th>
+                      <th width="25%">Medicamento</th>
+                      <th width="10%">Posología</th>
+                      <th width="7%">Via</th>
+                      <th width="7%">Duración</th>
+                      <th width="8%">Dispensar</th>
+                      <th width="400" colspan="2">Observación</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-medicamentos">
+                    @foreach (var d in fat.medicinas)
+                    {
+                        <tr>
+                          <td width="15%">@d.PrincipioActivo</td>
+                          <td width="25%">@d.DescripcionProducto</td>
+                          <td width="10%">@d.Dosis</td>
+                          <td width="7%">@d.Via</td>
+                          <td width="7%">@d.Intervalo</td>
+                          <td width="8%">@d.Cantidad</td>
+                          <td width="350" colspan="2"><textarea readonly="readonly" rows="1">@d.Observacion</textarea></td>
+                        </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 text-right col-4"><label>Indicaciones:</label></div>
+              <div class="col-md-11 col-8"><textarea rows="3" name="fat.Tratamiento" required="required">@fat.Tratamiento</textarea></div>
+            </div>
+          </div>
+          <div class="box-footer">
+            <div class="row">
+              <div class="col-md-6 col-6">
+
+                <a href="@Url.Action("ListadoAtenciones", "FAtencionTelemonitoreo")" class="btn bg-dark">
+                  <i class="fas fa-hand-point-left"></i>Regresar
+                </a>
+
+              </div>
+              @if (fat.isEditable)
+              {
+                  <div class="col-md-6 text-right col-6">
+                    <button class="btn bg-primary" id="guardarform" type="button"><i class="fas fa-save"></i>Cerra FAT</button>
+                  </div>
+              }
+            </div>
+          </div>
+
+      }
+    </div>
+  </section>
+</div>
+
+<link rel="stylesheet" href="~/Content/jquery-UI/jquery-ui.css">
+<link rel="stylesheet" href="~/Content/icheck-1.x/skins/square/green.css">
+@*<!------------SECTION DATATABLE------->*@
+<link rel="stylesheet" href="~/Content/dataTable.css" />
+<link rel="stylesheet" href="~/Content/dataTables.bootstrap.min.css" />
+<style>
+ .error {
+   display: block;
+   width: 100%;
+   color: #8c2828;
+   font-style: italic;
+ }
+
+ span.input-group-btn {
+   right: 0;
+   position: absolute;
+   z-index: 100;
+ }
+
+ tbody {
+   text-transform: uppercase;
+ }
+</style>
+@section scripts{
+
+  <script src="~/Scripts/Forms.js"></script>
+  <script src="~/Scripts/icheck.js"></script>
+  <script src="~/Scripts/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+  <script src="~/Scripts/jquery.validate.js"></script>
+  <script src="~/Scripts/Funciones/InputAutocompleteFunction.js"></script>
+  <script src="~/Scripts/jquery.dataTables.min.js"></script>
+  <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+  @*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+
+
+
+
+  <script>
+    $(document).ready(function () {
+
+      $.get("@Url.Action("ListarViaPorGrupoFarmaceutico", "FAtencionTelemonitoreo")", { codigoGrupo: 00 }, function (data) {
+        $("#listaVia").html(data)
+      });
+      $.get("@Url.Action("ListarUnidadPrescripcionPorGrupoFarmaceutico", "FAtencionTelemonitoreo")", { codigoGrupo: 00 }, function (data) {
+        $("#listaUnidadPrescripcion").html(data)
+      })
+
+      $('input[type="radio"],input[type="checkbox"]').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+        increaseArea: '5%'
+      });
+
+      if ("@ViewBag.mensaje" != "") {
+        var mensaje = "Se envió la receta y solicitud de los exámenes al área de admisión para su respectiva atención"
+        if ("@ViewBag.mensaje" == "2")
+          mensaje = "Se envió la receta al área de admisión para su respectiva atención"
+        else if ("@ViewBag.mensaje" == "1")
+          mensaje = "Se envió la solicitud de los exámenes al área de admisión para su respectiva atención"
+        mostrarModal("#modal-informativo", "", mensaje, "")
+      }
+
+      var table = $('#ModalHistoria table').DataTable({
+        "order": [[2, "desc"]],
+        autoWidth: false,
+        info: true,
+        lengthChange: false,
+        ordering: false,
+        paging: true,
+        searching: false,
+        language: { // Se configura la DataTable para mostrar los textos en español
+          info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+          lengthMenu: "Mostrar _MENU_ registros",
+          paginate: {
+            first: "Primero",
+            last: "Último",
+            next: "Siguiente",
+            previous: "Anterior"
+          },
+          //search: "Buscar:",
+          zeroRecords: "No se encontraron resultados",
+        },
+        'columnDefs': [{
+          'targets': [6], // column index (start from 0)
+          'visible': false, // set orderable false for selected columns
+          "searchable": false,
+        }],
+        rowCallback: function (row, data) {
+          $($(row).find("td")[2]).attr("width", "170").html("<span class=\"label label-" + data[6] + " text-center\">" + data[2] + "</span>");
+        }
+      });
+
+
+
+      if ('@fat.isEditable' == 'False') {
+        $("input[name*='fat.'] , textarea").attr("readonly", "readonly");
+      }
+
+
+      autocompleteSimple("#uiDiagnostico", "@Url.Action("getDiagnosticos", "FiltroAutocomplete")", 3)
+      autocompleteSimple("#uiLaboratorio", "@Url.Action("getLaboratorio", "FiltroAutocomplete")", 4)
+      autocompleteSimple("#uiRadiologia", "@Url.Action("getRadiologia", "FiltroAutocomplete")", 4)
+      autocompleteMedicina("#uiMedicamento", "@Url.Action("getMedicamento", "FiltroAutocomplete")"
+      , "@Url.Action("ListarViaPorGrupoFarmaceutico", "FAtencionTelemonitoreo")",
+      "@Url.Action("ListarUnidadPrescripcionPorGrupoFarmaceutico", "FAtencionTelemonitoreo")"
+        )
+
+      $(".input-AddRow").click(function () {
+        var tabla = $(this).attr("data-tabla");
+        var indice = $(this).attr("data-index");
+        var input = $("#" + $(this).attr("data-id"));
+        var tipoTabla = $(this).attr("data-tipo");
+        var codigo = input.attr("data-codigo");
+        if (typeof codigo == "undefined" || codigo == "") {
+          mostrarModal("#modal-informativo", "Debe seleccionar una descripcion válida.", "", "")
+          return false;
+        } else if (input.val() == "") {
+          mostrarModal("#modal-informativo", "Debe ingresar una descripción", "", "")
+          return false;
+        }
+        var ret = false;
+        $("#" + tabla + " td").each(function () {
+          var code = $(this).text();
+          if (codigo == code) {
+            mostrarModal("#modal-informativo", "Ya ha seleccionado esa opción.", "", "")
+            ret = true;
+            return false;
+          }
+        })
+        if (ret) {
+          return false;
+        } else {
+          var columnas = "";
+
+          if (tipoTabla == "a") {
+            columnas = "<td width=\"15%\" >" + codigo +
+              "<input data-id=\"" + indice + "\" type=\"hidden\" data-name=\"codigo\" class=\"" + input.attr("data-name") + "\" value=\"" + codigo + "\"></td>" +
+            "<td width=\"65%\">" + input.val() + "</td>" +
+            "<input type=\"hidden\" class=\"" + input.attr("data-name") + "\" data-name=\"descripcion\" value=\"" + input.val() + "\">" +
+            "<td width=\"27%\"><textarea rows=\"1\" data-name=\"observaciones\" class=\"" + input.attr("data-name") + "\" ></textarea></td>"
+          } else {
+            columnas = "<td width=\"15%\">" + codigo + "</td>" +
+            "<input type=\"hidden\" class=\"" + input.attr("data-name") + "\" data-name=\"codigo\" value=\"" + codigo + "\">" +
+            "<input type=\"hidden\" class=\"" + input.attr("data-name") + "\" data-name=\"Detalle\" value=\"" + input.val() + "\">" +
+            "<input type=\"hidden\" class=\"" + input.attr("data-name") + "\" data-name=\"tipo\" value=\"" + $("#uiDiagnosticoTipo").val() + "\">" +
+            "<td width=\"65%\">" + input.val() + "</td>" +
+            "<td width=\"27%\">" + $("#uiDiagnosticoTipo option:selected").text() + "</td>";
+          }
+          input.attr("data-codigo", "");
+          input.val("");
+          addRow(tabla, columnas);
+        }
+      })
+      var optionVias = "<option value=\"\">Elija</option>", optionTiempo = "<option value=\"\">Elija</option>";
+
+
+      $(".addMedicinas").click(function () {
+        var cantidad = $(".Cantidad")
+        var dosis = $(".Dosis")
+        var descripcionProducto = $("#uiMedicamento").attr("data-descripcionproducto");
+        var codigoMedicamento = $("#uiMedicamento").attr("data-codigo");
+        var descripcionPrincipioActivo = $("#uiMedicamento").attr("data-descripcionprincipioactivo");
+        var tipoproducto = $("#uiMedicamento").attr("data-tipoproducto");
+        var formaproducto = $("#uiMedicamento").attr("data-formaproducto");
+        var unidadVentaProducto = $("#uiMedicamento").attr("data-unidadVentaProducto");
+        var uMVAbreviado = $("#uiMedicamento").attr("data-uMVAbreviado");
+        if (cantidad.val() < 1) {
+          cantidad.attr("style", 'border-color:red;margin-left: 5px; min-width: 120px')
+          return false;
+        }
+        if (dosis.val() <= 0 || dosis.val() > 99) {
+          dosis.attr("style", 'border-color:red')
+          return false;
+        }
+        dosis.removeAttr("style");
+        cantidad.attr("style", 'margin-left: 5px; min-width: 120px')
+        var ret = false;
+        $("#tabla-medicamentos td").each(function () {
+          var code = $(this).find("input[data-name='Codigo']").val();
+          if (codigoMedicamento == code) {
+            mostrarModal("#modal-informativo", "Ya ha seleccionado esa opción.", "", "")
+            ret = true;
+            return false;
+          }
+        })
+        if (ret) {
+          return false;
+        }
+        else if (descripcionProducto == "" || dosis.val() == "" || $(".Via").val() == ""
+          || $(".Cada").val() == "" || $(".Intervalo").val() == "" || cantidad.val() == "") {
+          mostrarModal("#modal-informativo", "El campo medicamento, dosis, vía, cada (hrs), duración y cantidad son obligatorios a registrar.", "", "")
+        } else {
+
+          $("#tabla-medicamentos")
+            .append("<tr>" +
+                "<td style=\"font-weight:bold; text-decoration:underline\" width=\"9%\">" + descripcionPrincipioActivo +
+                "</td>" +
+                "<td width=\"25%\">" + descripcionProducto +
+                        "<input  class=\"medicina\" type=\"hidden\" data-name=\"DescripcionProducto\" value=\"" + descripcionProducto + "\"/>" +
+                        "<input  class=\"medicina\" type=\"hidden\" data-name=\"Codigo\" value=\"" + codigoMedicamento + "\"/>" +
+                        "<input  class=\"medicina\" type=\"hidden\" data-name=\"PrincipioActivo\" value=\"" + descripcionPrincipioActivo + "\"/>" +
+                        "<input  class=\"medicina\" type=\"hidden\" data-name=\"TipoProducto\" value=\"" + tipoproducto + "\"/>" +
+                        "<input  class=\"medicina\" type=\"hidden\" data-name=\"Forma\" value=\"" + $(".UnidadPrescripcion option:selected").text() + "\"/>" +
+                        "<input  class=\"medicina\" type=\"hidden\" data-name=\"UnidadVentaProducto\" value=\"" + unidadVentaProducto + "\"/>" +
+                        "<input  class=\"medicina\" type=\"hidden\" data-name=\"UMVAbreviado\" value=\"" + uMVAbreviado + "\"/>" +
+                        "<input  class=\"medicina\" type=\"hidden\" data-name=\"Viadesc\" value=\"" + $(".Via option:selected").text() + "\"/>" +
+                        "<input  class=\"medicina\" type=\"hidden\" data-name=\"dosisdesc\" value=\"" + $(".Dosis").val() + " " + $(".UnidadPrescripcion option:selected").text() + " C/ " + $(".Cada option:selected").text() + "\"/>" +
+                        "<input class=\"medicina \" type=\"hidden\" data-name=\"Dosis\" value=\"" + $(".Dosis").val() + "\"/></td>" +
+                        "<input class=\"medicina\" type=\"hidden\" data-name=\"Cada\" value=\"" + $(".Cada").val() + "\"/></td>" +
+                        "<input class=\"medicina\" type=\"hidden\" data-name=\"Via\" value=\"" + $(".Via").val() + "\"/></td>" +
+                        "<input class=\"medicina\" type=\"hidden\" data-name=\"Intervalo\" value=\"" + $(".Intervalo").val() + " " + $(".TipoDuracion option:selected").text() + "\"/></td>" +
+                        "<input class=\"medicina hidden\" type=\"hidden\" data-name=\"Cantidad\" value=\"" + $(".Cantidad").val() + "\"/></td>" +
+               "</td>" +
+                "<td style=\"text-align:center\" width=\"10%\">" + $(".Dosis").val() + " " + $(".UnidadPrescripcion option:selected").text() + " C/ " + $(".Cada option:selected").text() +
+                "<td style=\"text-align:center\"width=\"7%\">" + $(".Via option:selected").text() +
+                "<td style=\"text-align:center\"width=\"7%\">" + $(".Intervalo").val() + " " + $(".TipoDuracion option:selected").text() +
+                "<td style=\"text-align:center\"width=\"8%\">" + $(".Cantidad").val() +
+                "<td width=\"250\"><textarea class=\"medicina hidden\" rows=\"2\" data-name=\"Observacion\"></textarea></td>" +
+                "<td width=\"2%\"class=\"text-right\">" +
+                    "<button type=\"button\" class=\"remove-row btn btn-link\"><i class=\"fas fa-trash\"></i></button></td>" +
+                "</tr>");
+          $(".remove-row").click(function () {
+            $(this).parent().parent().remove();
+          });
+          $("#uiMedicamento").val("")
+          $(".Dosis").val("");
+          $(".Via").val("");
+          $(".Cada").val("");
+          $(".Intervalo").val("")
+          $(".Cantidad").val("")
+        }
+      })
+
+      $("button[data-modal='#ModalHistoria']").click(function () {
+
+        table.rows().remove().draw();
+        @*if(@fat.idAtencion!=0){
+          $(".loader").hide();
+          $("#ModalHistoria").modal('show');
+        }else{*@
+        var hc = $("input#pacienteHC").val();
+        var nombre = $("input#pacienteNombre").val();
+        if (hc == "" && nombre == "") {
+          mostrarModal("#modal-informativo", "Debe ingresar un paciente", " ", "")
+        } else {
+          $("#ModalHistoria").modal('show');
+          $(".loader").show();
+          $("#ModalHistoria .table-responsive").hide()
+          $.get("@Url.Action("listarAtenciones", "OIQuirurgica")",
+          { nroHistoria: hc, paciente: "" }, function (data) {
+            if (data.outsession) {
+              return outSession();
+            }
+            $(".loader").hide();
+            $("#ModalHistoria .table-responsive").show()
+            var l = data.listate;
+            if (l.length > 0) {
+              for (var i = 0; i < l.length; i++) {
+                table.row.add([
+                  l[i].FechaAT,
+                  l[i].CodAdmision,
+                  l[i].TipoAt,
+                  l[i].Diagnosticos,
+                  l[i].Medico,
+                  l[i].Especialidad,
+                  l[i].colorTA//7
+                ]);
+                table.draw();
+              }
+            }
+          })
+        }
+        //}
+      })
+
+      $("#guardarform").click(function () {
+        btn = $(this);
+        btn.attr("disabled","disabled");
+        $("label.error").remove()
+        var inputs = $("textarea[required='required'],input[name='fat.RNE'] ");
+        var rpta = true;
+        inputs.each(function () {
+          var int = $(this);
+          if (int.val() == "") {
+            btn.removeAttr("disabled", "disabled")
+            int.parent().append('<label class="error" >Este campo es obligatorio</label>')
+            rpta = false;
+          }
+        })
+        if (!rpta) { return false; }
+        listaInputColumnas("tabla-diagnostico", "fat.dx", "dx")
+        var i = $("input[name*='fat.dx']").length;
+        if (parseInt(i) == 0) {
+          btn.removeAttr("disabled", "disabled")
+          mostrarModal("#modal-informativo", "Debe ingresar al menos un diagnóstico", " ", "")
+          return false;
+        } else {
+          listaInputColumnas("tabla-radiologia", "fat.radiologia", "radiologia")
+          listaInputColumnas("tabla-laboratorio", "fat.laboratorio", "laboratorio")
+          listaInputColumnas("tabla-medicamentos", "fat.medicinas", "medicina")
+          $("#form-fat").submit();
+        }
+      })
+
+      function isNumberKey(evt, element) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57) && !(charCode == 46 || charCode == 8 || charCode == 45))
+          return false;
+        else {
+          var len = $(element).val().length;
+
+          // Validation Point
+          var index = $(element).val().indexOf('.');
+          if ((index > 0 && charCode == 46) || len == 0 && charCode == 46) {
+            return false;
+          }
+          if (index > 0) {
+            var CharAfterdot = (len + 1) - index;
+            if (CharAfterdot > 3) {
+              return false;
+            }
+          }
+
+          // Validating Negative sign
+          index = $(element).val().indexOf('-');
+          if ((index > 0 && charCode == 45) || (len > 0 && charCode == 45)) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+    });
+
+
+
+  </script>
+
+
+  <script>
+
+
+    dragElement(document.getElementById("mydiv"));
+
+    function dragElement(elmnt) {
+      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      if (elmnt != null) {
+        if (document.getElementById(elmnt.id + "header")) {
+          // if present, the header is where you move the DIV from:
+          document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+        } else {
+          // otherwise, move the DIV from anywhere inside the DIV:
+          elmnt.onmousedown = dragMouseDown;
+        }
+      }
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+
+      function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+      }
+
+      var callFrame;
+      var activo = false;
+      function mtgJoin() {
+
+        if (activo) return;
+
+
+          $("#mydiv").show();
+
+
+      callFrame = window.DailyIframe.createFrame(
+          document.getElementById('iframeClienteDaily'), {
+            iframeStyle: {
+      width: '100%',
+     height: '100%'
+              },
+              showLeaveButton: false,
+           showFullscreenButton: true,
+
+          }
+        );
+
+
+      callFrame.join({ url: '@fat.VideoConferencia.VideoConferenciaURL' });
+            activo = true;
+
+
+
+          //  $("#container-daily").resizable();
+
+            $("#container-daily").resizable({
+              start: function (event, ui) {
+                $('iframe').css('pointer-events', 'none');
+              },
+              stop: function (event, ui) {
+                $('iframe').css('pointer-events', 'auto');
+              }
+            });
+
+
+    }
+      function mtgLeave() {
+            activo = false;
+
+          $("#mydiv").hide();
+          callFrame.leave();
+          $("#iframeClienteDaily").html("");
+      }
+
+
+      $("#minimize").click(function () {
+          $('#container-daily').slideToggle();
+
+});
+  </script>
+}

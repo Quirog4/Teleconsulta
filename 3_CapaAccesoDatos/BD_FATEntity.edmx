@@ -1,0 +1,829 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FAT_CRPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TFAT_ATENCION">
+          <Key>
+            <PropertyRef Name="CFAT_ID_ATENCION" />
+          </Key>
+          <Property Name="CFAT_ID_ATENCION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CFAT_ID_TIPOATENCION" Type="int" />
+          <Property Name="SFAT_ANAMNESIS" Type="varchar(max)" />
+          <Property Name="SFAT_MOTIVO" Type="varchar(max)" />
+          <Property Name="SFAT_TRATAMIENTO" Type="varchar(max)" />
+          <Property Name="CFAT_ESTADO" Type="int" />
+          <Property Name="SFAT_USR_CREACION" Type="varchar" MaxLength="20" />
+          <Property Name="DFAT_FEC_CREACION" Type="datetime" />
+          <Property Name="SFAT_OAA" Type="varchar" MaxLength="20" />
+          <Property Name="DFAT_FECHA_OAA" Type="datetime" />
+          <Property Name="SFAT_USUARIO_OAA" Type="varchar" MaxLength="20" />
+          <Property Name="BFAT_ESTADOREGISTRO" Type="bit" />
+          <Property Name="DFAT_FECHA_CITA" Type="date" />
+          <Property Name="SFAT_HORA_CITA" Type="varchar" MaxLength="10" />
+          <Property Name="SFAT_MEDIOCONTACTO" Type="varchar" MaxLength="20" />
+          <Property Name="CFAT_ID_MEDICO" Type="int" Nullable="false" />
+          <Property Name="CPAC_ID_PACIENTE" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'FAT_CRP.dbo.TFAT_DIAGNOSTICO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="TFAT_DIAGNOSTICO">
+          <Key>
+            <PropertyRef Name="CFAT_ID_ATENCION" />
+            <PropertyRef Name="SFAT_CIE10" />
+          </Key>
+          <Property Name="CFAT_ID_ATENCION" Type="int" Nullable="false" />
+          <Property Name="SFAT_CIE10" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SFAT_TIPO" Type="char" MaxLength="1" />
+          <Property Name="CFAT_ESTADO" Type="bit" />
+          <Property Name="SFAT_USR_CREACION" Type="varchar" MaxLength="20" />
+          <Property Name="DFAT_FEC_CREACION" Type="datetime" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'FAT_CRP.dbo.TFAT_LABORATORIO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="TFAT_LABORATORIO">
+          <Key>
+            <PropertyRef Name="CFAT_ID_ATENCION" />
+          </Key>
+          <Property Name="CFAT_ID_ATENCION" Type="int" Nullable="false" />
+          <Property Name="SFAT_CODIGO" Type="varchar" MaxLength="10" />
+          <Property Name="CFAT_ESTADO" Type="bit" />
+          <Property Name="SFAT_USR_CREACION" Type="varchar" MaxLength="20" />
+          <Property Name="DFAT_FEC_CREACION" Type="datetime" />
+          <Property Name="SFAT_OBSERVACIONES_LB" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TFAT_PERMISOS">
+          <Key>
+            <PropertyRef Name="CPER_PERMISO" />
+          </Key>
+          <Property Name="FPER_READ" Type="bit" />
+          <Property Name="FPER_WRITE" Type="bit" />
+          <Property Name="CPER_PERMISO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SPER_MENU" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'FAT_CRP.dbo.TFAT_RADIOLOGiA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="TFAT_RADIOLOGiA">
+          <Key>
+            <PropertyRef Name="CFAT_ID_ATENCION" />
+          </Key>
+          <Property Name="CFAT_ID_ATENCION" Type="int" Nullable="false" />
+          <Property Name="SFAT_CODIGO" Type="varchar" MaxLength="10" />
+          <Property Name="CFAT_ESTADO" Type="bit" />
+          <Property Name="SFAT_USR_CREACION" Type="varchar" MaxLength="20" />
+          <Property Name="DFAT_FEC_CREACION" Type="datetime" />
+          <Property Name="SFAT_OBSERVACIONES_RX" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TFAT_USUARIO">
+          <Key>
+            <PropertyRef Name="CUSU_IDUSUARIO" />
+          </Key>
+          <Property Name="CUSU_IDUSUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SUSU_CODUSUARIO" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SUSU_PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CUSU_PERMISO" Type="int" Nullable="false" />
+          <Property Name="SUSU_ESTADO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TMAE_CIE">
+          <Key>
+            <PropertyRef Name="cCIE_MAE_CIE10" />
+          </Key>
+          <Property Name="cCIE_MAE_CIE10" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sCIE_CodDiagnostico" Type="varchar" MaxLength="10" />
+          <Property Name="sCIE_DesDiagnostico" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="TMAE_FINANCIADOR">
+          <Key>
+            <PropertyRef Name="SFIN_IDFINANCIADOR" />
+          </Key>
+          <Property Name="SFIN_NOMBRE" Type="varchar" MaxLength="100" />
+          <Property Name="FFIN_ESTADO" Type="bit" />
+          <Property Name="SFIN_IDFINANCIADOR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TMAE_MEDICOS">
+          <Key>
+            <PropertyRef Name="CMED_MAE_MED" />
+          </Key>
+          <Property Name="CMED_MAE_MED" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SMED_CODMEDICO" Type="varchar" MaxLength="10" />
+          <Property Name="SMED_NOMBRESMEDICO" Type="varchar" MaxLength="80" />
+          <Property Name="SMED_ESPECIALIDAD" Type="varchar" MaxLength="80" />
+          <Property Name="SMED_COD_ESPECIALIDAD" Type="varchar" MaxLength="10" />
+          <Property Name="SMED_RNE" Type="varchar" MaxLength="20" />
+          <Property Name="SMED_NUMCELULAR" Type="varchar" MaxLength="15" />
+          <Property Name="SMED_EMAIL" Type="varchar" MaxLength="80" />
+          <Property Name="CMED_USERID" Type="int" />
+        </EntityType>
+        <EntityType Name="TMAE_PACIENTE">
+          <Key>
+            <PropertyRef Name="CPAC_ID_PACIENTE" />
+          </Key>
+          <Property Name="SPAC_NUM_DOCUMENTO" Type="varchar" MaxLength="20" />
+          <Property Name="SPAC_NOMBRES" Type="varchar" MaxLength="50" />
+          <Property Name="SPAC_APE_PATERNO" Type="varchar" MaxLength="50" />
+          <Property Name="SPAC_APE_MATERNO" Type="varchar" MaxLength="50" />
+          <Property Name="SPAC_HC" Type="varchar" MaxLength="10" />
+          <Property Name="CPAC_EDAD" Type="int" />
+          <Property Name="SPAC_SEXO" Type="char" MaxLength="1" />
+          <Property Name="SPAC_EMAIL_PAC" Type="varchar" MaxLength="80" />
+          <Property Name="SPAC_CELULAR_PAC" Type="varchar" MaxLength="15" />
+          <Property Name="SPAC_TELEFONO_PAC" Type="varchar" MaxLength="10" />
+          <Property Name="CPAC_ID_FINANCIADOR" Type="int" />
+          <Property Name="DPAC_FEC_ULTIMA_ATENCION" Type="datetime" />
+          <Property Name="CPAC_ID_PACIENTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TMAE_PROCEDIMIENTOS">
+          <Key>
+            <PropertyRef Name="cMED_MAE_PROCE" />
+          </Key>
+          <Property Name="cMED_MAE_PROCE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sMED_CodProce" Type="varchar" MaxLength="10" />
+          <Property Name="sMED_DesProcedimiento" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <Association Name="FK__TFAT_ATEN__CFAT___49C3F6B7">
+          <End Role="TMAE_MEDICOS" Type="Self.TMAE_MEDICOS" Multiplicity="1" />
+          <End Role="TFAT_ATENCION" Type="Self.TFAT_ATENCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TMAE_MEDICOS">
+              <PropertyRef Name="CMED_MAE_MED" />
+            </Principal>
+            <Dependent Role="TFAT_ATENCION">
+              <PropertyRef Name="CFAT_ID_MEDICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TFAT_DIAG__CFAT___7F4BDEC0">
+          <End Role="TFAT_ATENCION" Type="Self.TFAT_ATENCION" Multiplicity="1" />
+          <End Role="TFAT_DIAGNOSTICO" Type="Self.TFAT_DIAGNOSTICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TFAT_ATENCION">
+              <PropertyRef Name="CFAT_ID_ATENCION" />
+            </Principal>
+            <Dependent Role="TFAT_DIAGNOSTICO">
+              <PropertyRef Name="CFAT_ID_ATENCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TFAT_LABO__CFAT___01342732">
+          <End Role="TFAT_ATENCION" Type="Self.TFAT_ATENCION" Multiplicity="1" />
+          <End Role="TFAT_LABORATORIO" Type="Self.TFAT_LABORATORIO" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TFAT_ATENCION">
+              <PropertyRef Name="CFAT_ID_ATENCION" />
+            </Principal>
+            <Dependent Role="TFAT_LABORATORIO">
+              <PropertyRef Name="CFAT_ID_ATENCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TFAT_RADI__CFAT___031C6FA4">
+          <End Role="TFAT_ATENCION" Type="Self.TFAT_ATENCION" Multiplicity="1" />
+          <End Role="TFAT_RADIOLOGiA" Type="Self.TFAT_RADIOLOGiA" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TFAT_ATENCION">
+              <PropertyRef Name="CFAT_ID_ATENCION" />
+            </Principal>
+            <Dependent Role="TFAT_RADIOLOGiA">
+              <PropertyRef Name="CFAT_ID_ATENCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TFAT_ATENCION_TMAE_PACIENTE">
+          <End Role="TMAE_PACIENTE" Type="Self.TMAE_PACIENTE" Multiplicity="1" />
+          <End Role="TFAT_ATENCION" Type="Self.TFAT_ATENCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TMAE_PACIENTE">
+              <PropertyRef Name="CPAC_ID_PACIENTE" />
+            </Principal>
+            <Dependent Role="TFAT_ATENCION">
+              <PropertyRef Name="CPAC_ID_PACIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TFAT_USUARIO_TFAT_PERMISOS1">
+          <End Role="TFAT_PERMISOS" Type="Self.TFAT_PERMISOS" Multiplicity="1" />
+          <End Role="TFAT_USUARIO" Type="Self.TFAT_USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TFAT_PERMISOS">
+              <PropertyRef Name="CPER_PERMISO" />
+            </Principal>
+            <Dependent Role="TFAT_USUARIO">
+              <PropertyRef Name="CUSU_PERMISO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TMAE_MEDICOS_TMAE_USUARIO">
+          <End Role="TFAT_USUARIO" Type="Self.TFAT_USUARIO" Multiplicity="0..1" />
+          <End Role="TMAE_MEDICOS" Type="Self.TMAE_MEDICOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TFAT_USUARIO">
+              <PropertyRef Name="CUSU_IDUSUARIO" />
+            </Principal>
+            <Dependent Role="TMAE_MEDICOS">
+              <PropertyRef Name="CMED_USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TMAE_PACIENTE_TMAE_FINANCIADOR">
+          <End Role="TMAE_FINANCIADOR" Type="Self.TMAE_FINANCIADOR" Multiplicity="0..1" />
+          <End Role="TMAE_PACIENTE" Type="Self.TMAE_PACIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TMAE_FINANCIADOR">
+              <PropertyRef Name="SFIN_IDFINANCIADOR" />
+            </Principal>
+            <Dependent Role="TMAE_PACIENTE">
+              <PropertyRef Name="CPAC_ID_FINANCIADOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="PRFAT_Autocompletar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_STipo" Type="varchar" Mode="In" />
+          <Parameter Name="I_term" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRFAT_ListarTeleconsulta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="I_FInic" Type="varchar" Mode="In" />
+          <Parameter Name="I_FFin" Type="varchar" Mode="In" />
+          <Parameter Name="I_user" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="FAT_CRPModelStoreContainer">
+          <EntitySet Name="TFAT_ATENCION" EntityType="Self.TFAT_ATENCION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TFAT_PERMISOS" EntityType="Self.TFAT_PERMISOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TFAT_USUARIO" EntityType="Self.TFAT_USUARIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TMAE_CIE" EntityType="Self.TMAE_CIE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TMAE_FINANCIADOR" EntityType="Self.TMAE_FINANCIADOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TMAE_MEDICOS" EntityType="Self.TMAE_MEDICOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TMAE_PACIENTE" EntityType="Self.TMAE_PACIENTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TMAE_PROCEDIMIENTOS" EntityType="Self.TMAE_PROCEDIMIENTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TFAT_DIAGNOSTICO" EntityType="Self.TFAT_DIAGNOSTICO" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TFAT_DIAGNOSTICO].[CFAT_ID_ATENCION] AS [CFAT_ID_ATENCION], 
+    [TFAT_DIAGNOSTICO].[SFAT_CIE10] AS [SFAT_CIE10], 
+    [TFAT_DIAGNOSTICO].[SFAT_TIPO] AS [SFAT_TIPO], 
+    [TFAT_DIAGNOSTICO].[CFAT_ESTADO] AS [CFAT_ESTADO], 
+    [TFAT_DIAGNOSTICO].[SFAT_USR_CREACION] AS [SFAT_USR_CREACION], 
+    [TFAT_DIAGNOSTICO].[DFAT_FEC_CREACION] AS [DFAT_FEC_CREACION]
+    FROM [dbo].[TFAT_DIAGNOSTICO] AS [TFAT_DIAGNOSTICO]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TFAT_LABORATORIO" EntityType="Self.TFAT_LABORATORIO" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TFAT_LABORATORIO].[CFAT_ID_ATENCION] AS [CFAT_ID_ATENCION], 
+    [TFAT_LABORATORIO].[SFAT_CODIGO] AS [SFAT_CODIGO], 
+    [TFAT_LABORATORIO].[CFAT_ESTADO] AS [CFAT_ESTADO], 
+    [TFAT_LABORATORIO].[SFAT_USR_CREACION] AS [SFAT_USR_CREACION], 
+    [TFAT_LABORATORIO].[DFAT_FEC_CREACION] AS [DFAT_FEC_CREACION], 
+    [TFAT_LABORATORIO].[SFAT_OBSERVACIONES_LB] AS [SFAT_OBSERVACIONES_LB]
+    FROM [dbo].[TFAT_LABORATORIO] AS [TFAT_LABORATORIO]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TFAT_RADIOLOGiA" EntityType="Self.TFAT_RADIOLOGiA" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TFAT_RADIOLOGiA].[CFAT_ID_ATENCION] AS [CFAT_ID_ATENCION], 
+    [TFAT_RADIOLOGiA].[SFAT_CODIGO] AS [SFAT_CODIGO], 
+    [TFAT_RADIOLOGiA].[CFAT_ESTADO] AS [CFAT_ESTADO], 
+    [TFAT_RADIOLOGiA].[SFAT_USR_CREACION] AS [SFAT_USR_CREACION], 
+    [TFAT_RADIOLOGiA].[DFAT_FEC_CREACION] AS [DFAT_FEC_CREACION], 
+    [TFAT_RADIOLOGiA].[SFAT_OBSERVACIONES_RX] AS [SFAT_OBSERVACIONES_RX]
+    FROM [dbo].[TFAT_RADIOLOGiA] AS [TFAT_RADIOLOGiA]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__TFAT_ATEN__CFAT___49C3F6B7" Association="Self.FK__TFAT_ATEN__CFAT___49C3F6B7">
+            <End Role="TMAE_MEDICOS" EntitySet="TMAE_MEDICOS" />
+            <End Role="TFAT_ATENCION" EntitySet="TFAT_ATENCION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TFAT_DIAG__CFAT___7F4BDEC0" Association="Self.FK__TFAT_DIAG__CFAT___7F4BDEC0">
+            <End Role="TFAT_ATENCION" EntitySet="TFAT_ATENCION" />
+            <End Role="TFAT_DIAGNOSTICO" EntitySet="TFAT_DIAGNOSTICO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TFAT_LABO__CFAT___01342732" Association="Self.FK__TFAT_LABO__CFAT___01342732">
+            <End Role="TFAT_ATENCION" EntitySet="TFAT_ATENCION" />
+            <End Role="TFAT_LABORATORIO" EntitySet="TFAT_LABORATORIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TFAT_RADI__CFAT___031C6FA4" Association="Self.FK__TFAT_RADI__CFAT___031C6FA4">
+            <End Role="TFAT_ATENCION" EntitySet="TFAT_ATENCION" />
+            <End Role="TFAT_RADIOLOGiA" EntitySet="TFAT_RADIOLOGiA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TFAT_ATENCION_TMAE_PACIENTE" Association="Self.FK_TFAT_ATENCION_TMAE_PACIENTE">
+            <End Role="TMAE_PACIENTE" EntitySet="TMAE_PACIENTE" />
+            <End Role="TFAT_ATENCION" EntitySet="TFAT_ATENCION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TFAT_USUARIO_TFAT_PERMISOS1" Association="Self.FK_TFAT_USUARIO_TFAT_PERMISOS1">
+            <End Role="TFAT_PERMISOS" EntitySet="TFAT_PERMISOS" />
+            <End Role="TFAT_USUARIO" EntitySet="TFAT_USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TMAE_MEDICOS_TMAE_USUARIO" Association="Self.FK_TMAE_MEDICOS_TMAE_USUARIO">
+            <End Role="TFAT_USUARIO" EntitySet="TFAT_USUARIO" />
+            <End Role="TMAE_MEDICOS" EntitySet="TMAE_MEDICOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TMAE_PACIENTE_TMAE_FINANCIADOR" Association="Self.FK_TMAE_PACIENTE_TMAE_FINANCIADOR">
+            <End Role="TMAE_FINANCIADOR" EntitySet="TMAE_FINANCIADOR" />
+            <End Role="TMAE_PACIENTE" EntitySet="TMAE_PACIENTE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FAT_CRPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TFAT_PERMISOS">
+          <Key>
+            <PropertyRef Name="CPER_PERMISO" />
+          </Key>
+          <Property Name="FPER_READ" Type="Boolean" />
+          <Property Name="FPER_WRITE" Type="Boolean" />
+          <Property Name="CPER_PERMISO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SPER_MENU" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TFAT_USUARIO" Relationship="FAT_CRPModel.FK_TFAT_USUARIO_TFAT_PERMISOS1" FromRole="TFAT_PERMISOS" ToRole="TFAT_USUARIO" />
+        </EntityType>
+        <EntityType Name="TMAE_CIE">
+          <Key>
+            <PropertyRef Name="cCIE_MAE_CIE10" />
+          </Key>
+          <Property Name="cCIE_MAE_CIE10" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sCIE_CodDiagnostico" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sCIE_DesDiagnostico" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TMAE_MEDICOS">
+          <Key>
+            <PropertyRef Name="CMED_MAE_MED" />
+          </Key>
+          <Property Name="CMED_MAE_MED" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SMED_CODMEDICO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SMED_NOMBRESMEDICO" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="SMED_ESPECIALIDAD" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="SMED_COD_ESPECIALIDAD" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SMED_RNE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SMED_NUMCELULAR" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SMED_EMAIL" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="CMED_USERID" Type="Int32" />
+          <NavigationProperty Name="TFAT_USUARIO" Relationship="FAT_CRPModel.FK_TMAE_MEDICOS_TMAE_USUARIO" FromRole="TMAE_MEDICOS" ToRole="TFAT_USUARIO" />
+          <NavigationProperty Name="TFAT_ATENCION" Relationship="FAT_CRPModel.FK__TFAT_ATEN__CFAT___49C3F6B7" FromRole="TMAE_MEDICOS" ToRole="TFAT_ATENCION" />
+        </EntityType>
+        <EntityType Name="TMAE_PACIENTE">
+          <Key>
+            <PropertyRef Name="CPAC_ID_PACIENTE" />
+          </Key>
+          <Property Name="CPAC_ID_PACIENTE" Type="Int32" Nullable="false" />
+          <Property Name="SPAC_NUM_DOCUMENTO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SPAC_NOMBRES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SPAC_APE_PATERNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SPAC_APE_MATERNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SPAC_HC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CPAC_EDAD" Type="Int32" />
+          <Property Name="SPAC_SEXO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="SPAC_EMAIL_PAC" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="SPAC_CELULAR_PAC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SPAC_TELEFONO_PAC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CPAC_ID_FINANCIADOR" Type="Int32" />
+          <Property Name="DPAC_FEC_ULTIMA_ATENCION" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TMAE_FINANCIADOR" Relationship="FAT_CRPModel.FK_TMAE_PACIENTE_TMAE_FINANCIADOR" FromRole="TMAE_PACIENTE" ToRole="TMAE_FINANCIADOR" />
+          <NavigationProperty Name="TFAT_ATENCION" Relationship="FAT_CRPModel.FK_TFAT_ATENCION_TMAE_PACIENTE" FromRole="TMAE_PACIENTE" ToRole="TFAT_ATENCION" />
+        </EntityType>
+        <EntityType Name="TMAE_PROCEDIMIENTOS">
+          <Key>
+            <PropertyRef Name="cMED_MAE_PROCE" />
+          </Key>
+          <Property Name="cMED_MAE_PROCE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sMED_CodProce" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sMED_DesProcedimiento" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TFAT_DIAGNOSTICO">
+          <Key>
+            <PropertyRef Name="CFAT_ID_ATENCION" />
+            <PropertyRef Name="SFAT_CIE10" />
+          </Key>
+          <Property Name="CFAT_ID_ATENCION" Type="Int32" Nullable="false" />
+          <Property Name="SFAT_CIE10" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SFAT_TIPO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CFAT_ESTADO" Type="Boolean" />
+          <Property Name="SFAT_USR_CREACION" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DFAT_FEC_CREACION" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TFAT_ATENCION" Relationship="FAT_CRPModel.FK__TFAT_DIAG__CFAT___7F4BDEC0" FromRole="TFAT_DIAGNOSTICO" ToRole="TFAT_ATENCION" />
+        </EntityType>
+        <EntityType Name="TFAT_LABORATORIO">
+          <Key>
+            <PropertyRef Name="CFAT_ID_ATENCION" />
+          </Key>
+          <Property Name="CFAT_ID_ATENCION" Type="Int32" Nullable="false" />
+          <Property Name="SFAT_CODIGO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CFAT_ESTADO" Type="Boolean" />
+          <Property Name="SFAT_USR_CREACION" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DFAT_FEC_CREACION" Type="DateTime" Precision="3" />
+          <Property Name="SFAT_OBSERVACIONES_LB" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TFAT_ATENCION" Relationship="FAT_CRPModel.FK__TFAT_LABO__CFAT___01342732" FromRole="TFAT_LABORATORIO" ToRole="TFAT_ATENCION" />
+        </EntityType>
+        <EntityType Name="TFAT_RADIOLOGiA">
+          <Key>
+            <PropertyRef Name="CFAT_ID_ATENCION" />
+          </Key>
+          <Property Name="CFAT_ID_ATENCION" Type="Int32" Nullable="false" />
+          <Property Name="SFAT_CODIGO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CFAT_ESTADO" Type="Boolean" />
+          <Property Name="SFAT_USR_CREACION" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DFAT_FEC_CREACION" Type="DateTime" Precision="3" />
+          <Property Name="SFAT_OBSERVACIONES_RX" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TFAT_ATENCION" Relationship="FAT_CRPModel.FK__TFAT_RADI__CFAT___031C6FA4" FromRole="TFAT_RADIOLOGiA" ToRole="TFAT_ATENCION" />
+        </EntityType>
+        <EntityContainer Name="FAT_CRPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TFAT_PERMISOS" EntityType="Self.TFAT_PERMISOS" />
+          <EntitySet Name="TMAE_CIE" EntityType="Self.TMAE_CIE" />
+          <EntitySet Name="TMAE_MEDICOS" EntityType="Self.TMAE_MEDICOS" />
+          <EntitySet Name="TMAE_PACIENTE" EntityType="Self.TMAE_PACIENTE" />
+          <EntitySet Name="TMAE_PROCEDIMIENTOS" EntityType="Self.TMAE_PROCEDIMIENTOS" />
+          <EntitySet Name="TFAT_DIAGNOSTICO" EntityType="Self.TFAT_DIAGNOSTICO" />
+          <EntitySet Name="TFAT_LABORATORIO" EntityType="Self.TFAT_LABORATORIO" />
+          <EntitySet Name="TFAT_RADIOLOGiA" EntityType="Self.TFAT_RADIOLOGiA" />
+          <FunctionImport Name="PRFAT_ListarTeleconsulta" ReturnType="Collection(FAT_CRPModel.PRFAT_ListarTeleconsulta_Result)">
+            <Parameter Name="I_FInic" Mode="In" Type="String" />
+            <Parameter Name="I_FFin" Mode="In" Type="String" />
+            <Parameter Name="I_user" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="TMAE_FINANCIADOR" EntityType="FAT_CRPModel.TMAE_FINANCIADOR" />
+          <AssociationSet Name="FK_TMAE_PACIENTE_TMAE_FINANCIADOR" Association="FAT_CRPModel.FK_TMAE_PACIENTE_TMAE_FINANCIADOR">
+            <End Role="TMAE_FINANCIADOR" EntitySet="TMAE_FINANCIADOR" />
+            <End Role="TMAE_PACIENTE" EntitySet="TMAE_PACIENTE" />
+          </AssociationSet>
+          <EntitySet Name="TFAT_USUARIO" EntityType="FAT_CRPModel.TFAT_USUARIO" />
+          <AssociationSet Name="FK_TFAT_USUARIO_TFAT_PERMISOS1" Association="FAT_CRPModel.FK_TFAT_USUARIO_TFAT_PERMISOS1">
+            <End Role="TFAT_PERMISOS" EntitySet="TFAT_PERMISOS" />
+            <End Role="TFAT_USUARIO" EntitySet="TFAT_USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TMAE_MEDICOS_TMAE_USUARIO" Association="FAT_CRPModel.FK_TMAE_MEDICOS_TMAE_USUARIO">
+            <End Role="TFAT_USUARIO" EntitySet="TFAT_USUARIO" />
+            <End Role="TMAE_MEDICOS" EntitySet="TMAE_MEDICOS" />
+          </AssociationSet>
+          <FunctionImport Name="PRFAT_Autocompletar" ReturnType="Collection(FAT_CRPModel.PRFAT_Autocompletar_Result)">
+            <Parameter Name="I_STipo" Mode="In" Type="String" />
+            <Parameter Name="I_term" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="TFAT_ATENCION" EntityType="FAT_CRPModel.TFAT_ATENCION" />
+          <AssociationSet Name="FK__TFAT_ATEN__CFAT___49C3F6B7" Association="FAT_CRPModel.FK__TFAT_ATEN__CFAT___49C3F6B7">
+            <End Role="TMAE_MEDICOS" EntitySet="TMAE_MEDICOS" />
+            <End Role="TFAT_ATENCION" EntitySet="TFAT_ATENCION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TFAT_DIAG__CFAT___7F4BDEC0" Association="FAT_CRPModel.FK__TFAT_DIAG__CFAT___7F4BDEC0">
+            <End Role="TFAT_ATENCION" EntitySet="TFAT_ATENCION" />
+            <End Role="TFAT_DIAGNOSTICO" EntitySet="TFAT_DIAGNOSTICO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TFAT_LABO__CFAT___01342732" Association="FAT_CRPModel.FK__TFAT_LABO__CFAT___01342732">
+            <End Role="TFAT_ATENCION" EntitySet="TFAT_ATENCION" />
+            <End Role="TFAT_LABORATORIO" EntitySet="TFAT_LABORATORIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TFAT_RADI__CFAT___031C6FA4" Association="FAT_CRPModel.FK__TFAT_RADI__CFAT___031C6FA4">
+            <End Role="TFAT_ATENCION" EntitySet="TFAT_ATENCION" />
+            <End Role="TFAT_RADIOLOGiA" EntitySet="TFAT_RADIOLOGiA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TFAT_ATENCION_TMAE_PACIENTE" Association="FAT_CRPModel.FK_TFAT_ATENCION_TMAE_PACIENTE">
+            <End Role="TMAE_PACIENTE" EntitySet="TMAE_PACIENTE" />
+            <End Role="TFAT_ATENCION" EntitySet="TFAT_ATENCION" />
+          </AssociationSet>
+          </EntityContainer>
+        <ComplexType Name="PRFAT_ListarTeleconsulta_Result">
+          <Property Type="Int32" Name="IdAtencion" Nullable="false" />
+          <Property Type="String" Name="NroDocumento" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Paciente" Nullable="true" MaxLength="175" />
+          <Property Type="String" Name="Seguro" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="8" />
+          <Property Type="DateTime" Name="FecCita" Nullable="true" />
+          <Property Type="String" Name="HorCita" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <EntityType Name="TMAE_FINANCIADOR">
+          <Key>
+            <PropertyRef Name="SFIN_IDFINANCIADOR" />
+          </Key>
+          <Property Name="SFIN_NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FFIN_ESTADO" Type="Boolean" />
+          <Property Name="SFIN_IDFINANCIADOR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="TMAE_PACIENTE" Relationship="FAT_CRPModel.FK_TMAE_PACIENTE_TMAE_FINANCIADOR" FromRole="TMAE_FINANCIADOR" ToRole="TMAE_PACIENTE" />
+        </EntityType>
+        <Association Name="FK_TMAE_PACIENTE_TMAE_FINANCIADOR">
+          <End Type="FAT_CRPModel.TMAE_FINANCIADOR" Role="TMAE_FINANCIADOR" Multiplicity="0..1" />
+          <End Type="FAT_CRPModel.TMAE_PACIENTE" Role="TMAE_PACIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TMAE_FINANCIADOR">
+              <PropertyRef Name="SFIN_IDFINANCIADOR" />
+            </Principal>
+            <Dependent Role="TMAE_PACIENTE">
+              <PropertyRef Name="CPAC_ID_FINANCIADOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TFAT_USUARIO">
+          <Key>
+            <PropertyRef Name="CUSU_IDUSUARIO" />
+          </Key>
+          <Property Name="CUSU_IDUSUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SUSU_CODUSUARIO" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SUSU_PASSWORD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CUSU_PERMISO" Type="Int32" Nullable="false" />
+          <Property Name="SUSU_ESTADO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TFAT_PERMISOS" Relationship="FAT_CRPModel.FK_TFAT_USUARIO_TFAT_PERMISOS1" FromRole="TFAT_USUARIO" ToRole="TFAT_PERMISOS" />
+          <NavigationProperty Name="TMAE_MEDICOS" Relationship="FAT_CRPModel.FK_TMAE_MEDICOS_TMAE_USUARIO" FromRole="TFAT_USUARIO" ToRole="TMAE_MEDICOS" />
+        </EntityType>
+        <Association Name="FK_TFAT_USUARIO_TFAT_PERMISOS1">
+          <End Type="FAT_CRPModel.TFAT_PERMISOS" Role="TFAT_PERMISOS" Multiplicity="1" />
+          <End Type="FAT_CRPModel.TFAT_USUARIO" Role="TFAT_USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TFAT_PERMISOS">
+              <PropertyRef Name="CPER_PERMISO" />
+            </Principal>
+            <Dependent Role="TFAT_USUARIO">
+              <PropertyRef Name="CUSU_PERMISO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TMAE_MEDICOS_TMAE_USUARIO">
+          <End Type="FAT_CRPModel.TFAT_USUARIO" Role="TFAT_USUARIO" Multiplicity="0..1" />
+          <End Type="FAT_CRPModel.TMAE_MEDICOS" Role="TMAE_MEDICOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TFAT_USUARIO">
+              <PropertyRef Name="CUSU_IDUSUARIO" />
+            </Principal>
+            <Dependent Role="TMAE_MEDICOS">
+              <PropertyRef Name="CMED_USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="PRFAT_Autocompletar_Result">
+          <Property Type="String" Name="CODIGO" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DESCRIPCION" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="TFAT_ATENCION">
+          <Key>
+            <PropertyRef Name="CFAT_ID_ATENCION" />
+          </Key>
+          <Property Name="CFAT_ID_ATENCION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CFAT_ID_TIPOATENCION" Type="Int32" />
+          <Property Name="SFAT_ANAMNESIS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SFAT_MOTIVO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SFAT_TRATAMIENTO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CFAT_ESTADO" Type="Int32" />
+          <Property Name="SFAT_USR_CREACION" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DFAT_FEC_CREACION" Type="DateTime" Precision="3" />
+          <Property Name="SFAT_OAA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DFAT_FECHA_OAA" Type="DateTime" Precision="3" />
+          <Property Name="SFAT_USUARIO_OAA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BFAT_ESTADOREGISTRO" Type="Boolean" />
+          <Property Name="DFAT_FECHA_CITA" Type="DateTime" Precision="0" />
+          <Property Name="SFAT_HORA_CITA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SFAT_MEDIOCONTACTO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CFAT_ID_MEDICO" Type="Int32" Nullable="false" />
+          <Property Name="CPAC_ID_PACIENTE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TMAE_MEDICOS" Relationship="FAT_CRPModel.FK__TFAT_ATEN__CFAT___49C3F6B7" FromRole="TFAT_ATENCION" ToRole="TMAE_MEDICOS" />
+          <NavigationProperty Name="TFAT_DIAGNOSTICO" Relationship="FAT_CRPModel.FK__TFAT_DIAG__CFAT___7F4BDEC0" FromRole="TFAT_ATENCION" ToRole="TFAT_DIAGNOSTICO" />
+          <NavigationProperty Name="TFAT_LABORATORIO" Relationship="FAT_CRPModel.FK__TFAT_LABO__CFAT___01342732" FromRole="TFAT_ATENCION" ToRole="TFAT_LABORATORIO" />
+          <NavigationProperty Name="TFAT_RADIOLOGiA" Relationship="FAT_CRPModel.FK__TFAT_RADI__CFAT___031C6FA4" FromRole="TFAT_ATENCION" ToRole="TFAT_RADIOLOGiA" />
+          <NavigationProperty Name="TMAE_PACIENTE" Relationship="FAT_CRPModel.FK_TFAT_ATENCION_TMAE_PACIENTE" FromRole="TFAT_ATENCION" ToRole="TMAE_PACIENTE" />
+        </EntityType>
+        <Association Name="FK__TFAT_ATEN__CFAT___49C3F6B7">
+          <End Type="FAT_CRPModel.TMAE_MEDICOS" Role="TMAE_MEDICOS" Multiplicity="1" />
+          <End Type="FAT_CRPModel.TFAT_ATENCION" Role="TFAT_ATENCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TMAE_MEDICOS">
+              <PropertyRef Name="CMED_MAE_MED" />
+            </Principal>
+            <Dependent Role="TFAT_ATENCION">
+              <PropertyRef Name="CFAT_ID_MEDICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TFAT_DIAG__CFAT___7F4BDEC0">
+          <End Type="FAT_CRPModel.TFAT_ATENCION" Role="TFAT_ATENCION" Multiplicity="1" />
+          <End Type="FAT_CRPModel.TFAT_DIAGNOSTICO" Role="TFAT_DIAGNOSTICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TFAT_ATENCION">
+              <PropertyRef Name="CFAT_ID_ATENCION" />
+            </Principal>
+            <Dependent Role="TFAT_DIAGNOSTICO">
+              <PropertyRef Name="CFAT_ID_ATENCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TFAT_LABO__CFAT___01342732">
+          <End Type="FAT_CRPModel.TFAT_ATENCION" Role="TFAT_ATENCION" Multiplicity="1" />
+          <End Type="FAT_CRPModel.TFAT_LABORATORIO" Role="TFAT_LABORATORIO" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TFAT_ATENCION">
+              <PropertyRef Name="CFAT_ID_ATENCION" />
+            </Principal>
+            <Dependent Role="TFAT_LABORATORIO">
+              <PropertyRef Name="CFAT_ID_ATENCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TFAT_RADI__CFAT___031C6FA4">
+          <End Type="FAT_CRPModel.TFAT_ATENCION" Role="TFAT_ATENCION" Multiplicity="1" />
+          <End Type="FAT_CRPModel.TFAT_RADIOLOGiA" Role="TFAT_RADIOLOGiA" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TFAT_ATENCION">
+              <PropertyRef Name="CFAT_ID_ATENCION" />
+            </Principal>
+            <Dependent Role="TFAT_RADIOLOGiA">
+              <PropertyRef Name="CFAT_ID_ATENCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TFAT_ATENCION_TMAE_PACIENTE">
+          <End Type="FAT_CRPModel.TMAE_PACIENTE" Role="TMAE_PACIENTE" Multiplicity="1" />
+          <End Type="FAT_CRPModel.TFAT_ATENCION" Role="TFAT_ATENCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TMAE_PACIENTE">
+              <PropertyRef Name="CPAC_ID_PACIENTE" />
+            </Principal>
+            <Dependent Role="TFAT_ATENCION">
+              <PropertyRef Name="CPAC_ID_PACIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FAT_CRPModelStoreContainer" CdmEntityContainer="FAT_CRPEntities">
+          <EntitySetMapping Name="TFAT_PERMISOS">
+            <EntityTypeMapping TypeName="FAT_CRPModel.TFAT_PERMISOS">
+              <MappingFragment StoreEntitySet="TFAT_PERMISOS">
+                <ScalarProperty Name="FPER_READ" ColumnName="FPER_READ" />
+                <ScalarProperty Name="FPER_WRITE" ColumnName="FPER_WRITE" />
+                <ScalarProperty Name="CPER_PERMISO" ColumnName="CPER_PERMISO" />
+                <ScalarProperty Name="SPER_MENU" ColumnName="SPER_MENU" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TMAE_CIE">
+            <EntityTypeMapping TypeName="FAT_CRPModel.TMAE_CIE">
+              <MappingFragment StoreEntitySet="TMAE_CIE">
+                <ScalarProperty Name="cCIE_MAE_CIE10" ColumnName="cCIE_MAE_CIE10" />
+                <ScalarProperty Name="sCIE_CodDiagnostico" ColumnName="sCIE_CodDiagnostico" />
+                <ScalarProperty Name="sCIE_DesDiagnostico" ColumnName="sCIE_DesDiagnostico" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TMAE_MEDICOS">
+            <EntityTypeMapping TypeName="FAT_CRPModel.TMAE_MEDICOS">
+              <MappingFragment StoreEntitySet="TMAE_MEDICOS">
+                <ScalarProperty Name="CMED_USERID" ColumnName="CMED_USERID" />
+                <ScalarProperty Name="CMED_MAE_MED" ColumnName="CMED_MAE_MED" />
+                <ScalarProperty Name="SMED_CODMEDICO" ColumnName="SMED_CODMEDICO" />
+                <ScalarProperty Name="SMED_NOMBRESMEDICO" ColumnName="SMED_NOMBRESMEDICO" />
+                <ScalarProperty Name="SMED_ESPECIALIDAD" ColumnName="SMED_ESPECIALIDAD" />
+                <ScalarProperty Name="SMED_COD_ESPECIALIDAD" ColumnName="SMED_COD_ESPECIALIDAD" />
+                <ScalarProperty Name="SMED_RNE" ColumnName="SMED_RNE" />
+                <ScalarProperty Name="SMED_NUMCELULAR" ColumnName="SMED_NUMCELULAR" />
+                <ScalarProperty Name="SMED_EMAIL" ColumnName="SMED_EMAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TMAE_PACIENTE">
+            <EntityTypeMapping TypeName="FAT_CRPModel.TMAE_PACIENTE">
+              <MappingFragment StoreEntitySet="TMAE_PACIENTE">
+                <ScalarProperty Name="CPAC_ID_PACIENTE" ColumnName="CPAC_ID_PACIENTE" />
+                <ScalarProperty Name="SPAC_NUM_DOCUMENTO" ColumnName="SPAC_NUM_DOCUMENTO" />
+                <ScalarProperty Name="SPAC_NOMBRES" ColumnName="SPAC_NOMBRES" />
+                <ScalarProperty Name="SPAC_APE_PATERNO" ColumnName="SPAC_APE_PATERNO" />
+                <ScalarProperty Name="SPAC_APE_MATERNO" ColumnName="SPAC_APE_MATERNO" />
+                <ScalarProperty Name="SPAC_HC" ColumnName="SPAC_HC" />
+                <ScalarProperty Name="CPAC_EDAD" ColumnName="CPAC_EDAD" />
+                <ScalarProperty Name="SPAC_SEXO" ColumnName="SPAC_SEXO" />
+                <ScalarProperty Name="SPAC_EMAIL_PAC" ColumnName="SPAC_EMAIL_PAC" />
+                <ScalarProperty Name="SPAC_CELULAR_PAC" ColumnName="SPAC_CELULAR_PAC" />
+                <ScalarProperty Name="SPAC_TELEFONO_PAC" ColumnName="SPAC_TELEFONO_PAC" />
+                <ScalarProperty Name="CPAC_ID_FINANCIADOR" ColumnName="CPAC_ID_FINANCIADOR" />
+                <ScalarProperty Name="DPAC_FEC_ULTIMA_ATENCION" ColumnName="DPAC_FEC_ULTIMA_ATENCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TMAE_PROCEDIMIENTOS">
+            <EntityTypeMapping TypeName="FAT_CRPModel.TMAE_PROCEDIMIENTOS">
+              <MappingFragment StoreEntitySet="TMAE_PROCEDIMIENTOS">
+                <ScalarProperty Name="cMED_MAE_PROCE" ColumnName="cMED_MAE_PROCE" />
+                <ScalarProperty Name="sMED_CodProce" ColumnName="sMED_CodProce" />
+                <ScalarProperty Name="sMED_DesProcedimiento" ColumnName="sMED_DesProcedimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TFAT_DIAGNOSTICO">
+            <EntityTypeMapping TypeName="FAT_CRPModel.TFAT_DIAGNOSTICO">
+              <MappingFragment StoreEntitySet="TFAT_DIAGNOSTICO">
+                <ScalarProperty Name="CFAT_ID_ATENCION" ColumnName="CFAT_ID_ATENCION" />
+                <ScalarProperty Name="SFAT_CIE10" ColumnName="SFAT_CIE10" />
+                <ScalarProperty Name="SFAT_TIPO" ColumnName="SFAT_TIPO" />
+                <ScalarProperty Name="CFAT_ESTADO" ColumnName="CFAT_ESTADO" />
+                <ScalarProperty Name="SFAT_USR_CREACION" ColumnName="SFAT_USR_CREACION" />
+                <ScalarProperty Name="DFAT_FEC_CREACION" ColumnName="DFAT_FEC_CREACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TFAT_LABORATORIO">
+            <EntityTypeMapping TypeName="FAT_CRPModel.TFAT_LABORATORIO">
+              <MappingFragment StoreEntitySet="TFAT_LABORATORIO">
+                <ScalarProperty Name="CFAT_ID_ATENCION" ColumnName="CFAT_ID_ATENCION" />
+                <ScalarProperty Name="SFAT_CODIGO" ColumnName="SFAT_CODIGO" />
+                <ScalarProperty Name="CFAT_ESTADO" ColumnName="CFAT_ESTADO" />
+                <ScalarProperty Name="SFAT_USR_CREACION" ColumnName="SFAT_USR_CREACION" />
+                <ScalarProperty Name="DFAT_FEC_CREACION" ColumnName="DFAT_FEC_CREACION" />
+                <ScalarProperty Name="SFAT_OBSERVACIONES_LB" ColumnName="SFAT_OBSERVACIONES_LB" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TFAT_RADIOLOGiA">
+            <EntityTypeMapping TypeName="FAT_CRPModel.TFAT_RADIOLOGiA">
+              <MappingFragment StoreEntitySet="TFAT_RADIOLOGiA">
+                <ScalarProperty Name="CFAT_ID_ATENCION" ColumnName="CFAT_ID_ATENCION" />
+                <ScalarProperty Name="SFAT_CODIGO" ColumnName="SFAT_CODIGO" />
+                <ScalarProperty Name="CFAT_ESTADO" ColumnName="CFAT_ESTADO" />
+                <ScalarProperty Name="SFAT_USR_CREACION" ColumnName="SFAT_USR_CREACION" />
+                <ScalarProperty Name="DFAT_FEC_CREACION" ColumnName="DFAT_FEC_CREACION" />
+                <ScalarProperty Name="SFAT_OBSERVACIONES_RX" ColumnName="SFAT_OBSERVACIONES_RX" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PRFAT_ListarTeleconsulta" FunctionName="FAT_CRPModel.Store.PRFAT_ListarTeleconsulta">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FAT_CRPModel.PRFAT_ListarTeleconsulta_Result">
+                <ScalarProperty Name="IdAtencion" ColumnName="IdAtencion" />
+                <ScalarProperty Name="NroDocumento" ColumnName="NroDocumento" />
+                <ScalarProperty Name="Paciente" ColumnName="Paciente" />
+                <ScalarProperty Name="Seguro" ColumnName="Seguro" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FecCita" ColumnName="FecCita" />
+                <ScalarProperty Name="HorCita" ColumnName="HorCita" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="TMAE_FINANCIADOR">
+            <EntityTypeMapping TypeName="FAT_CRPModel.TMAE_FINANCIADOR">
+              <MappingFragment StoreEntitySet="TMAE_FINANCIADOR">
+                <ScalarProperty Name="SFIN_IDFINANCIADOR" ColumnName="SFIN_IDFINANCIADOR" />
+                <ScalarProperty Name="FFIN_ESTADO" ColumnName="FFIN_ESTADO" />
+                <ScalarProperty Name="SFIN_NOMBRE" ColumnName="SFIN_NOMBRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TFAT_USUARIO">
+            <EntityTypeMapping TypeName="FAT_CRPModel.TFAT_USUARIO">
+              <MappingFragment StoreEntitySet="TFAT_USUARIO">
+                <ScalarProperty Name="SUSU_ESTADO" ColumnName="SUSU_ESTADO" />
+                <ScalarProperty Name="CUSU_PERMISO" ColumnName="CUSU_PERMISO" />
+                <ScalarProperty Name="SUSU_PASSWORD" ColumnName="SUSU_PASSWORD" />
+                <ScalarProperty Name="SUSU_CODUSUARIO" ColumnName="SUSU_CODUSUARIO" />
+                <ScalarProperty Name="CUSU_IDUSUARIO" ColumnName="CUSU_IDUSUARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PRFAT_Autocompletar" FunctionName="FAT_CRPModel.Store.PRFAT_Autocompletar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FAT_CRPModel.PRFAT_Autocompletar_Result">
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="TFAT_ATENCION">
+            <EntityTypeMapping TypeName="FAT_CRPModel.TFAT_ATENCION">
+              <MappingFragment StoreEntitySet="TFAT_ATENCION">
+                <ScalarProperty Name="CPAC_ID_PACIENTE" ColumnName="CPAC_ID_PACIENTE" />
+                <ScalarProperty Name="CFAT_ID_MEDICO" ColumnName="CFAT_ID_MEDICO" />
+                <ScalarProperty Name="SFAT_MEDIOCONTACTO" ColumnName="SFAT_MEDIOCONTACTO" />
+                <ScalarProperty Name="SFAT_HORA_CITA" ColumnName="SFAT_HORA_CITA" />
+                <ScalarProperty Name="DFAT_FECHA_CITA" ColumnName="DFAT_FECHA_CITA" />
+                <ScalarProperty Name="BFAT_ESTADOREGISTRO" ColumnName="BFAT_ESTADOREGISTRO" />
+                <ScalarProperty Name="SFAT_USUARIO_OAA" ColumnName="SFAT_USUARIO_OAA" />
+                <ScalarProperty Name="DFAT_FECHA_OAA" ColumnName="DFAT_FECHA_OAA" />
+                <ScalarProperty Name="SFAT_OAA" ColumnName="SFAT_OAA" />
+                <ScalarProperty Name="DFAT_FEC_CREACION" ColumnName="DFAT_FEC_CREACION" />
+                <ScalarProperty Name="SFAT_USR_CREACION" ColumnName="SFAT_USR_CREACION" />
+                <ScalarProperty Name="CFAT_ESTADO" ColumnName="CFAT_ESTADO" />
+                <ScalarProperty Name="SFAT_TRATAMIENTO" ColumnName="SFAT_TRATAMIENTO" />
+                <ScalarProperty Name="SFAT_MOTIVO" ColumnName="SFAT_MOTIVO" />
+                <ScalarProperty Name="SFAT_ANAMNESIS" ColumnName="SFAT_ANAMNESIS" />
+                <ScalarProperty Name="CFAT_ID_TIPOATENCION" ColumnName="CFAT_ID_TIPOATENCION" />
+                <ScalarProperty Name="CFAT_ID_ATENCION" ColumnName="CFAT_ID_ATENCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,20 @@
+﻿<aside class="main-sidebar">
+  <section class="sidebar">
+    <ul class="sidebar-menu" data-widget="tree">
+    
+      @if (ViewBag.menuFAT ==1)
+      {
+          <li class="header">FAT</li> }
+
+      @if (ViewBag.menuListaFat != 0)
+      {
+          <li class="@Html.IsSelected(controller: "FAtencionTelemonitoreo", action: "ListadoAtenciones")">
+            <a href="@Url.Action("ListadoTeleconsulta", "Teleconsulta")">
+              <i class="fas fa-laptop-medical"></i> <span>Teleconsulta</span>
+            </a>
+          </li>
+      }
+   
+    </ul>
+  </section>
+</aside>
